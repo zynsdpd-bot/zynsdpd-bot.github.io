@@ -26,7 +26,6 @@
             font-weight: bold; 
             margin-top: 30px; 
             transition: all 0.3s;
-            cursor: pointer;
         }
         .btn:hover { 
             background: #00cc66; 
@@ -102,34 +101,42 @@
             <div class="tool-card">
                 <span class="tag">新手推荐</span>
                 <h3>京东联盟</h3>
-                <p>推广电子产品、AI硬件等高客单商品</p>
+                <p>推广电子产品、AI硬件等</p>
                 <a href="https://union.jd.com/" target="_blank" class="btn" style="padding:12px 32px; font-size:1rem; margin-top:20px;">立即加入京东联盟</a>
             </div>
 
             <div class="tool-card">
                 <span class="tag">爆款</span>
                 <h3>小红书 AI笔记带货</h3>
-                <p>AI生成笔记 + 挂淘宝/京东链接</p>
+                <p>AI生成笔记 + 挂联盟链接</p>
                 <a href="https://pub.taobao.com/" target="_blank" class="btn" style="padding:12px 32px; font-size:1rem; margin-top:20px;">去淘宝联盟选品</a>
             </div>
 
             <div class="tool-card">
                 <span class="tag">数字产品</span>
                 <h3>卖AI提示词包 / 电子书</h3>
-                <p>制作一次，重复销售（可上淘宝/闲鱼）</p>
-                <a href="https://pub.taobao.com/" target="_blank" class="btn" style="padding:12px 32px; font-size:1rem; margin-top:20px;">开始在淘宝卖</a>
+                <p>制作一次，重复销售</p>
+                <a href="https://pub.taobao.com/" target="_blank" class="btn" style="padding:12px 32px; font-size:1rem; margin-top:20px;">在淘宝/闲鱼卖货</a>
+            </div>
+
+            <div class="tool-card">
+                <span class="tag">流量主</span>
+                <h3>Google AdSense 申请</h3>
+                <p>网站做好后放广告，被动赚钱</p>
+                <a href="https://ads.google.com/" target="_blank" class="btn" style="padding:12px 32px; font-size:1rem; margin-top:20px;">申请AdSense</a>
             </div>
 
         </div>
 
-        <div style="text-align:center; margin:70px 0; padding:30px; background:rgba(0,255,136,0.1); border-radius:20px;">
-            <p><strong>重要提醒：</strong><br>
-            目前使用的是官方入口链接。<br>
-            等你注册完淘宝联盟/京东联盟后，我再帮你把所有链接换成你自己的专属推广链接（带你的佣金）。</p>
+        <div style="text-align:center; margin:80px 0; padding:30px; background:rgba(0,255,136,0.1); border-radius:20px; font-size:1.1rem;">
+            <strong>✅ 所有按钮现已全部可点击</strong><br><br>
+            你现在可以去注册淘宝联盟和京东联盟了。<br>
+            注册完把你的专属推广链接发给我，我帮你全部换成带你佣金的版本。
         </div>
     </div>
 
     <script>
+        // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 if (this.getAttribute('href') === '#tools') {
