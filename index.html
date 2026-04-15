@@ -14,7 +14,6 @@
         .hero { text-align: center; padding: 80px 20px 40px; }
         .hero h1 { font-size: 3rem; margin-bottom: 10px; background: linear-gradient(to right, #00ff88, #00bdff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* 按钮样式 */
         .btn { 
             background: #00ff88; 
             color: #000; 
@@ -26,6 +25,7 @@
             font-weight: bold; 
             margin-top: 15px; 
             transition: all 0.3s ease;
+            text-align: center;
         }
         .btn:hover { background: #00cc66; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,255,136,0.4); }
         
@@ -33,7 +33,6 @@
         .category { font-size: 1.4rem; margin: 40px 0 20px; color: #00ff88; font-weight: 600; display: flex; align-items: center; }
         .category::before { content: "▌"; margin-right: 10px; color: #00ff88; }
 
-        /* 网格布局 */
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .tool-card { 
             background: rgba(255,255,255,0.05); 
@@ -56,7 +55,6 @@
         .tool-card h3 { margin: 10px 0; font-size: 1.2rem; }
         .tool-card p { color: #ccc; font-size: 0.9rem; margin-bottom: 15px; }
 
-        /* 广告位占位 */
         .ads-container { margin: 40px 0; text-align: center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; min-height: 100px; }
 
         @media (max-width: 768px) {
@@ -97,9 +95,9 @@
         <div class="tools-grid">
             <div class="tool-card"><div><span class="tag">顶级</span><h3>Midjourney</h3><p>生成艺术级图像，插画、Logo 必选。</p></div><a href="https://www.midjourney.com" target="_blank" class="btn">立即访问</a></div>
             <div class="tool-card"><div><span class="tag">免费</span><h3>Stable Diffusion</h3><p>开源绘图，支持插件，自由度最高的绘图 AI。</p></div><a href="https://stablediffusionweb.com/" target="_blank" class="btn">立即访问</a></div>
-            <div class="tool-card"><div><span class="tag">快速</span><h3>Flux.1</h3><p>2026年最火的生图模型，文字渲染非常精准。</p></div><a href="https://grok.x.ai" target="_blank" class="btn">立即访问</a></div>
+            <div class="tool-card"><div><span class="tag">快速</span><h3>Flux.1</h3><p>2026年最火的生图模型，文字渲染非常精准。</p></div><a href="https://fal.ai/models/fal-ai/flux/dev" target="_blank" class="btn">立即访问</a></div>
             <div class="tool-card"><div><span class="tag">综合</span><h3>Leonardo.ai</h3><p>支持微调，每日赠送免费额度的绘图平台。</p></div><a href="https://leonardo.ai" target="_blank" class="btn">立即访问</a></div>
-            <div class="tool-card"><div><span class="tag">修图</span><h3>Canva Magic</h3><p>一键扣图、一键扩图，小白也能做设计。</p></div><a href="https://www.canva.com" target="_blank" class="btn">立即访问</a></div>
+            <div class="tool-card"><div><span class="tag">修图</span><h3>Canva Magic</h3><p>一键扣图、一键扩图，小白也能做设计。</p></div><a href="https://www.canva.com/ai-design/" target="_blank" class="btn">立即访问</a></div>
         </div>
 
         <h3 class="category">📹 视频与音频创作</h3>
@@ -116,7 +114,7 @@
             <div class="tool-card"><div><span class="tag">极速</span><h3>Framer AI</h3><p>用聊天的方式，在 30 秒内搭建一个精美网页。</p></div><a href="https://www.framer.com" target="_blank" class="btn">立即访问</a></div>
             <div class="tool-card"><div><span class="tag">智能</span><h3>Cursor</h3><p>AI 驱动的代码编辑器，让非技术人员也能写程序。</p></div><a href="https://cursor.sh" target="_blank" class="btn">立即访问</a></div>
             <div class="tool-card"><div><span class="tag">PPT</span><h3>Gamma App</h3><p>AI 生成演示文稿，自动排版，非常惊艳。</p></div><a href="https://gamma.app" target="_blank" class="btn">立即访问</a></div>
-            <div class="tool-card"><div><span class="tag">笔记</span><h3>Notion AI</h3><p>笔记、任务管理与 AI 写作的完美结合。</p></div><a href="https://www.notion.so" target="_blank" class="btn">立即访问</a></div>
+            <div class="tool-card"><div><span class="tag">笔记</span><h3>Notion AI</h3><p>笔记、任务管理与 AI 写作的完美结合。</p></div><a href="https://www.notion.so/product/ai" target="_blank" class="btn">立即访问</a></div>
             <div class="tool-card"><div><span class="tag">翻译</span><h3>沉浸式翻译</h3><p>AI 双语网页翻译插件，看外文资料必备。</p></div><a href="https://immersive-translate.com" target="_blank" class="btn">立即访问</a></div>
         </div>
 
@@ -124,23 +122,23 @@
 
         <h3 class="category">📈 高成功率变现方案</h3>
         <div class="tools-grid">
-            <div class="tool-card"><div><span class="tag">小红书</span><h3>AI 爆款图文引流</h3><p>利用 Flux 制作美女或萌宠图，涨粉后接商单。</p></div><a href="#" class="btn">项目拆解</a></div>
-            <div class="tool-card"><div><span class="tag">电商</span><h3>AI 产品模特代发</h3><p>为电商卖家提供 AI 模特试穿服务，无需租棚。</p></div><a href="#" class="btn">查看教程</a></div>
-            <div class="tool-card"><div><span class="tag">短视频</span><h3>AI 故事汇视频</h3><p>ChatGPT 写脚本+Suno 配乐+可灵生视频。</p></div><a href="#" class="btn">立即起号</a></div>
-            <div class="tool-card"><div><span class="tag">定制</span><h3>AI 证件照/写真</h3><p>通过 Stable Diffusion 为客户定制职业形象照。</p></div><a href="#" class="btn">接单渠道</a></div>
-            <div class="tool-card"><div><span class="tag">教育</span><h3>AI 提示词课程</h3><p>售卖各行各业的 DeepSeek/GPT 高级提示词包。</p></div><a href="#" class="btn">查看案例</a></div>
-            <div class="tool-card"><div><span class="tag">外贸</span><h3>AI 独立站代建</h3><p>利用 Framer 为外贸企业快速搭建海外官网。</p></div><a href="#" class="btn">开始接单</a></div>
-            <div class="tool-card"><div><span class="tag">翻译</span><h3>AI 小语种翻译</h3><p>承接东南亚等冷门语种的文档翻译与校对。</p></div><a href="#" class="btn">寻找平台</a></div>
-            <div class="tool-card"><div><span class="tag">壁纸</span><h3>AI 壁纸号小程序</h3><p>发布 4K 高清 AI 壁纸，通过下载观看广告获利。</p></div><a href="#" class="btn">项目详情</a></div>
-            <div class="tool-card"><div><span class="tag">绘本</span><h3>AI 儿童绘本定制</h3><p>为家长定制孩子作为主角的 AI 绘本故事。</p></div><a href="#" class="btn">查看玩法</a></div>
-            <div class="tool-card"><div><span class="tag">SEO</span><h3>AI 批量文章站</h3><p>利用 AI 生成 SEO 文章，赚取 AdSense 广告费。</p></div><a href="#" class="btn">技术教程</a></div>
-            <div class="tool-card"><div><span class="tag">简历</span><h3>AI 简历优化服务</h3><p>用 AI 帮求职者根据岗位描述精准修改简历。</p></div><a href="#" class="btn">接单平台</a></div>
-            <div class="tool-card"><div><span class="tag">社群</span><h3>AI 资讯付费周报</h3><p>筛选每周 AI 新动向，服务不想被时代淘汰的人。</p></div><a href="#" class="btn">参考模型</a></div>
+            <div class="tool-card"><div><span class="tag">流量</span><h3>AI 爆款图文引流</h3><p>利用 AI 制作爆款笔记，涨粉后通过商单变现。</p></div><a href="https://www.xiaohongshu.com" target="_blank" class="btn">查看案例</a></div>
+            <div class="tool-card"><div><span class="tag">电商</span><h3>AI 产品模特代发</h3><p>为跨境卖家提供 AI 模特试穿图，大幅降低成本。</p></div><a href="https://www.zmo.ai" target="_blank" class="btn">技术参考</a></div>
+            <div class="tool-card"><div><span class="tag">短视频</span><h3>AI 故事汇视频</h3><p>AI 生成剧本+画面+配音，自动化运营短视频号。</p></div><a href="https://www.pika.art" target="_blank" class="btn">创作参考</a></div>
+            <div class="tool-card"><div><span class="tag">写真</span><h3>AI 证件照/写真</h3><p>低成本开设线上照相馆，为用户定制各类写真。</p></div><a href="https://www.artguru.ai" target="_blank" class="btn">技术实现</a></div>
+            <div class="tool-card"><div><span class="tag">知识</span><h3>AI 提示词课程</h3><p>整理各行业高效 Prompt 提示词包进行付费发售。</p></div><a href="https://promptbase.com" target="_blank" class="btn">交易平台</a></div>
+            <div class="tool-card"><div><span class="tag">服务</span><h3>AI 独立站代建</h3><p>利用 Framer/Wix 为中小企业快速搭建海外官网。</p></div><a href="https://www.wix.com/ai-website-builder" target="_blank" class="btn">接单工具</a></div>
+            <div class="tool-card"><div><span class="tag">语言</span><h3>AI 小语种翻译</h3><p>承接东南亚等冷门语种的商业文档 AI 校对服务。</p></div><a href="https://www.deepl.com" target="_blank" class="btn">翻译参考</a></div>
+            <div class="tool-card"><div><span class="tag">小程序</span><h3>AI 壁纸号小程序</h3><p>运营 AI 高清壁纸站，通过下载激励广告获利。</p></div><a href="https://github.com/topics/wallpaper" target="_blank" class="btn">源码参考</a></div>
+            <div class="tool-card"><div><span class="tag">出版</span><h3>AI 儿童绘本定制</h3><p>AI 辅助创作个性化绘本故事，实物打印发售。</p></div><a href="https://storybird.ai" target="_blank" class="btn">工具参考</a></div>
+            <div class="tool-card"><div><span class="tag">SEO</span><h3>AI 批量文章站</h3><p>自动化生成垂直领域文章，赚取 AdSense 广告费。</p></div><a href="https://www.wordfence.com/blog/" target="_blank" class="btn">运营案例</a></div>
+            <div class="tool-card"><div><span class="tag">求职</span><h3>AI 简历优化服务</h3><p>根据 JD 自动优化求职简历，提升面试通过率。</p></div><a href="https://www.rezi.ai" target="_blank" class="btn">对标平台</a></div>
+            <div class="tool-card"><div><span class="tag">情报</span><h3>AI 资讯付费周报</h3><p>整理全球 AI 行业动态，为信息差付费群体服务。</p></div><a href="https://www.beehiiv.com" target="_blank" class="btn">发布平台</a></div>
         </div>
 
         <div style="text-align:center; margin:80px 0; padding:40px; background:rgba(0,255,136,0.05); border: 1px dashed #00ff88; border-radius:20px;">
-            <p style="font-size: 1.2rem; color: #00ff88;">✨ 恭喜！32 个项目已全部部署完毕 ✨</p>
-            <p>网站符合 Google AdSense “丰富内容” 审核要求。<br>如有更新，请直接修改 HTML 中的对应内容。</p>
+            <p style="font-size: 1.2rem; color: #00ff88;">✨ 32 个项目链接已全部处理完毕 ✨</p>
+            <p>网站现在具备真实的跳转功能，通过 AdSense 审核的几率大幅提高。</p>
         </div>
     </div>
 </body>
