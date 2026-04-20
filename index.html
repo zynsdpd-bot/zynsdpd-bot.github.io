@@ -80,6 +80,20 @@
             .hero h1 { font-size: 2rem; }
             .tools-grid { grid-template-columns: 1fr; }
         }
+        .taiji-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: rotate-taiji 5s linear infinite;
+        }
+        @keyframes rotate-taiji {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        #fortune-overlay {
+            display: flex; /* 初始状态改为 flex 但 display:none 会覆盖它 */
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
@@ -140,22 +154,60 @@
         <h2 class="section-title">🔮 商业决策与行业推演</h2>
         <h3 class="category category-vip">👑 实业家决策助手</h3>
 <div class="tools-grid">
-    <div class="tool-card premium">
-        <div>
-            <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">战略</span>
-            <h3>豆包 AI - 商业分析</h3>
-            <p>字节跳动出品。支持深度市场调研、行业报告总结及决策推演，是实业老板出海与拓客的得力助手。</p>
-        </div>
-        <a href="https://www.doubao.com/" target="_blank" class="btn" style="background:#ffd700;">开启深度推演</a>
+    <div class="tool-card">
+        <div><span class="tag">战略</span><h3>豆包 AI - 商业分析</h3><p>字节跳动出品。支持深度市场调研、行业报告总结及决策推演。</p></div>
+        <a href="https://www.doubao.com/" target="_blank" class="btn">开启深度推演</a>
     </div>
 
     <div class="tool-card premium">
-        <div>
-            <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">趋势</span>
-            <h3>AI 赛博易经系统</h3>
-            <p>点击下方按钮，由 AI 算法模拟梅花易数，为您当下的商业决策、出海择吉提供智慧启示。</p>
+        <div style="text-align: left;">
+            <div style="text-align:center;"><div class="taiji-icon">☯️</div></div>
+            <h3 style="color: #ffd700; text-align:center;">AI 赛博易经系统</h3>
+            
+            <div style="margin-top:15px; font-size:0.85rem; color:#ccc;">
+                <div style="margin-bottom:10px;">
+                    <label>出生日期：</label>
+                    <input type="date" id="user-birth" style="width:100%; padding:8px; border-radius:5px; border:none; margin-top:5px;">
+                </div>
+                <div style="margin-bottom:10px; display:flex; gap:10px;">
+                    <div style="flex:1;">
+                        <label>性别：</label>
+                        <select id="user-gender" style="width:100%; padding:8px; border-radius:5px; border:none; margin-top:5px;">
+                            <option value="male">乾（男）</option>
+                            <option value="female">坤（女）</option>
+                        </select>
+                    </div>
+                    <div style="flex:1;">
+                        <label>生辰：</label>
+                        <select id="user-hour" style="width:100%; padding:8px; border-radius:5px; border:none; margin-top:5px;">
+                            <option value="子">子时 (23-01)</option>
+                            <option value="丑">丑时 (01-03)</option>
+                            <option value="寅">寅时 (03-05)</option>
+                            <option value="卯">卯时 (05-07)</option>
+                            <option value="辰">辰时 (07-09)</option>
+                            <option value="巳">巳时 (09-11)</option>
+                            <option value="午">午时 (11-13)</option>
+                            <option value="未">未时 (13-15)</option>
+                            <option value="申">申时 (15-17)</option>
+                            <option value="酉">酉时 (17-19)</option>
+                            <option value="戌">戌时 (19-21)</option>
+                            <option value="亥">亥时 (21-23)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="calculateFortune()" class="btn" style="background:#ffd700; width:100%; border:none; cursor:pointer; font-weight: bold; margin-top:10px;">开始精准测算</button>
         </div>
-        <button onclick="drawFortune()" class="btn" style="background:#ffd700; width:100%; border:none; cursor:pointer;">立即测算运势</button>
+    </div>
+</div>
+
+<div id="fortune-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column; padding:20px; text-align:center;">
+    <div id="fortune-content" style="background:linear-gradient(135deg, #1a1a1a, #2c2c2c); padding:40px; border-radius:20px; border:2px solid #ffd700; max-width:500px; box-shadow:0 0 30px rgba(255,215,0,0.3);">
+        <div id="user-info-display" style="color:#ffd700; font-size:0.8rem; margin-bottom:10px; border-bottom:1px solid #444; padding-bottom:10px;"></div>
+        <h2 id="fortune-title" style="color:#ffd700; font-size:1.8rem; margin-bottom:20px;"></h2>
+        <p id="fortune-advice" style="color:#eee; font-size:1.05rem; line-height:1.7; margin-bottom:30px;"></p>
+        <button onclick="closeFortune()" class="btn" style="background:#ffd700; border:none; padding:10px 40px;">谨领教诲</button>
     </div>
 </div>
         <h2 class="section-title">💰 2026 真实副业项目</h2>
@@ -195,6 +247,54 @@ function drawFortune() {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     
     alert("🔮 AI 决策启示：\n\n【卦象】" + random.title + "\n【启示】" + random.advice + "\n\n（本测算基于 AI 模拟，仅供商业参考）");
+}
+</script>
+   <script>
+function calculateFortune() {
+    const birth = document.getElementById('user-birth').value;
+    const gender = document.getElementById('user-gender').value === 'male' ? '乾造' : '坤造';
+    const hour = document.getElementById('user-hour').value;
+    
+    // 验证是否填写生日
+    if (!birth) {
+        alert("请先选择您的出生日期，依此起卦方为精准。");
+        return;
+    }
+
+    const overlay = document.getElementById('fortune-overlay');
+    const title = document.getElementById('fortune-title');
+    const advice = document.getElementById('fortune-advice');
+    const infoDisplay = document.getElementById('user-info-display');
+    
+    // 展示用户输入的“命理”信息
+    infoDisplay.innerText = `命主信息：${gender} | 生于 ${birth} | ${hour}时生人 | 气场感应中...`;
+    
+    // 整合了你原来的 8 个商业卦象
+    const fortunes = [
+        { title: "乾为天：大吉", advice: "【商战启示】天行健，君子以自强不息。当前事业动力充足，适合全力出击。建议：立即推进积压的海外订单，此刻决策胜算极大。" },
+        { title: "地火明夷：守势", advice: "【风控启示】明入地中，宜收敛锋芒。当前环境复杂，实业经营应求稳。建议：仔细核查硅胶生产质量，暂缓大规模广告扩张，待机而动。" },
+        { title: "水雷屯：积蓄", advice: "【创业启示】万事开头难。新项目处于萌芽期，不要急于变现。建议：夯实网站 SEO 基础，多沉淀客户线索，厚积薄发。" },
+        { title: "风雷益：大利", advice: "【增长启示】损上益下，民说无疆。当前适合进行商务谈判或建立长期合伙。建议：主动联系老客户，提供额外价值，会有意想不到的回报。" },
+        { title: "火水未济：转机", advice: "【变局启示】黎明前的黑暗。虽然目前流量较平稳，但转机已在孕育中。建议：保持更新频率，优化 AI 提示词策略，一周内必有突破。" },
+        { title: "山泽损：风控", advice: "【资金启示】损下益上，其道上行。注意现金流管理，近期非必要开支需精简。建议：把资金投入到高转化工具上。" },
+        { title: "天火同人：协作", advice: "【人脉启示】文明以健，中正而应。适合跨界合作。建议：在独立站加入更多同行链接或加入行业协会，利用群体力量共同推海外订单。" },
+        { title: "泽水困：磨砺", advice: "【定力启示】困而不失其所。当前面临小规模阻碍（如审核未过）。建议：心态放平，逐条修改网站描述，只要不放弃，此关必过。" }
+    ];
+    
+    // 动画效果
+    title.innerText = "起卦中...";
+    advice.innerText = "正在感应 2026 商业气场，结合生辰八字推算中...";
+    overlay.style.display = 'flex';
+
+    setTimeout(() => {
+        const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+        title.innerText = "🔮 " + random.title;
+        advice.innerText = random.advice;
+    }, 2000);
+}
+
+function closeFortune() {
+    document.getElementById('fortune-overlay').style.display = 'none';
 }
 </script>
 </body>
