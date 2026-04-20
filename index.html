@@ -60,7 +60,30 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .tools-grid { grid-template-columns: 1fr; }
+       /* --- 新增的金色 VIP 样式 --- */
+        .category-vip {
+            color: #ffd700; 
+            background: linear-gradient(to right, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.4rem; 
+            margin: 40px 0 20px; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center;
         }
+        .category-vip::before { content: "👑"; margin-right: 10px; } /* 换成皇冠图标更显档次 */
+
+        .tool-card.premium {
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.05);
+        }
+        .tool-card.premium:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            transform: translateY(-8px);
+        }
+        /* --- 结束 --- */ }
     </style>
 </head>
 <body>
@@ -117,7 +140,41 @@
             <div class="tool-card"><div><span class="tag">笔记</span><h3>Notion AI</h3><p>笔记、任务管理与 AI 写作的完美结合。</p></div><a href="https://www.notion.so/product/ai" target="_blank" class="btn">立即访问</a></div>
             <div class="tool-card"><div><span class="tag">翻译</span><h3>沉浸式翻译</h3><p>AI 双语网页翻译插件，看外文资料必备。</p></div><a href="https://immersive-translate.com" target="_blank" class="btn">立即访问</a></div>
         </div>
+<h2 class="section-title">🔮 商业决策与行业推演</h2>
+        
+        <h3 class="category category-vip">👑 实业家决策助手</h3>
+        <div class="tools-grid">
+            <div class="tool-card premium">
+                <div>
+                    <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">战略</span>
+                    <h3>StrategyMind AI</h3>
+                    <p>基于全球商业模型，输入你的行业痛点（如：化工出海），获取竞争对手分析与风险预警。</p>
+                </div>
+                <a href="https://strategymind.ai/" target="_blank" class="btn" style="background:#ffd700;">开启战略推演</a>
+            </div>
 
+            <div class="tool-card premium">
+                <div>
+                    <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">趋势</span>
+                    <h3>AI 易经决策系统</h3>
+                    <p>将传统周易智慧与大数据结合。适合实业老板用于出海择吉、投资决策或经营方向测算。</p>
+                </div>
+                <a href="https://chatgpt.com/g/g-Z1TidK7zZ-zhou-yi-da-shi" target="_blank" class="btn" style="background:#ffd700;">立即测算运势</a>
+            </div>
+        </div>
+        <h2 class="section-title">💰 2026 真实副业项目</h2>
+        
+        ```
+
+---
+
+### 操作小贴士：
+1.  **CSS 别忘了加**：一定要记得把之前给你的 `.category-vip` 和 `.tool-card.premium` 那段 CSS 复制到你网页顶部的 `<style>` 标签里，否则金色的效果出不来。
+2.  **链接建议**：
+    * `StrategyMind` 的链接可以保持。
+    * `AI 易经` 的链接，你可以暂时指向一个高质量的 GPTs（如上代码所示），或者你自己发现的更好用的算命工具。
+
+**这样一改，你的导航站瞬间从“学生找兼职”的档次，拉到了“老板找机会”的高度。你要不要现在试着把这段代码贴进去，然后重新 Push 到 GitHub 上？**
         <h2 class="section-title">💰 2026 真实副业项目</h2>
 
         <h3 class="category">📈 高成功率变现方案</h3>
