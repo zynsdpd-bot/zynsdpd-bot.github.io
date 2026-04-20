@@ -44,6 +44,33 @@
         .category-vip::before { content: "👑"; margin-right: 10px; }
 
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .tools-grid {
+    display: grid;
+    /* 核心：确保每行固定为 3 列，但在窄屏下自动调整 */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr); /* 平板端 2 列 */
+    }
+}
+
+@media (max-width: 600px) {
+    .tools-grid {
+        grid-template-columns: 1fr; /* 手机端 1 列 */
+    }
+}
+
+.tool-card {
+    /* 强制所有卡片高度一致 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px; 
+}
         .tool-card { 
             background: rgba(255,255,255,0.05); 
             padding: 24px; 
