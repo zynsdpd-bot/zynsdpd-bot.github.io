@@ -139,26 +139,25 @@
 
         <h2 class="section-title">🔮 商业决策与行业推演</h2>
         <h3 class="category category-vip">👑 实业家决策助手</h3>
-        <div class="tools-grid">
-            <div class="tool-card premium">
-                <div>
-                    <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">战略</span>
-                    <h3>StrategyMind AI</h3>
-                    <p>基于全球商业模型，输入你的行业痛点（如：化工出海），获取竞争对手分析与风险预警。</p>
-                </div>
-                <a href="https://strategymind.ai/" target="_blank" class="btn" style="background:#ffd700;">开启战略推演</a>
-            </div>
-
-            <div class="tool-card premium">
-                <div>
-                    <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">趋势</span>
-                    <h3>AI 易经决策系统</h3>
-                    <p>将传统周易智慧与大数据结合。适合实业老板用于出海择吉、投资决策或经营方向测算。</p>
-                </div>
-                <a href="https://chatgpt.com/g/g-Z1TidK7zZ-zhou-yi-da-shi" target="_blank" class="btn" style="background:#ffd700;">立即测算运势</a>
-            </div>
+<div class="tools-grid">
+    <div class="tool-card premium">
+        <div>
+            <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">战略</span>
+            <h3>豆包 AI - 商业分析</h3>
+            <p>字节跳动出品。支持深度市场调研、行业报告总结及决策推演，是实业老板出海与拓客的得力助手。</p>
         </div>
+        <a href="https://www.doubao.com/" target="_blank" class="btn" style="background:#ffd700;">开启深度推演</a>
+    </div>
 
+    <div class="tool-card premium">
+        <div>
+            <span class="tag" style="background:rgba(255,215,0,0.2); color:#ffd700; border-color:#ffd700;">趋势</span>
+            <h3>AI 赛博易经系统</h3>
+            <p>点击下方按钮，由 AI 算法模拟梅花易数，为您当下的商业决策、出海择吉提供智慧启示。</p>
+        </div>
+        <button onclick="drawFortune()" class="btn" style="background:#ffd700; width:100%; border:none; cursor:pointer;">立即测算运势</button>
+    </div>
+</div>
         <h2 class="section-title">💰 2026 真实副业项目</h2>
 
         <h3 class="category">📈 高成功率变现方案</h3>
@@ -182,5 +181,21 @@
             <p>如果您在特定地区无法访问某些工具，建议尝试网络环境切换。<br>祝您的 AdSense 申请早日通过！</p>
         </div>
     </div>
+    <script>
+function drawFortune() {
+    const fortunes = [
+        { title: "乾为天：大吉", advice: "天行健，君子以自强不息。当前事业动力充足，适合全力出击，开拓海外新市场。" },
+        { title: "地火明夷：守势", advice: "宜敛锋芒。当前环境复杂，建议在硅胶订单处理上多加细心，等待最佳时机再扩产。" },
+        { title: "水雷屯：积蓄", advice: "万事开头难。新项目处于萌芽期，不要急于求成，夯实基础（如优化 SEO）是首务。" },
+        { title: "风雷益：大利", advice: "损上益下，民说无疆。适合进行商务谈判或建立长久合伙关系，会有意想不到的收益。" },
+        { title: "火水未济：转机", advice: "黎明前的黑暗。虽然目前询盘较少，但只要坚持优化策略，转机就在下周。" },
+        { title: "山泽损：风控", advice: "损下益上，其道上行。注意资金流管理，近期投资需谨慎，适合精简不必要的开支。" }
+    ];
+    
+    const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+    
+    alert("🔮 AI 决策启示：\n\n【卦象】" + random.title + "\n【启示】" + random.advice + "\n\n（本测算基于 AI 模拟，仅供商业参考）");
+}
+</script>
 </body>
 </html>
