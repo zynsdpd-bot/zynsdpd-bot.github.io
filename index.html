@@ -3,146 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 AI全能副业中心</title>
+    <title>2026 AI全能导航 | Harry's Hub</title>
     <style>
-        :root { --p: #00ff88; --s: #8b5cf6; --bg: #0d0d0f; --card: #16161a; }
-        body { background: var(--bg); color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 15px; }
-        .container { max-width: 600px; margin: 0 auto; }
+        :root { --p: #00ff88; --s: #8b5cf6; --bg: #0a0a0c; --card: #16161a; }
+        body { background: var(--bg); color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; }
         
-        /* 通用卡片样式 */
-        .section { background: var(--card); border: 1px solid #2d2d30; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
-        h3 { margin-top: 0; color: var(--p); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        /* 头部 */
+        header { text-align: center; padding: 40px 0; }
+        header h1 { font-size: 2.5rem; background: linear-gradient(to right, var(--p), #00d1ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+        
+        /* 命理决策区 */
+        .panel { background: var(--card); border: 1px solid #333; border-radius: 20px; padding: 25px; margin-bottom: 30px; text-align: center; }
+        .input-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+        input[type="date"] { padding: 12px; border-radius: 10px; border: 1px solid #444; background: #222; color: #fff; width: 200px; cursor: pointer; }
 
-        /* 1. 命理区 - 优化输入 */
-        .input-box { display: flex; flex-direction: column; gap: 10px; }
-        input[type="date"] { 
-            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #444; 
-            background: #222; color: #fff; font-size: 1rem; box-sizing: border-box;
+        /* 导航网格 */
+        .section-title { font-size: 1.5rem; color: var(--p); border-left: 4px solid var(--p); padding-left: 15px; margin: 40px 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { 
+            background: var(--card); padding: 20px; border-radius: 18px; border: 1px solid #2d2d30; 
+            transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between;
         }
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .card:hover { border-color: var(--p); transform: translateY(-5px); background: #1c1c22; }
+        .card h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #fff; }
+        .card p { font-size: 0.85rem; color: #888; margin-bottom: 20px; height: 40px; overflow: hidden; }
 
-        /* 2. 转盘区 - CSS抽奖 */
-        .wheel-container { text-align: center; padding: 20px 0; }
-        .lucky-wheel { 
-            width: 200px; height: 200px; border-radius: 50%; border: 8px solid #333;
-            margin: 0 auto; position: relative; background: conic-gradient(
-                #1a1a1a 0deg 60deg, #222 60deg 120deg, #1a1a1a 120deg 180deg, 
-                #222 180deg 240deg, #1a1a1a 240deg 300deg, #222 300deg 360deg
-            );
-            transition: transform 3s cubic-bezier(0.2, 0, 0.2, 1);
-        }
-        .wheel-pointer { 
-            width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent;
-            border-top: 20px solid #ff007a; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); z-index: 5;
-        }
-
-        /* 3. 导航区 - 大按钮链接 */
-        .link-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .link-item { 
-            background: #252529; padding: 15px; border-radius: 15px; text-decoration: none; 
-            color: #fff; border: 1px solid transparent; transition: 0.2s;
-        }
-        .link-item:active { background: #333; transform: scale(0.95); border-color: var(--p); }
-        .link-item b { display: block; color: var(--p); margin-bottom: 4px; }
-        .link-item span { font-size: 0.75rem; color: #888; }
-
-        /* 按钮样式 */
+        /* 按钮 */
         .btn { 
-            background: var(--p); color: #000; border: none; padding: 15px; 
-            border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem;
+            background: var(--p); color: #000; padding: 12px 20px; border-radius: 10px; 
+            text-decoration: none; font-weight: bold; text-align: center; border: none; cursor: pointer;
         }
         .btn-s { background: var(--s); color: #fff; }
 
-        /* 弹窗 */
-        #modal { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; 
+        /* 底部商务 */
+        .footer-biz { 
+            background: linear-gradient(90deg, #16161a, #1e1233); padding: 40px; 
+            border-radius: 24px; border: 1px solid var(--s); margin-top: 60px; text-align: center;
         }
-        .modal-card { background: #1c1c1e; padding: 30px; border-radius: 25px; border: 1px solid var(--p); width: 85%; text-align: center; }
+
+        /* 弹窗 */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-body { background: #111; padding: 30px; border-radius: 20px; border: 1px solid var(--p); max-width: 400px; width: 85%; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align: center; margin: 30px 0;">🚀 AI 全能副业导航</h2>
+    <header>
+        <h1>🚀 2026 AI 全能副业导航</h1>
+        <p style="color: #666;">精选 27 个全球顶级工具与变现方案</p>
+    </header>
 
-    <div class="section" style="border-color: var(--s); background: linear-gradient(145deg, #16161a, #1e1233);">
-        <h3>💼 商务合作</h3>
-        <p style="font-size: 0.9rem; color: #ccc; margin: 5px 0 15px;">承接推广 / 资源置换 / 合作入驻</p>
-        <button class="btn btn-s" style="width: 100%;" onclick="alert('请联系微信：HarryZhang_2026')">点击获取联系方式</button>
-    </div>
-
-    <div class="section">
-        <h3>🔮 赛博命理决策</h3>
-        <div class="input-box">
+    <div class="panel">
+        <h3>🔮 赛博命理决策系统</h3>
+        <div class="input-group">
             <input type="date" id="userDate">
-            <div class="btn-group">
-                <button class="btn" onclick="showResult('iching')">周易起卦</button>
-                <button class="btn btn-s" onclick="showResult('tarot')">塔罗占卜</button>
-            </div>
+            <button class="btn" onclick="divine('iching')">周易起卦</button>
+            <button class="btn btn-s" onclick="divine('tarot')">塔罗占卜</button>
         </div>
     </div>
 
-    <div class="section">
-        <h3>🎡 每日副业灵感</h3>
-        <div class="wheel-container">
-            <div style="position:relative; width:200px; margin:0 auto;">
-                <div class="wheel-pointer"></div>
-                <div id="wheel" class="lucky-wheel"></div>
-            </div>
-            <button class="btn" style="width: 100%; margin-top: 30px;" onclick="startSpin()">点击抽取今日方向</button>
-        </div>
+    <div class="section-title">✍️ 文本创作与深度调研</div>
+    <div class="grid">
+        <div class="card"><h3>通义千问 2.5</h3><p>阿里出品，文案脚本逻辑极强。</p><a href="https://tongyi.aliyun.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Kimi Chat</h3><p>支持超长上下文，处理万字文档。</p><a href="https://kimi.moonshot.cn/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>秘塔 AI 搜索</h3><p>学术级调研，无广告，找项目神器。</p><a href="https://metaso.cn/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>DeepSeek</h3><p>编程与逻辑推理国产之光。</p><a href="https://www.deepseek.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>智谱清言</h3><p>强大的中英双语处理与数据分析。</p><a href="https://chatglm.cn/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Notion AI</h3><p>笔记与协作的 AI 终极助手。</p><a href="https://www.notion.so/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Jasper</h3><p>专业营销文案生成工具。</p><a href="https://www.jasper.ai/" target="_blank" class="btn">立即访问</a></div>
     </div>
 
-    <div class="section">
-        <h3>🛠️ 核心工具库 (点击直达)</h3>
-        <div class="link-grid">
-            <a href="https://kimi.moonshot.cn/" target="_blank" class="link-item"><b>Kimi Chat</b><span>文本分析专家</span></a>
-            <a href="https://klingai.com/" target="_blank" class="link-item"><b>可灵 Kling</b><span>AI 视频生成</span></a>
-            <a href="https://tongyi.aliyun.com/" target="_blank" class="link-item"><b>通义千问</b><span>全能逻辑助手</span></a>
-            <a href="https://metaso.cn/" target="_blank" class="link-item"><b>秘塔搜索</b><span>深度调研神器</span></a>
-        </div>
+    <div class="section-title">🎨 视觉艺术与视频生成</div>
+    <div class="grid">
+        <div class="card"><h3>可灵 Kling AI</h3><p>目前全球领先的 AI 视频生成工具。</p><a href="https://klingai.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>美图设计室</h3><p>电商商拍、AI 换装必备。</p><a href="https://www.designkit.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Liblib 哩布</h3><p>国内最大的 SD 创作社区。</p><a href="https://www.liblib.art/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Midjourney</h3><p>全球顶级艺术级绘图 AI。</p><a href="https://www.midjourney.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Runway Gen-3</h3><p>电影级视频生成创作平台。</p><a href="https://runwayml.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Pika Labs</h3><p>让静态图片动起来的黑科技。</p><a href="https://pika.art/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>D-ID</h3><p>照片开口说话，数字人解说必备。</p><a href="https://www.d-id.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Adobe Firefly</h3><p>PS 内置 AI，设计修图神器。</p><a href="https://www.adobe.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Canvas AI</h3><p>在线设计自动排版与创意生成。</p><a href="https://www.canva.com/" target="_blank" class="btn">立即访问</a></div>
+        <div class="card"><h3>Suno AI</h3><p>一键生成专业级高品质音乐。</p><a href="https://suno.com/" target="_blank" class="btn">立即访问</a></div>
+    </div>
+
+    <div class="section-title">💰 副业实战与变现方案</div>
+    <div class="grid">
+        <div class="card"><h3>SEO 自动化建站</h3><p>AI 产文获取流量，躺平收广告费。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>数字人带货</h3><p>24小时不间断直播间打造方案。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>AI 绘本定制</h3><p>儿童故事+插画，高溢价定制赛道。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>提示词买卖</h3><p>在 PromptBase 出售你的高级指令。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>外贸代运营</h3><p>利用万兴播爆实现多语种出海。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>AI 课件制作</h3><p>快速制作 PPT 与微课变现方案。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>小红书疗愈直播</h3><p>治愈系视频流量主变现路径。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>代码接单 AI 辅助</h3><p>不懂代码也能接简单的建站单。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>AI 配音配音服务</h3><p>高保真音色克隆与商业配音。</p><a href="#" class="btn btn-s">查看方案</a></div>
+        <div class="card"><h3>跨境电商选品</h3><p>AI 预测爆款趋势，精准切入。</p><a href="#" class="btn btn-s">查看方案</a></div>
+    </div>
+
+    <div class="footer-biz">
+        <h2 style="color: var(--s);">💼 商务合作与资源置换</h2>
+        <p style="color: #ccc; margin-bottom: 25px;">承接广告位租用、副业项目投稿、社群流量对接</p>
+        <button class="btn btn-s" onclick="alert('请联系管理员：HarryZhang_2026')">点击获取联系方式</button>
     </div>
 </div>
 
-<div id="modal">
-    <div class="modal-card">
-        <h2 id="mTitle" style="color: var(--p);"></h2>
-        <p id="mBody" style="line-height: 1.6; color: #eee; margin: 20px 0;"></p>
-        <button class="btn" style="width: 100%;" onclick="document.getElementById('modal').style.display='none'">确定</button>
-    </div>
-</div>
+<div id="modal"><div class="modal-body"><h3 id="mTitle"></h3><p id="mBody"></p><button class="btn" onclick="closeM()">确领天机</button></div></div>
 
 <script>
-    // 命理逻辑
-    function showResult(type) {
-        const date = document.getElementById('userDate').value;
-        if (!date) { alert("请点击输入框选择日期"); return; }
-        
-        const title = type === 'iching' ? "🔮 周易卦象：【乾为天】" : "🃏 塔罗牌：【魔术师】";
-        const body = "根据您的能量场推演：2026年4月为您事业的上升期，利于启动AI相关副业，切记保持专注，必有所成。";
-        
-        document.getElementById('mTitle').innerText = title;
-        document.getElementById('mBody').innerText = body;
+    function divine(type) {
+        if(!document.getElementById('userDate').value) { alert("请先校准日期"); return; }
+        document.getElementById('mTitle').innerText = type === 'iching' ? "🔮 周易：【地天泰】" : "🃏 塔罗：【太阳】";
+        document.getElementById('mBody').innerText = "当前磁场极佳。建议本周重点关注“AI视频”或“数字人”赛道，必有斩获。";
         document.getElementById('modal').style.display = 'flex';
     }
-
-    // 转盘逻辑
-    let currentDeg = 0;
-    function startSpin() {
-        const wheel = document.getElementById('wheel');
-        const prizes = ["AI绘画", "数字人", "SEO建站", "私域变现", "提示词工程", "外贸代运营"];
-        
-        currentDeg += Math.floor(Math.random() * 360 + 1800);
-        wheel.style.transform = `rotate(${currentDeg}deg)`;
-        
-        setTimeout(() => {
-            const win = prizes[Math.floor(Math.random() * prizes.length)];
-            document.getElementById('mTitle').innerText = "🎡 今日建议方向";
-            document.getElementById('mBody').innerText = "今日幸运赛道：【" + win + "】。建议投入2小时深入研究相关工具。";
-            document.getElementById('modal').style.display = 'flex';
-        }, 3200);
-    }
+    function closeM() { document.getElementById('modal').style.display = 'none'; }
 </script>
 
 </body>
