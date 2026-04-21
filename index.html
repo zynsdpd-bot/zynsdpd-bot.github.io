@@ -3,124 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 AI全能导航 | Harry's Hub</title>
+    <title>玄运乐园 | 导航·命理·游戏·抽奖·商务 一站式全能平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        :root { --p: #00ff88; --s: #8b5cf6; --bg: #0a0a0c; --card: #16161a; }
-        body { background: var(--bg); color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
         
-        /* 头部 */
-        header { text-align: center; padding: 40px 0; }
-        header h1 { font-size: 2.5rem; background: linear-gradient(to right, var(--p), #00d1ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+        :root {
+            --tw-color-primary: #c026d3;
+        }
         
-        /* 命理决策区 */
-        .panel { background: var(--card); border: 1px solid #333; border-radius: 20px; padding: 25px; margin-bottom: 30px; text-align: center; }
-        .input-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
-        input[type="date"] { padding: 12px; border-radius: 10px; border: 1px solid #444; background: #222; color: #fff; width: 200px; cursor: pointer; }
-
-        /* 导航网格 */
-        .section-title { font-size: 1.5rem; color: var(--p); border-left: 4px solid var(--p); padding-left: 15px; margin: 40px 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { 
-            background: var(--card); padding: 20px; border-radius: 18px; border: 1px solid #2d2d30; 
-            transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between;
+        * {
+            font-family: 'Noto Sans SC', system-ui, sans-serif;
         }
-        .card:hover { border-color: var(--p); transform: translateY(-5px); background: #1c1c22; }
-        .card h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #fff; }
-        .card p { font-size: 0.85rem; color: #888; margin-bottom: 20px; height: 40px; overflow: hidden; }
-
-        /* 按钮 */
-        .btn { 
-            background: var(--p); color: #000; padding: 12px 20px; border-radius: 10px; 
-            text-decoration: none; font-weight: bold; text-align: center; border: none; cursor: pointer;
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #581c87 0%, #1e1133 100%);
+            position: relative;
         }
-        .btn-s { background: var(--s); color: #fff; }
-
-        /* 底部商务 */
-        .footer-biz { 
-            background: linear-gradient(90deg, #16161a, #1e1233); padding: 40px; 
-            border-radius: 24px; border: 1px solid var(--s); margin-top: 60px; text-align: center;
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(234, 179, 8, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            animation: stars 15s linear infinite;
         }
-
-        /* 弹窗 */
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
-        .modal-body { background: #111; padding: 30px; border-radius: 20px; border: 1px solid var(--p); max-width: 400px; width: 85%; text-align: center; }
+        
+        @keyframes stars {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .nav-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #c026d3;
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 25px 50px -12px rgb(192 38 211);
+        }
+        
+        .modal {
+            animation: modalPop 0.3s ease forwards;
+        }
+        
+        @keyframes modalPop {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .wheel {
+            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .fortune-text {
+            animation: fadeIn 1.5s ease;
+        }
     </style>
 </head>
-<body>
+<body class="bg-[#0f0a1f] text-white">
+    <!-- 导航栏 -->
+    <nav class="bg-[#1a1133]/90 backdrop-blur-lg border-b border-purple-500/30 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-gradient-to-br from-purple-500 to-amber-400 rounded-2xl flex items-center justify-center text-3xl shadow-xl">
+                    ✨
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tighter bg-gradient-to-r from-purple-300 to-amber-300 bg-clip-text text-transparent">玄运乐园</h1>
+                    <p class="text-[10px] text-purple-300 -mt-1 tracking-[2px]">导航 · 命理 · 游戏 · 抽奖 · 商务</p>
+                </div>
+            </div>
 
-<div class="container">
-    <header>
-        <h1>🚀 2026 AI 全能副业导航</h1>
-        <p style="color: #666;">精选 27 个全球顶级工具与变现方案</p>
-    </header>
+            <!-- 菜单 -->
+            <div class="hidden md:flex items-center gap-8 text-lg font-medium">
+                <a onclick="switchTab(0)" class="nav-link cursor-pointer flex items-center gap-1" id="nav-0">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a onclick="switchTab(1)" class="nav-link cursor-pointer flex items-center gap-1" id="nav-1">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>导航</span>
+                </a>
+                <a onclick="switchTab(2)" class="nav-link cursor-pointer flex items-center gap-1" id="nav-2">
+                    <i class="fa-solid fa-crystal-ball"></i>
+                    <span>命理</span>
+                </a>
+                <a onclick="switchTab(3)" class="nav-link cursor-pointer flex items-center gap-1" id="nav-3">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>游戏</span>
+                </a>
+                <a onclick="switchTab(4)" class="nav-link cursor-pointer flex items-center gap-1" id="nav-4">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>抽奖</span>
+                </a>
+                <a onclick="switchTab(5)" class="nav-link cursor-pointer flex items-center gap-1" id="nav-5">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>商务</span>
+                </a>
+            </div>
 
-    <div class="panel">
-        <h3>🔮 赛博命理决策系统</h3>
-        <div class="input-group">
-            <input type="date" id="userDate">
-            <button class="btn" onclick="divine('iching')">周易起卦</button>
-            <button class="btn btn-s" onclick="divine('tarot')">塔罗占卜</button>
+            <div class="flex items-center gap-4">
+                <!-- 用户头像 -->
+                <div onclick="showUserModal()" class="w-9 h-9 bg-gradient-to-br from-pink-400 to-purple-400 rounded-2xl flex items-center justify-center text-xl cursor-pointer hover:scale-110 transition-transform">
+                    👑
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#1a1133] px-6 py-6 border-t border-purple-500/30">
+            <div class="flex flex-col gap-6 text-lg">
+                <a onclick="switchTab(0);toggleMobileMenu()" class="flex items-center gap-3">🏠 首页</a>
+                <a onclick="switchTab(1);toggleMobileMenu()" class="flex items-center gap-3">🧭 导航</a>
+                <a onclick="switchTab(2);toggleMobileMenu()" class="flex items-center gap-3">🔮 命理</a>
+                <a onclick="switchTab(3);toggleMobileMenu()" class="flex items-center gap-3">🎮 游戏</a>
+                <a onclick="switchTab(4);toggleMobileMenu()" class="flex items-center gap-3">🎟️ 抽奖</a>
+                <a onclick="switchTab(5);toggleMobileMenu()" class="flex items-center gap-3">💼 商务</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 内容区域 -->
+    <main class="max-w-7xl mx-auto">
+        
+        <!-- TAB 0: 首页 -->
+        <div id="tab-0" class="tab-content active">
+            <div class="hero-bg h-screen flex items-center px-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-3 rounded-3xl mb-8 border border-white/20">
+                        <span class="text-amber-400 text-2xl">🌟</span>
+                        <span class="font-medium text-xl">全新升级 · 2026版</span>
+                    </div>
+                    
+                    <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-6">
+                        你的<br>一站式<br><span class="bg-gradient-to-r from-purple-400 via-amber-300 to-pink-400 bg-clip-text text-transparent">玄运乐园</span>
+                    </h1>
+                    <p class="text-2xl text-purple-200 max-w-lg mx-auto mb-12">导航全网 · 命理测算 · 极致游戏 · 每日抽奖 · 商务服务</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="switchTab(2)" 
+                                class="px-10 py-5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl text-xl font-semibold flex items-center gap-3 hover:scale-105 transition-all shadow-2xl">
+                            <i class="fa-solid fa-crystal-ball"></i>
+                            立即测命理
+                        </button>
+                        <button onclick="switchTab(4)" 
+                                class="px-10 py-5 bg-white text-[#1a1133] rounded-3xl text-xl font-semibold flex items-center gap-3 hover:scale-105 transition-all shadow-2xl">
+                            <i class="fa-solid fa-ticket"></i>
+                            马上抽大奖
+                        </button>
+                    </div>
+                    
+                    <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+                            <div class="text-4xl mb-4">🧭</div>
+                            <h3 class="text-xl font-semibold mb-1">智能导航</h3>
+                            <p class="text-purple-200 text-sm">一键直达全网热门工具</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+                            <div class="text-4xl mb-4">🔮</div>
+                            <h3 class="text-xl font-semibold mb-1">精准命理</h3>
+                            <p class="text-purple-200 text-sm">生辰八字 · 每日运势</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+                            <div class="text-4xl mb-4">🎮</div>
+                            <h3 class="text-xl font-semibold mb-1">趣味游戏</h3>
+                            <p class="text-purple-200 text-sm">休闲对战 · 零延迟</p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/10">
+                            <div class="text-4xl mb-4">🎟️</div>
+                            <h3 class="text-xl font-semibold mb-1">限时抽奖</h3>
+                            <p class="text-purple-200 text-sm">每日福利 · 实物红包</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: 导航 -->
+        <div id="tab-1" class="tab-content px-6 py-12">
+            <h2 class="text-5xl font-bold text-center mb-4">🧭 全能导航中心</h2>
+            <p class="text-center text-purple-300 mb-12 max-w-md mx-auto">一站式快速入口，覆盖生活、工作、娱乐全场景</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- 导航卡片 -->
+                <a href="https://www.baidu.com" target="_blank" class="card-hover bg-gradient-to-br from-blue-600/90 to-indigo-600/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64">
+                    <div class="text-5xl">🔍</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">百度搜索</h4>
+                        <p class="opacity-80">全网信息即时查找</p>
+                    </div>
+                </a>
+                <a href="https://weather.com" target="_blank" class="card-hover bg-gradient-to-br from-cyan-500/90 to-teal-500/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64">
+                    <div class="text-5xl">☀️</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">天气预报</h4>
+                        <p class="opacity-80">实时天气 · 穿衣指数</p>
+                    </div>
+                </a>
+                <a href="https://www.douyin.com" target="_blank" class="card-hover bg-gradient-to-br from-pink-500/90 to-red-500/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64">
+                    <div class="text-5xl">📱</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">短视频热榜</h4>
+                        <p class="opacity-80">今日最热视频</p>
+                    </div>
+                </a>
+                <a href="https://mail.qq.com" target="_blank" class="card-hover bg-gradient-to-br from-red-500/90 to-orange-500/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64">
+                    <div class="text-5xl">✉️</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">邮件中心</h4>
+                        <p class="opacity-80">商务邮件快速查收</p>
+                    </div>
+                </a>
+                <a href="https://www.taobao.com" target="_blank" class="card-hover bg-gradient-to-br from-orange-500/90 to-amber-500/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64">
+                    <div class="text-5xl">🛒</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">淘宝购物</h4>
+                        <p class="opacity-80">命理周边 · 游戏装备</p>
+                    </div>
+                </a>
+                <a href="https://finance.sina.com.cn" target="_blank" class="card-hover bg-gradient-to-br from-emerald-500/90 to-teal-500/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64">
+                    <div class="text-5xl">📈</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">股市行情</h4>
+                        <p class="opacity-80">商务投资实时数据</p>
+                    </div>
+                </a>
+                <div onclick="alert('🔥 更多导航入口正在开发中... 敬请期待！')" class="card-hover bg-gradient-to-br from-purple-500/90 to-violet-500/90 p-8 rounded-3xl text-white flex flex-col justify-between h-64 cursor-pointer">
+                    <div class="text-5xl">🌐</div>
+                    <div>
+                        <h4 class="text-2xl font-semibold">更多工具</h4>
+                        <p class="opacity-80">翻译 · 地图 · 文档 · AI助手</p>
+                    </div>
+                </div>
+                <div onclick="alert('🚀 自定义导航已为你准备好！点击添加你的常用网站')" class="card-hover border-2 border-dashed border-purple-400/60 p-8 rounded-3xl text-purple-300 flex flex-col justify-center items-center h-64 cursor-pointer hover:border-purple-400">
+                    <i class="fa-solid fa-plus text-6xl mb-4"></i>
+                    <p class="text-2xl font-semibold">添加自定义导航</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: 命理 -->
+        <div id="tab-2" class="tab-content px-6 py-12">
+            <h2 class="text-5xl font-bold text-center mb-4">🔮 玄机命理馆</h2>
+            <p class="text-center text-purple-300 mb-10">输入你的生辰，解锁专属运势</p>
+            
+            <div class="max-w-2xl mx-auto bg-[#1f1840] rounded-3xl p-10 border border-purple-400/30">
+                <div class="grid grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <label class="block text-sm mb-2 text-purple-200">出生年份</label>
+                        <select id="year" class="w-full bg-[#2a2255] border border-purple-400/30 rounded-2xl px-6 py-4 text-lg focus:outline-none focus:border-amber-400">
+                            <option value="2024">2024 甲辰年</option>
+                            <option value="2023" selected>2023 癸卯年</option>
+                            <option value="2022">2022 壬寅年</option>
+                            <option value="1999">1999 己卯年</option>
+                            <option value="1988">1988 戊辰年</option>
+                            <!-- 更多年份可自行扩展 -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2 text-purple-200">性别</label>
+                        <div class="flex gap-4">
+                            <button onclick="selectGender(this)" data-gender="男" class="flex-1 py-4 bg-[#2a2255] hover:bg-purple-500 rounded-2xl transition-colors">♂ 男</button>
+                            <button onclick="selectGender(this)" data-gender="女" class="flex-1 py-4 bg-[#2a2255] hover:bg-purple-500 rounded-2xl transition-colors">♀ 女</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="calculateFortune()" 
+                        class="w-full py-7 bg-gradient-to-r from-amber-400 to-purple-600 text-2xl font-bold rounded-3xl flex items-center justify-center gap-4 hover:brightness-110">
+                    <i class="fa-solid fa-magic"></i>
+                    开始测算命理
+                </button>
+                
+                <!-- 结果区 -->
+                <div id="fortuneResult" class="mt-10 hidden">
+                    <div class="bg-gradient-to-br from-amber-900/40 to-purple-900/40 rounded-3xl p-8 border border-amber-300/30">
+                        <h3 class="text-3xl font-bold mb-6 flex items-center gap-4" id="zodiacTitle"></h3>
+                        <div id="fortuneText" class="fortune-text text-lg leading-relaxed text-amber-100"></div>
+                        
+                        <div class="grid grid-cols-3 gap-6 mt-10 text-center">
+                            <div class="bg-white/10 rounded-2xl p-4">
+                                <div class="text-xs text-purple-300">事业运</div>
+                                <div id="careerScore" class="text-5xl font-bold text-amber-400">88</div>
+                            </div>
+                            <div class="bg-white/10 rounded-2xl p-4">
+                                <div class="text-xs text-purple-300">爱情运</div>
+                                <div id="loveScore" class="text-5xl font-bold text-pink-400">92</div>
+                            </div>
+                            <div class="bg-white/10 rounded-2xl p-4">
+                                <div class="text-xs text-purple-300">财运</div>
+                                <div id="wealthScore" class="text-5xl font-bold text-emerald-400">75</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 text-purple-400 text-sm">* 本结果仅供娱乐参考，由玄运AI命理师生成</div>
+        </div>
+
+        <!-- TAB 3: 游戏 -->
+        <div id="tab-3" class="tab-content px-6 py-12">
+            <h2 class="text-5xl font-bold text-center mb-12">🎮 极致娱乐区</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- 游戏1: 剪刀石头布 -->
+                <div onclick="showGameModal(1)" class="card-hover cursor-pointer bg-gradient-to-br from-red-500 to-orange-500 rounded-3xl p-8 flex flex-col items-center text-center">
+                    <div class="text-8xl mb-6">✊✌️✋</div>
+                    <h3 class="text-3xl font-bold mb-2">剪刀石头布</h3>
+                    <p class="text-white/80">经典对战 · 挑战AI</p>
+                    <div class="mt-auto text-sm bg-white/20 px-6 py-2 rounded-2xl inline-block">胜率 50%</div>
+                </div>
+                
+                <!-- 游戏2: 猜数字 -->
+                <div onclick="showGameModal(2)" class="card-hover cursor-pointer bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl p-8 flex flex-col items-center text-center">
+                    <div class="text-8xl mb-6">🔢</div>
+                    <h3 class="text-3xl font-bold mb-2">猜数字大师</h3>
+                    <p class="text-white/80">1-100 猜数字 · 限10次</p>
+                    <div class="mt-auto text-sm bg-white/20 px-6 py-2 rounded-2xl inline-block">最高分 98</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: 抽奖 -->
+        <div id="tab-4" class="tab-content px-6 py-12">
+            <h2 class="text-5xl font-bold text-center mb-4">🎟️ 幸运大转盘</h2>
+            <p class="text-center text-purple-300 mb-8">每日限抽1次 · 好运加倍</p>
+            
+            <div class="max-w-xl mx-auto text-center">
+                <div class="relative mx-auto w-80 h-80 mb-12">
+                    <!-- 简易转盘 -->
+                    <div id="wheel" class="wheel w-80 h-80 mx-auto rounded-full border-8 border-amber-400 shadow-2xl flex items-center justify-center text-7xl relative overflow-hidden"
+                         style="background: conic-gradient(#c026d3 0deg 45deg, #eab308 45deg 90deg, #22c55e 90deg 135deg, #06b67f 135deg 180deg, #0ea5e9 180deg 225deg, #8b5cf6 225deg 270deg, #ec4899 270deg 315deg, #f43f5e 315deg 360deg);">
+                        <div class="absolute w-12 h-12 bg-white rounded-full flex items-center justify-center text-4xl shadow-inner z-10">🎁</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[22.5deg] top-8 left-1/2 -translate-x-1/2">iPhone16</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[67.5deg] top-8 left-1/2 -translate-x-1/2">¥888</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[112.5deg] top-8 left-1/2 -translate-x-1/2">Switch</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[157.5deg] top-8 left-1/2 -translate-x-1/2">谢谢参与</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[202.5deg] top-8 left-1/2 -translate-x-1/2">¥520</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[247.5deg] top-8 left-1/2 -translate-x-1/2">AirPods</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[292.5deg] top-8 left-1/2 -translate-x-1/2">¥188</div>
+                        <div class="absolute text-xs font-bold text-white rotate-[337.5deg] top-8 left-1/2 -translate-x-1/2">神秘礼</div>
+                    </div>
+                </div>
+                
+                <button onclick="startLottery()" 
+                        id="lotteryBtn"
+                        class="px-16 py-6 text-3xl font-bold bg-gradient-to-r from-amber-400 to-pink-500 rounded-3xl shadow-xl hover:scale-110 transition-transform flex items-center gap-4 mx-auto">
+                    <i class="fa-solid fa-spin fa-ticket"></i>
+                    开始抽奖
+                </button>
+                
+                <div id="lotteryResult" class="mt-8 hidden text-2xl font-semibold"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: 商务 -->
+        <div id="tab-5" class="tab-content px-6 py-12">
+            <h2 class="text-5xl font-bold text-center mb-4">💼 商务服务中心</h2>
+            <p class="text-center text-purple-300 mb-12">专业服务 · 助力事业起飞</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-[#241c4a] rounded-3xl p-8 card-hover">
+                    <i class="fa-solid fa-globe text-6xl text-purple-400 mb-6"></i>
+                    <h4 class="text-2xl font-semibold mb-3">网站定制开发</h4>
+                    <p class="text-purple-200 mb-8">专属玄运主题网站 · 7天交付</p>
+                    <div class="flex justify-between items-end">
+                        <div class="text-4xl font-bold">¥2999</div>
+                        <button onclick="businessAction('website')" class="bg-purple-600 px-8 py-3 rounded-2xl text-sm">立即下单</button>
+                    </div>
+                </div>
+                
+                <div class="bg-[#241c4a] rounded-3xl p-8 card-hover">
+                    <i class="fa-solid fa-chart-line text-6xl text-emerald-400 mb-6"></i>
+                    <h4 class="text-2xl font-semibold mb-3">命理营销咨询</h4>
+                    <p class="text-purple-200 mb-8">结合八字的品牌起名 · 营销策略</p>
+                    <div class="flex justify-between items-end">
+                        <div class="text-4xl font-bold">¥888/次</div>
+                        <button onclick="businessAction('consult')" class="bg-emerald-600 px-8 py-3 rounded-2xl text-sm">预约咨询</button>
+                    </div>
+                </div>
+                
+                <div class="bg-[#241c4a] rounded-3xl p-8 card-hover">
+                    <i class="fa-solid fa-handshake text-6xl text-amber-400 mb-6"></i>
+                    <h4 class="text-2xl font-semibold mb-3">游戏商务合作</h4>
+                    <p class="text-purple-200 mb-8">游戏推广 · 抽奖活动联合</p>
+                    <div class="flex justify-between items-end">
+                        <div class="text-4xl font-bold">¥5000起</div>
+                        <button onclick="businessAction('coop')" class="bg-amber-600 px-8 py-3 rounded-2xl text-sm">洽谈合作</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 联系表单 -->
+            <div class="max-w-lg mx-auto mt-16 bg-white/10 rounded-3xl p-8">
+                <h3 class="text-2xl font-semibold mb-6 text-center">留下你的商务需求</h3>
+                <input id="bizName" type="text" placeholder="您的姓名/公司" class="w-full mb-4 bg-transparent border border-white/30 rounded-2xl px-6 py-5 focus:outline-none">
+                <input id="bizPhone" type="tel" placeholder="手机号 / 微信" class="w-full mb-4 bg-transparent border border-white/30 rounded-2xl px-6 py-5 focus:outline-none">
+                <textarea id="bizMsg" rows="4" placeholder="请描述您的需求..." class="w-full mb-6 bg-transparent border border-white/30 rounded-2xl px-6 py-5 focus:outline-none"></textarea>
+                <button onclick="submitBusinessForm()" class="w-full py-6 bg-gradient-to-r from-purple-600 to-amber-400 text-xl font-bold rounded-3xl">提交需求 · 24小时内回复</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 游戏模态框 -->
+    <div id="gameModal" onclick="if(event.target===this)hideGameModal()" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center">
+        <div class="modal bg-[#1f1840] w-full max-w-lg mx-4 rounded-3xl p-8">
+            <div id="modalContent"></div>
         </div>
     </div>
 
-    <div class="section-title">✍️ 文本创作与深度调研</div>
-    <div class="grid">
-        <div class="card"><h3>通义千问 2.5</h3><p>阿里出品，文案脚本逻辑极强。</p><a href="https://tongyi.aliyun.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Kimi Chat</h3><p>支持超长上下文，处理万字文档。</p><a href="https://kimi.moonshot.cn/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>秘塔 AI 搜索</h3><p>学术级调研，无广告，找项目神器。</p><a href="https://metaso.cn/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>DeepSeek</h3><p>编程与逻辑推理国产之光。</p><a href="https://www.deepseek.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>智谱清言</h3><p>强大的中英双语处理与数据分析。</p><a href="https://chatglm.cn/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Notion AI</h3><p>笔记与协作的 AI 终极助手。</p><a href="https://www.notion.so/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Jasper</h3><p>专业营销文案生成工具。</p><a href="https://www.jasper.ai/" target="_blank" class="btn">立即访问</a></div>
+    <!-- 用户中心模态框 -->
+    <div id="userModal" onclick="if(event.target===this)hideUserModal()" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center">
+        <div class="modal bg-[#1f1840] w-full max-w-md mx-4 rounded-3xl p-8 text-center">
+            <div class="text-8xl mb-6">👑</div>
+            <h3 class="text-3xl font-bold mb-2">玄运VIP用户</h3>
+            <p class="text-amber-300">当前积分 <span class="text-5xl font-bold text-amber-400">8888</span></p>
+            <div class="my-8 space-y-4 text-left">
+                <div class="flex justify-between"><span>今日抽奖次数</span><span class="text-emerald-400">1/1</span></div>
+                <div class="flex justify-between"><span>命理测算次数</span><span class="text-purple-400">无限</span></div>
+                <div class="flex justify-between"><span>游戏高分榜</span><span class="text-cyan-400">第 7 名</span></div>
+            </div>
+            <button onclick="hideUserModal()" class="w-full py-5 rounded-3xl bg-white text-[#1a1133] font-semibold">关闭</button>
+        </div>
     </div>
 
-    <div class="section-title">🎨 视觉艺术与视频生成</div>
-    <div class="grid">
-        <div class="card"><h3>可灵 Kling AI</h3><p>目前全球领先的 AI 视频生成工具。</p><a href="https://klingai.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>美图设计室</h3><p>电商商拍、AI 换装必备。</p><a href="https://www.designkit.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Liblib 哩布</h3><p>国内最大的 SD 创作社区。</p><a href="https://www.liblib.art/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Midjourney</h3><p>全球顶级艺术级绘图 AI。</p><a href="https://www.midjourney.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Runway Gen-3</h3><p>电影级视频生成创作平台。</p><a href="https://runwayml.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Pika Labs</h3><p>让静态图片动起来的黑科技。</p><a href="https://pika.art/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>D-ID</h3><p>照片开口说话，数字人解说必备。</p><a href="https://www.d-id.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Adobe Firefly</h3><p>PS 内置 AI，设计修图神器。</p><a href="https://www.adobe.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Canvas AI</h3><p>在线设计自动排版与创意生成。</p><a href="https://www.canva.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="card"><h3>Suno AI</h3><p>一键生成专业级高品质音乐。</p><a href="https://suno.com/" target="_blank" class="btn">立即访问</a></div>
-    </div>
+    <!-- 页脚 -->
+    <footer class="bg-black/60 py-12 text-center text-purple-400 text-sm border-t border-purple-500/20">
+        <p>© 2026 玄运乐园 All Rights Reserved · 纯娱乐项目 · 祝你好运爆棚！</p>
+        <p class="mt-3">Made with ❤️ for you</p>
+    </footer>
 
-    <div class="section-title">💰 副业实战与变现方案</div>
-    <div class="grid">
-        <div class="card"><h3>SEO 自动化建站</h3><p>AI 产文获取流量，躺平收广告费。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>数字人带货</h3><p>24小时不间断直播间打造方案。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>AI 绘本定制</h3><p>儿童故事+插画，高溢价定制赛道。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>提示词买卖</h3><p>在 PromptBase 出售你的高级指令。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>外贸代运营</h3><p>利用万兴播爆实现多语种出海。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>AI 课件制作</h3><p>快速制作 PPT 与微课变现方案。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>小红书疗愈直播</h3><p>治愈系视频流量主变现路径。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>代码接单 AI 辅助</h3><p>不懂代码也能接简单的建站单。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>AI 配音配音服务</h3><p>高保真音色克隆与商业配音。</p><a href="#" class="btn btn-s">查看方案</a></div>
-        <div class="card"><h3>跨境电商选品</h3><p>AI 预测爆款趋势，精准切入。</p><a href="#" class="btn btn-s">查看方案</a></div>
-    </div>
-
-    <div class="footer-biz">
-        <h2 style="color: var(--s);">💼 商务合作与资源置换</h2>
-        <p style="color: #ccc; margin-bottom: 25px;">承接广告位租用、副业项目投稿、社群流量对接</p>
-        <button class="btn btn-s" onclick="alert('请联系管理员：HarryZhang_2026')">点击获取联系方式</button>
-    </div>
-</div>
-
-<div id="modal"><div class="modal-body"><h3 id="mTitle"></h3><p id="mBody"></p><button class="btn" onclick="closeM()">确领天机</button></div></div>
-
-<script>
-    function divine(type) {
-        if(!document.getElementById('userDate').value) { alert("请先校准日期"); return; }
-        document.getElementById('mTitle').innerText = type === 'iching' ? "🔮 周易：【地天泰】" : "🃏 塔罗：【太阳】";
-        document.getElementById('mBody').innerText = "当前磁场极佳。建议本周重点关注“AI视频”或“数字人”赛道，必有斩获。";
-        document.getElementById('modal').style.display = 'flex';
-    }
-    function closeM() { document.getElementById('modal').style.display = 'none'; }
-</script>
-
+    <script>
+        // Tailwind 初始化
+        function initTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {
+                                colors: {
+                                    primary: '#c026d3'
+                                }
+                            }
+                        }
+                    }
+                },
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // 切换Tab
+        let currentTab = 0
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
+            document.getElementById(`tab-${tabIndex}`).classList.add('active')
+            
+            // 更新导航高亮
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('text-purple-400', 'font-bold'))
+            const activeNav = document.getElementById(`nav-${tabIndex}`)
+            if (activeNav) activeNav.classList.add('text-purple-400', 'font-bold')
+            
+            currentTab = tabIndex
+        }
+        
+        // 移动端菜单
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu')
+            menu.classList.toggle('hidden')
+        }
+        
+        // 命理 - 性别选择
+        let selectedGender = '男'
+        function selectGender(btn) {
+            document.querySelectorAll('#tab-2 button[data-gender]').forEach(b => b.classList.remove('bg-purple-600'))
+            btn.classList.add('bg-purple-600')
+            selectedGender = btn.dataset.gender
+        }
+        
+        // 命理测算
+        function calculateFortune() {
+            const year = parseInt(document.getElementById('year').value)
+            const zodiacs = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪']
+            const index = (year - 4) % 12
+            const zodiac = zodiacs[index]
+            
+            const fortunes = [
+                `今日你的${zodiac}运势如虹！事业上贵人相助，适合大胆决策。`,
+                `爱情运爆棚，单身的${zodiac}人今天容易遇到心仪对象，已婚者感情升温。`,
+                `财运正旺，意外之财可能降临，记得做好规划哦~`,
+            ]
+            
+            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)]
+            
+            document.getElementById('zodiacTitle').innerHTML = `
+                ${zodiac}年 ${selectedGender}士 · 今日运势
+                <span class="text-sm ml-4 px-4 py-1 bg-amber-300 text-black rounded-3xl text-base">★★★★★</span>
+            `
+            document.getElementById('fortuneText').innerHTML = `
+                <p class="mb-6">${randomFortune}</p>
+                <p>建议：多穿${['紫','金','红'][Math.floor(Math.random()*3)]}色衣服，增强运势！</p>
+            `
+            
+            // 随机分数
+            document.getElementById('careerScore').textContent = Math.floor(75 + Math.random() * 25)
+            document.getElementById('loveScore').textContent = Math.floor(70 + Math.random() * 30)
+            document.getElementById('wealthScore').textContent = Math.floor(65 + Math.random() * 30)
+            
+            document.getElementById('fortuneResult').classList.remove('hidden')
+            document.getElementById('fortuneResult').scrollIntoView({ behavior: 'smooth' })
+        }
+        
+        // 游戏模态框
+        let currentGame = null
+        function showGameModal(gameId) {
+            currentGame = gameId
+            const modal = document.getElementById('gameModal')
+            const content = document.getElementById('modalContent')
+            
+            if (gameId === 1) {
+                // 剪刀石头布
+                content.innerHTML = `
+                    <h3 class="text-3xl font-bold mb-8 text-center">✊ 剪刀石头布</h3>
+                    <div class="flex justify-center gap-10 mb-12">
+                        <button onclick="playRPS(0)" class="text-7xl hover:scale-125 transition-transform">✊</button>
+                        <button onclick="playRPS(1)" class="text-7xl hover:scale-125 transition-transform">✌️</button>
+                        <button onclick="playRPS(2)" class="text-7xl hover:scale-125 transition-transform">✋</button>
+                    </div>
+                    <div class="flex justify-between text-xl">
+                        <div>你出：<span id="playerMove" class="text-4xl"></span></div>
+                        <div>AI出：<span id="aiMove" class="text-4xl"></span></div>
+                    </div>
+                    <div id="rpsResult" class="mt-8 text-3xl font-bold text-center min-h-[60px]"></div>
+                    <button onclick="hideGameModal()" class="mt-10 w-full py-4 text-lg border border-white/30 rounded-3xl">退出游戏</button>
+                `
+            } else if (gameId === 2) {
+                // 猜数字
+                window.secretNumber = Math.floor(Math.random() * 100) + 1
+                window.guessCount = 0
+                content.innerHTML = `
+                    <h3 class="text-3xl font-bold mb-8 text-center">🔢 猜数字 (1-100)</h3>
+                    <div class="flex gap-4">
+                        <input id="guessInput" type="number" min="1" max="100" placeholder="输入数字" 
+                               class="flex-1 bg-transparent border border-white/30 rounded-3xl px-8 py-6 text-3xl focus:outline-none">
+                        <button onclick="makeGuess()" class="px-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-3xl font-bold text-xl">猜！</button>
+                    </div>
+                    <div id="guessHistory" class="mt-8 text-sm max-h-64 overflow-auto"></div>
+                    <button onclick="hideGameModal()" class="mt-10 w-full py-4 text-lg border border-white/30 rounded-3xl">退出游戏</button>
+                `
+            }
+            
+            modal.classList.remove('hidden')
+            modal.classList.add('flex')
+        }
+        
+        function hideGameModal() {
+            const modal = document.getElementById('gameModal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        // 剪刀石头布逻辑
+        const rpsItems = ['✊', '✌️', '✋']
+        function playRPS(playerChoice) {
+            const aiChoice = Math.floor(Math.random() * 3)
+            document.getElementById('playerMove').textContent = rpsItems[playerChoice]
+            document.getElementById('aiMove').textContent = rpsItems[aiChoice]
+            
+            let resultText = ''
+            if (playerChoice === aiChoice) {
+                resultText = '🤝 平局！'
+            } else if (
+                (playerChoice === 0 && aiChoice === 2) ||
+                (playerChoice === 1 && aiChoice === 0) ||
+                (playerChoice === 2 && aiChoice === 1)
+            ) {
+                resultText = '🎉 你赢了！'
+            } else {
+                resultText = '😢 AI获胜'
+            }
+            
+            document.getElementById('rpsResult').innerHTML = `<span class="text-5xl">${resultText}</span>`
+        }
+        
+        // 猜数字逻辑
+        function makeGuess() {
+            const input = document.getElementById('guessInput')
+            const guess = parseInt(input.value)
+            if (!guess || guess < 1 || guess > 100) return
+            
+            window.guessCount++
+            const history = document.getElementById('guessHistory')
+            
+            let msg = ''
+            if (guess === window.secretNumber) {
+                msg = `<div class="bg-emerald-400 text-black p-6 rounded-3xl text-3xl font-bold text-center">🎉 恭喜！你用 ${window.guessCount} 次猜中了！</div>`
+                input.disabled = true
+            } else if (guess < window.secretNumber) {
+                msg = `<div class="text-amber-400">🔼 再大一点！</div>`
+            } else {
+                msg = `<div class="text-cyan-400">🔽 再小一点！</div>`
+            }
+            
+            history.innerHTML = msg + history.innerHTML
+            input.value = ''
+            
+            if (window.guessCount >= 10 && guess !== window.secretNumber) {
+                history.innerHTML = `<div class="bg-red-400 text-white p-6 rounded-3xl text-center">😭 10次机会已用完，答案是 <span class="font-bold">${window.secretNumber}</span></div>` + history.innerHTML
+                input.disabled = true
+            }
+        }
+        
+        // 抽奖
+        let isSpinning = false
+        function startLottery() {
+            if (isSpinning) return
+            isSpinning = true
+            const btn = document.getElementById('lotteryBtn')
+            const wheel = document.getElementById('wheel')
+            const resultDiv = document.getElementById('lotteryResult')
+            
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 正在转动...`
+            resultDiv.classList.add('hidden')
+            
+            // 随机旋转角度
+            const extraSpins = 8 + Math.random() * 5
+            const finalDegree = Math.random() * 360
+            const totalRotation = extraSpins * 360 + finalDegree
+            
+            wheel.style.transitionDuration = '4s'
+            wheel.style.transform = `rotate(${totalRotation}deg)`
+            
+            setTimeout(() => {
+                // 计算奖品
+                const prizes = [
+                    {name: '🎟️ iPhone 16 Pro', color: 'text-red-400'},
+                    {name: '💰 ¥888 红包', color: 'text-amber-400'},
+                    {name: '🎮 Nintendo Switch', color: 'text-green-400'},
+                    {name: '😢 谢谢参与', color: 'text-gray-400'},
+                    {name: '💝 ¥520 现金', color: 'text-pink-400'},
+                    {name: '🎧 AirPods Pro', color: 'text-cyan-400'},
+                    {name: '💰 ¥188 红包', color: 'text-emerald-400'},
+                    {name: '🌟 神秘大礼', color: 'text-purple-400'}
+                ]
+                const prizeIndex = Math.floor((totalRotation % 360) / 45)
+                const prize = prizes[prizeIndex]
+                
+                resultDiv.innerHTML = `
+                    <div class="inline-flex items-center gap-4 text-4xl ${prize.color}">
+                        <span>恭喜你抽中：</span>
+                        <span class="font-black">${prize.name}</span>
+                    </div>
+                `
+                resultDiv.classList.remove('hidden')
+                
+                // 重置转盘
+                wheel.style.transitionDuration = '0s'
+                wheel.style.transform = `rotate(0deg)`
+                
+                btn.innerHTML = `🎟️ 再抽一次`
+                isSpinning = false
+            }, 4100)
+        }
+        
+        // 商务操作
+        function businessAction(type) {
+            const messages = {
+                website: '🎉 网站定制订单已生成！客服将立即联系你',
+                consult: '🔮 命理营销咨询预约成功！明天10点前联系',
+                coop: '🤝 游戏商务合作意向已提交，商务经理24h内回复'
+            }
+            alert(messages[type] || '请求已提交')
+        }
+        
+        // 提交商务表单
+        function submitBusinessForm() {
+            const name = document.getElementById('bizName').value
+            if (!name) {
+                alert('请输入姓名/公司')
+                return
+            }
+            alert(`🚀 商务需求已成功提交！\n我们将在24小时内联系你，谢谢信任玄运乐园！`)
+            document.getElementById('bizName').value = ''
+            document.getElementById('bizPhone').value = ''
+            document.getElementById('bizMsg').value = ''
+        }
+        
+        // 用户中心
+        function showUserModal() {
+            document.getElementById('userModal').classList.remove('hidden')
+            document.getElementById('userModal').classList.add('flex')
+        }
+        
+        function hideUserModal() {
+            const modal = document.getElementById('userModal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        // 启动整个网站
+        function launchWebsite() {
+            initTailwind()
+            console.log('%c✅ 玄运乐园网站已成功启动！祝你玩得开心~', 'color:#c026d3; font-size:18px; font-weight:bold')
+            
+            // 默认显示首页
+            switchTab(0)
+            
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                if (e.metaKey && e.key === 'k') {
+                    e.preventDefault()
+                    switchTab((currentTab + 1) % 6)
+                }
+            })
+        }
+        
+        // 页面加载完毕启动
+        window.onload = launchWebsite
+    </script>
 </body>
 </html>
