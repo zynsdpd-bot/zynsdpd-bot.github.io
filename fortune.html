@@ -74,14 +74,17 @@ button:hover{
 <div class="card">
 <h2>基础信息</h2>
 <input id="name" placeholder="姓名">
-<input id="year" placeholder="出生年">
-<input id="month" placeholder="月">
-<input id="day" placeholder="日">
-<input id="hour" placeholder="时辰">
+
+<select id="year"></select>
+<select id="month"></select>
+<select id="day"></select>
+<select id="hour"></select>
+
 <select id="gender">
 <option>男</option>
 <option>女</option>
 </select>
+
 <button onclick="saveUser()">保存</button>
 </div>
 
@@ -123,6 +126,29 @@ button:hover{
 
 let user = {};
 
+// 初始化下拉
+(function init(){
+    let year = document.getElementById("year");
+    for(let i=1950;i<=2026;i++){
+        year.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    let month = document.getElementById("month");
+    for(let i=1;i<=12;i++){
+        month.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    let day = document.getElementById("day");
+    for(let i=1;i<=31;i++){
+        day.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    let hour = document.getElementById("hour");
+    for(let i=0;i<=23;i++){
+        hour.innerHTML += `<option value="${i}">${i}时</option>`;
+    }
+})();
+
 function saveUser(){
     user.name = document.getElementById("name").value;
     user.year = document.getElementById("year").value;
@@ -133,60 +159,107 @@ function saveUser(){
     alert("已保存");
 }
 
-/* 星座 */
+function getZodiac(m,d){
+    m=parseInt(m);d=parseInt(d);
+    if((m==1&&d<=19)||(m==12&&d>=22))return"摩羯座";
+    if((m==1&&d>=20)||(m==2&&d<=18))return"水瓶座";
+    if((m==2&&d>=19)||(m==3&&d<=20))return"双鱼座";
+    return"其他星座";
+}
+
 function zodiac(){
-    const m = parseInt(user.month);
-    const d = parseInt(user.day);
-
-    let z = "";
-
-    if((m==1&&d<=19)||(m==12&&d>=22)) z="摩羯座";
-    else if((m==1&&d>=20)||(m==2&&d<=18)) z="水瓶座";
-    else if((m==2&&d>=19)||(m==3&&d<=20)) z="双鱼座";
-    else z="其他星座";
-
-    document.getElementById("zodiac").innerText = "你的星座：" + z;
-}
-
-/* 塔罗 */
-function tarot(){
-    let cards=["愚者","魔术师","恋人","太阳","月亮"];
-    let r=()=>cards[Math.floor(Math.random()*cards.length)];
-
-    document.getElementById("tarot").innerText =
-    `过去:${r()}\n现在:${r()}\n未来:${r()}`;
-}
-
-/* 付费模拟 */
-function unlock(type){
+    if(!user.month||!user.day)return alert("请先保存信息");
+    function unlockFreeIChing(){
 
     if(!user.name){
         alert("请先保存信息");
         return;
     }
 
-    if(type=="bazi"){
-        document.getElementById("bazi").innerText =
-`八字分析：
-性格稳重，适合长期发展
-事业建议：稳定行业更佳`;
-    }
+    document.getElementById("iching").innerText =
+`【免费易经基础解析】
 
-    if(type=="love"){
-        document.getElementById("love").innerText =
-`感情分析：
-慢热型感情
-适合稳定关系`;
-    }
+姓名：${user.name}
 
-    if(type=="money"){
-        document.getElementById("money").innerText =
-`财运分析：
-正财稳定
-不宜高风险投资`;
-    }
+◆ 命理结构
+你的整体气质属于“稳中带进型”，人生不会剧烈波动，但会持续向上发展。
+
+◆ 性格特点
+做事谨慎，有计划性，但偶尔会因犹豫错过机会。
+
+◆ 事业方向
+适合长期稳定行业：
+- 技术类
+- 管理类
+- 贸易类
+- 运营类
+
+◆ 财运模式
+以“正财积累”为主，不适合短线投机或高风险投资。
+
+◆ 人生节奏
+前期积累，中期稳定发展，后期容易进入资源整合阶段。
+
+◆ 建议
+减少频繁更换方向，坚持长期路线更容易成功。`;
+}
+    document.getElementById("zodiac").innerText="你的星座："+getZodiac(user.month,user.day);
 }
 
+function tarot(){
+    let c=["愚者","魔术师","恋人","太阳","月亮"];
+    let r=()=>c[Math.floor(Math.random()*c.length)];
+    document.getElementById("tarot").innerText=`过去:${r()}\n现在:${r()}\n未来:${r()}`;
+}
+
+function unlock(t){
+    if(!user.name)return alert("先保存信息");
+
+    if(t=="bazi")document.getElementById("bazi").innerText="八字：稳中发展型，适合长期积累";
+    if(t=="love")document.getElementById("love").innerText="感情：慢热稳定型关系";
+    if(t=="money")document.getElementById("money").innerText="财运：正财为主，不宜投机";
+}
+function faceAnalysis(){
+
+    if(!user.name){
+        alert("请先保存信息");
+        return;
+    }
+
+    document.getElementById("face").innerText =
+`【面相基础分析（模拟版）】
+<div class="card">
+<h2>面相分析（免费体验版）</h2>
+
+<p>上传照片后可升级AI分析（当前为模拟分析）</p>
+
+<input type="file" disabled />
+
+<button onclick="faceAnalysis()">生成面相分析</button>
+
+<div id="face" class="result"></div>
+
+<small>功能规划：Vision AI + 五官评分系统（高级版）</small>
+</div>
+
+◆ 额头（事业宫）
+额头代表思维与事业发展能力，你的类型偏“稳健型”，适合长期发展路线。
+
+◆ 眼睛（情绪宫）
+眼神偏理性，情绪控制能力较强，但不善于表达情感。
+
+◆ 鼻子（财帛宫）
+鼻相代表财运，你属于“稳定积累型财运”，不属于暴富型。
+
+◆ 下巴（晚运）
+下巴结构代表后期运势，整体偏稳，晚年运势优于早期。
+
+◆ 综合结论
+整体属于“稳定成长型面相”，适合长期规划型人生路径。
+
+📌 提示：
+上传真实照片后，可升级为AI面相识别分析（高级版）`;
+}
 </script>
 
 </body>
