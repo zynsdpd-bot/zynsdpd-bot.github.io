@@ -1,179 +1,113 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>今日运势测算</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>玄学分析平台 - 易经 / 星座 / 塔罗</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:#e2e8f0;margin:0;padding:0;}
+header{padding:20px;text-align:center;background:#111827;}
+.container{max-width:900px;margin:0 auto;padding:20px;}
+.card{background:#1f2937;padding:20px;border-radius:12px;margin-bottom:20px;}
+input,select,button{padding:10px;margin:5px 0;width:100%;border-radius:8px;border:none;}
+button{background:#3b82f6;color:white;cursor:pointer;}
+button:hover{background:#2563eb;}
+.result{white-space:pre-wrap;background:#0b1220;padding:15px;border-radius:8px;margin-top:10px;}
+small{color:#94a3b8;}
+</style>
 </head>
+<body>
+<header>
+<h1>AI玄学分析平台</h1>
+<small>易经 · 星座 · 塔罗牌 · 面相（规划中）</small>
+</header>
 
-<body class="bg-black text-white text-center p-6">
+<div class="container">
 
-<h1 class="text-3xl font-bold mb-4">🔮 今日运势测算</h1>
-<p class="text-gray-300 mb-6">填写信息，查看你的专属运势</p>
-
-<!-- 输入区 -->
-<div class="space-y-4">
-
-<input id="name" placeholder="请输入姓名（可选）"
-class="p-3 rounded text-black w-64">
-
-<br>
-
-<select id="gender" class="p-3 rounded text-black w-64">
-<option value="">选择性别</option>
-<option value="男">男</option>
-<option value="女">女</option>
+<div class="card">
+<h2>基础信息</h2>
+<input id="name" placeholder="姓名" />
+<input id="birthYear" placeholder="出生年（如1995）" />
+<input id="birthMonth" placeholder="出生月（1-12）" />
+<input id="birthDay" placeholder="出生日（1-31）" />
+<input id="birthHour" placeholder="出生时辰（0-23）" />
+<select id="gender">
+<option>男</option>
+<option>女</option>
 </select>
-
-<br>
-
-<input id="age" placeholder="请输入年龄"
-class="p-3 rounded text-black w-64">
-
-<br>
-
-<select id="marriage" class="p-3 rounded text-black w-64">
-<option value="">婚姻状态</option>
-<option value="单身">单身</option>
-<option value="恋爱中">恋爱中</option>
-<option value="已婚">已婚</option>
-</select>
-
+<button onclick="saveUser()">保存信息</button>
 </div>
 
-<br>
+<div class="card">
+<h2>易经八字分析（付费200字）</h2>
+<button onclick="generateIChing()">生成分析</button>
+<div class="result" id="iching"></div>
+</div>
 
-<button onclick="start()"
-class="bg-purple-600 px-8 py-3 rounded text-lg">
-立即测算
-</button>
+<div class="card">
+<h2>星座分析（基础版）</h2>
+<button onclick="generateZodiac()">生成星座解析</button>
+<div class="result" id="zodiac"></div>
+</div>
 
-<!-- 加载提示 -->
-<p id="loading" class="mt-6 text-yellow-400"></p>
+<div class="card">
+<h2>塔罗牌占卜（高级版）</h2>
+<button onclick="generateTarot()">抽取三张牌</button>
+<div class="result" id="tarot"></div>
+</div>
 
-<!-- 结果 -->
-<div id="result" class="mt-6 text-left max-w-md mx-auto"></div>
-
-<!-- 付费区 -->
-<div id="vip" class="mt-8 hidden">
-
-<h2 class="text-2xl text-yellow-400">🔒 高级运势已生成</h2>
-
-<p class="mt-4 text-gray-300">
-✔ 财运详细分析  
-✔ 事业发展趋势  
-✔ 感情走向判断  
-✔ 未来关键提醒  
-</p>
-
-<p class="mt-4 text-red-400 text-lg">
-⚠️ 检测到你近期有一次重要转折（建议查看）
-</p>
-
-<p class="mt-4 text-xl">
-🔥 原价29.9 → 今日仅需 9.9元
-</p>
-
-<img src="weixin-pay.jpg" class="mx-auto mt-4 w-48">
-
-<p class="mt-3 text-green-400">
-✔ 支付后截图，加微信获取完整版
-</p>
+<div class="card">
+<h2>面相分析（开发中）</h2>
+<p>未来可上传照片进行AI面相分析（眼睛/鼻子/额头/下巴结构）</p>
+<input type="file" disabled />
+<small>功能规划：Vision AI + 五官评分系统</small>
+</div>
 
 </div>
 
 <script>
+let user={};
 
-function start(){
-
-  let gender = document.getElementById("gender").value;
-  let age = document.getElementById("age").value;
-  let marriage = document.getElementById("marriage").value;
-
-  if(!gender || !age || !marriage){
-    alert("请填写完整信息");
-    return;
-  }
-
-  let steps = [
-    "正在分析命理数据...",
-    "匹配个人运势模型...",
-    "检测近期波动...",
-    "生成专属报告..."
-  ];
-
-  let i = 0;
-  let loading = document.getElementById("loading");
-
-  let timer = setInterval(()=>{
-    loading.innerText = steps[i];
-    i++;
-    if(i >= steps.length){
-      clearInterval(timer);
-      showResult();
-    }
-  }, 800);
+function saveUser(){
+user.name=document.getElementById('name').value;
+user.birthYear=document.getElementById('birthYear').value;
+user.birthMonth=document.getElementById('birthMonth').value;
+user.birthDay=document.getElementById('birthDay').value;
+user.birthHour=document.getElementById('birthHour').value;
+user.gender=document.getElementById('gender').value;
+alert("信息已保存");
 }
 
-function showResult(){
-
-  let name = document.getElementById("name").value;
-  let gender = document.getElementById("gender").value;
-  let age = parseInt(document.getElementById("age").value);
-  let marriage = document.getElementById("marriage").value;
-
-  let prefix = name ? name + "（" + gender + "，" + age + "岁）" : "你（" + gender + "，" + age + "岁）";
-
-  let scoreList = ["78（中上）📈","65（波动）⚠️","88（大吉）🔥","72（平稳）🙂"];
-  let score = scoreList[Math.floor(Math.random()*scoreList.length)];
-
-  let ageHint = age < 25 ? "当前正处在人生起步阶段" :
-                age < 35 ? "你正处于事业关键发展期" :
-                "目前处于稳定与突破并存阶段";
-
-  let moneyList = [
-    "近期有偏财机会，但需谨慎判断",
-    "财运稳定，适合保守理财",
-    "有小额进账机会",
-    "注意支出，避免冲动消费"
-  ];
-
-  let careerList = [
-    "工作中可能出现新的机会",
-    "近期压力较大，但有突破空间",
-    "适合主动争取机会",
-    "需注意人际关系变化"
-  ];
-
-  let love = marriage === "单身" ? "近期有桃花出现，但需要主动把握" :
-             marriage === "恋爱中" ? "关系有升温趋势，但需要沟通" :
-             "整体稳定，但需避免小矛盾";
-
-  let result = `
-${prefix}
-
-运势评分：${score}
-
-【总体】
-${ageHint}，近期运势存在波动
-
-【财运】
-${moneyList[Math.floor(Math.random()*moneyList.length)]}
-
-【事业】
-${careerList[Math.floor(Math.random()*careerList.length)]}
-
-【感情】
-${love}
-
-⚠️ 检测到你近期有一个关键机会节点（很多人会错过）
-`;
-
-  document.getElementById("result").innerText = result;
-  document.getElementById("vip").classList.remove("hidden");
+function generateIChing(){
+if(!user.name){alert("请先填写信息");return;}
+const text=`【易经综合命理分析】\n姓名：${user.name}\n\n此命局五行流转偏向动态平衡，人生阶段呈现“先抑后扬”格局。早年多有环境变化与学习压力，但中后期运势逐渐稳定。\n\n事业方向适合：技术 / 贸易 / 信息流行业\n财运特点：偏财弱，正财稳，需长期积累\n感情趋势：晚熟型，重精神契合\n\n整体建议：避免短期投机，坚持长期主义路径发展。`;
+document.getElementById('iching').innerText=text;
 }
 
+function generateZodiac(){
+if(!user.birthYear || !user.birthMonth || !user.birthDay){alert("请先填写出生年月日");return;}
+const zodiacs=["白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"];
+const idx=Math.floor(Math.random()*12);
+const text=`星座：${zodiacs[idx]}
+
+出生信息：${user.birthYear}-${user.birthMonth}-${user.birthDay} 时辰${user.birthHour||"未知"}
+
+近期能量：情绪波动较明显，但创造力增强。
+建议：适合做决策调整与人际关系修复。`;
+document.getElementById('zodiac').innerText=text;
+}
+const zodiacs=["白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"];
+const idx=Math.floor(Math.random()*12);
+const text=`星座：${zodiacs[idx]}\n\n近期能量：情绪波动较明显，但创造力增强。\n建议：适合做决策调整与人际关系修复。`;
+document.getElementById('zodiac').innerText=text;
+}
+
+function generateTarot(){
+const cards=["愚者","魔术师","女祭司","皇后","皇帝","教皇","恋人","战车","力量","隐士","命运之轮","正义","吊人","死神","节制","恶魔","塔","星星","月亮","太阳","审判","世界"];
+function draw(){return cards[Math.floor(Math.random()*cards.length)];}
+const result=`过去：${draw()}\n现在：${draw()}\n未来：${draw()}\n\n解读：当前处于转折期，需要理性判断与耐心等待机会。`;
+document.getElementById('tarot').innerText=result;
+}
 </script>
 
 </body>
