@@ -102,10 +102,10 @@
 
         <!-- AI聊天机器人 -->
         <div class="lg:col-span-3 glass rounded-3xl p-8 border border-violet-500/30">
-            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-robot"></i> AI玄学大师 · 在线聊天</h2>
-            <div id="chatWindow" class="h-96 bg-slate-950 rounded-3xl p-6 overflow-y-auto flex flex-col border border-slate-700 mb-4"></div>
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-robot"></i> AI玄学大师 · 智能对话</h2>
+            <div id="chatWindow" class="h-80 bg-slate-950 rounded-3xl p-6 overflow-y-auto flex flex-col border border-slate-700 mb-4"></div>
             <div class="flex gap-3">
-                <input id="chatInput" type="text" placeholder="问任何问题，例如：我今年适合换工作吗？" 
+                <input id="chatInput" type="text" placeholder="问任何问题，例如：我今年适合创业吗？" 
                        class="flex-1 bg-slate-900 border border-slate-700 rounded-3xl px-6 py-4">
                 <button onclick="sendMessage()" class="px-10 bg-violet-600 hover:bg-violet-500 rounded-3xl font-semibold">发送</button>
             </div>
@@ -114,12 +114,18 @@
 
     <!-- 微信支付区 -->
     <div class="mt-16 glass rounded-3xl p-12 text-center border border-amber-400/50">
-        <h2 class="text-3xl font-bold text-amber-400 mb-6">🔓 支付后自动接收完整报告</h2>
+        <h2 class="text-3xl font-bold text-amber-400 mb-4">🔓 支付 ¥9.9 解锁完整深度报告</h2>
+        <p class="text-lg mb-8 text-purple-200">仅需9.9元，即可获得八字、大运、事业、感情、财运等完整分析报告</p>
+        
         <div onclick="simulatePayment()" class="inline-block bg-white p-6 rounded-3xl cursor-pointer hover:scale-105 transition-transform">
             <img src="weixin-pay.jpg" alt="微信支付二维码" class="w-64 h-64 mx-auto rounded-2xl shadow-2xl">
             <p class="mt-4 text-slate-800 font-medium">微信支付 · SUDA(**楠)</p>
         </div>
-        <button onclick="confirmPaymentAndSendReport()" class="mt-10 px-16 py-5 bg-green-600 hover:bg-green-500 rounded-3xl font-semibold text-lg">✅ 我已完成支付 · 立即接收完整报告</button>
+        
+        <button onclick="confirmPaymentAndSendReport()" 
+                class="mt-10 px-16 py-5 bg-green-600 hover:bg-green-500 rounded-3xl font-semibold text-lg">
+            ✅ 我已完成支付 · 立即接收完整报告
+        </button>
     </div>
 </div>
 
@@ -132,63 +138,86 @@ function saveUserInfo() {
     alert(`✅ ${userInfo.name} 的档案已保存！`);
 }
 
-// 初始化年月日时
+// 初始化日期选择器
 function initDateSelects() {
     const year = document.getElementById('year');
     for (let i = 1950; i <= 2026; i++) year.innerHTML += `<option value="${i}">${i}年</option>`;
-    
     const month = document.getElementById('month');
     for (let i = 1; i <= 12; i++) month.innerHTML += `<option value="${i}">${i}月</option>`;
-    
     const day = document.getElementById('day');
     for (let i = 1; i <= 31; i++) day.innerHTML += `<option value="${i}">${i}日</option>`;
-    
     const hour = document.getElementById('hour');
     for (let i = 0; i <= 23; i++) hour.innerHTML += `<option value="${i}">${i}时</option>`;
 }
 
-// 今日运势（更丰富）
+// 随机结果
+function getRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// 今日运势
 function dailyFortune() {
     if (!userInfo.name) return alert("请先保存档案");
-    const results = [
-        "今日运势大吉！贵人运极强，适合推进重要项目或表白。事业和财运同步上升，保持积极心态，好事自然来。",
-        "今日运势平稳向上。感情方面有温暖小惊喜，工作上需注意细节。建议多喝水，保持好心情。"
+    const texts = [
+        `今日 ${userInfo.name} 运势大吉！贵人运强，适合推进重要事项，容易获得帮助。`,
+        `今日 ${userInfo.name} 运势平稳向上，感情有温暖小惊喜，工作上细节决定成败。`,
+        `今日 ${userInfo.name} 整体顺遂，财运不错，但需避免冲动消费，保持好心情。`
     ];
-    document.getElementById('dailyResult').innerHTML = `<strong>${userInfo.name} 今日运势</strong><br><br>${results[Math.floor(Math.random()*results.length)]}`;
+    document.getElementById('dailyResult').innerHTML = `<strong>${getRandom(texts)}</strong>`;
 }
 
-// 易经（丰富版）
+// 易经
 function generateIChing() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('ichingResult').innerHTML = `<strong>【易经起卦】</strong><br><br>卦象：水风井卦<br>解读：当前如在井中，需耐心等待时机。坚持正道，贵人会逐渐出现。今年下半年运势明显提升。`;
+    const texts = [
+        `【${userInfo.name} 的易经卦象】\n\n卦象：水风井卦\n解读：当前需耐心等待，坚守正道，下半年运势将明显提升。`,
+        `【${userInfo.name} 的易经卦象】\n\n卦象：雷地豫卦\n解读：时机逐渐成熟，心情愉悦，适合主动把握机会。`
+    ];
+    document.getElementById('ichingResult').innerHTML = getRandom(texts);
 }
 
-// 星座+紫微（丰富版）
+// 星座+紫微
 function generateZodiac() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('zodiacResult').innerHTML = `<strong>【星座 + 紫微斗数】</strong><br><br>2026年你的主星高照，事业有突破机会。感情运平稳上升，财运中后期发力。建议多结交正能量朋友。`;
+    const texts = [
+        `【${userInfo.name} 的星座 + 紫微斗数】\n\n2026年主星高照，事业有突破机会，贵人运强。感情平稳，财运中后期发力。`,
+        `【${userInfo.name} 的星座 + 紫微斗数】\n\n今年人际关系明显改善，适合拓展圈子，机会自然会出现。`
+    ];
+    document.getElementById('zodiacResult').innerHTML = getRandom(texts);
 }
 
 // 塔罗
 function generateTarot() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('tarotResult').innerHTML = `<strong>【塔罗六爻阵】</strong><br><br>整体趋势向好，未来充满希望。当前需保持耐心，机会即将到来。`;
+    const texts = [
+        `【${userInfo.name} 的塔罗六牌阵】\n\n整体趋势向好，未来充满希望。目前的坚持会带来回报。`,
+        `【${userInfo.name} 的塔罗六牌阵】\n\n当前处于重要转折期，保持乐观，机会很快就会到来。`
+    ];
+    document.getElementById('tarotResult').innerHTML = getRandom(texts);
 }
 
 // 姓名五格
 function nameAnalysis() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('nameResult').innerHTML = `<strong>【${userInfo.name} 姓名五格数理】</strong><br><br>总格吉利，人格主领导力与创造力，适合从事管理、创意或销售相关工作。`;
+    const texts = [
+        `【${userInfo.name} 姓名五格数理】\n\n总格吉利，人格显示领导力与创造力，适合管理或创意类工作，发展潜力大。`,
+        `【${userInfo.name} 姓名五格数理】\n\n姓名数理外格和谐，人际关系良好，适合需要沟通协调的岗位。`
+    ];
+    document.getElementById('nameResult').innerHTML = getRandom(texts);
 }
 
-// 梦境解梦（丰富版）
+// 梦境解梦
 function dreamAnalysis() {
     if (!userInfo.name) return alert("请先保存档案");
     const dream = document.getElementById('dreamInput').value || "梦见飞翔";
-    document.getElementById('dreamResult').innerHTML = `<strong>【${userInfo.name} 的梦境解析】</strong><br><br>梦境：${dream}<br><br>解析：飞翔通常代表你内心渴望自由、突破或事业上升。近期可能有重要决定需要做出，建议相信直觉。`;
+    const texts = [
+        `【${userInfo.name} 的梦境解析】\n\n梦境：${dream}\n\n解析：这个梦境通常象征你内心渴望突破与自由，近期可能面临重要选择，建议相信直觉。`,
+        `【${userInfo.name} 的梦境解析】\n\n梦境：${dream}\n\n解析：潜意识在指引你向前，说明你正处于人生变化期，保持积极心态即可。`
+    ];
+    document.getElementById('dreamResult').innerHTML = getRandom(texts);
 }
 
-// AI聊天机器人（更自然）
+// AI聊天机器人
 function sendMessage() {
     const input = document.getElementById('chatInput');
     const msg = input.value.trim();
@@ -200,31 +229,40 @@ function sendMessage() {
     chat.scrollTop = chat.scrollHeight;
 
     setTimeout(() => {
-        let reply = "嗯，我理解你的问题。";
-        const q = msg.toLowerCase();
-        if (q.includes('创业') || q.includes('工作') || q.includes('事业')) reply = "今年你的贵人运很强，尤其是3-8月，适合考虑新的机会。但要提前做好准备，稳扎稳打会更好。";
-        else if (q.includes('感情') || q.includes('爱情') || q.includes('婚姻')) reply = "感情运势不错哦～单身的容易遇到靠谱的人，已有对象的感情会更稳定。关键是多沟通、真诚一点。";
-        else if (q.includes('财运') || q.includes('钱')) reply = "财运整体平稳，正财比较稳健，偏财方面下半年机会更多。建议不要冲动投资，先稳住当前再看。";
-        else reply = "根据你的命盘信息，今年整体运势是向上的。保持积极心态，多做让自己开心的事，好运会自然靠近你～";
-
+        const reply = getSmartAiReply(msg);
         chat.innerHTML += `<div class="ai-bubble chat-bubble"><strong>玄学AI大师：</strong><br>${reply}</div>`;
         chat.scrollTop = chat.scrollHeight;
     }, 800);
 }
 
+function getSmartAiReply(q) {
+    const question = q.toLowerCase();
+    if (question.includes('创业') || question.includes('事业') || question.includes('工作')) {
+        return "今年你的贵人运很旺，尤其是3-8月，适合考虑新的方向或转型。但建议提前做好准备，稳扎稳打会比盲目冲刺更好。你目前有什么具体的想法吗？";
+    }
+    if (question.includes('感情') || question.includes('爱情') || question.includes('婚姻')) {
+        return "感情运势处于上升阶段。单身的今年下半年遇到正缘的机会很大，已有伴侣的感情会更加稳定。关键是多沟通、真诚一些。";
+    }
+    if (question.includes('财运') || question.includes('钱') || question.includes('投资') || question.includes('买房')) {
+        return "正财比较稳定，偏财机会主要在下半年。投资或买房的话，建议下半年到明年是比较好的时机，先稳住当前再逐步扩展。";
+    }
+    return "从命盘来看，你今年整体运势是向好的。很多事情都在慢慢变好，保持积极心态，多做让自己开心的事，好运会越来越近～有什么其他问题也可以继续问我。";
+}
+
 // 支付
 function simulatePayment() {
-    alert("请扫描上方微信支付二维码完成支付（¥29.9）");
+    alert("请扫描微信支付二维码完成支付（¥9.9）");
 }
 
 function confirmPaymentAndSendReport() {
-    alert(`🎉 支付成功！\n\n${userInfo.name} 的完整玄学报告已自动生成！\n包含八字、大运、事业、感情、财运等详细分析。`);
+    alert(`🎉 支付成功！\n\n¥9.9 已到账\n\n${userInfo.name} 的完整玄学报告已自动生成！`);
 }
 
 // 初始化
 window.onload = () => {
     initDateSelects();
-    console.log('%c✅ 完整版已加载，所有问题已修复！', 'color:#22c55e; font-size:16px; font-weight:bold');
+    const chat = document.getElementById('chatWindow');
+    chat.innerHTML = `<div class="ai-bubble chat-bubble">你好！我是你的专属玄学AI大师。<br>有什么玄学或人生问题，尽管问我～</div>`;
 };
 </script>
 </body>
