@@ -4,19 +4,69 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>玄学分析平台 - 易经 / 星座 / 塔罗</title>
+
 <style>
-body{font-family:Arial;background:#0f172a;color:#e2e8f0;margin:0;padding:0;}
-header{padding:20px;text-align:center;background:#111827;}
-.container{max-width:900px;margin:0 auto;padding:20px;}
-.card{background:#1f2937;padding:20px;border-radius:12px;margin-bottom:20px;}
-input,select,button{padding:10px;margin:5px 0;width:100%;border-radius:8px;border:none;}
-button{background:#3b82f6;color:white;cursor:pointer;}
-button:hover{background:#2563eb;}
-.result{white-space:pre-wrap;background:#0b1220;padding:15px;border-radius:8px;margin-top:10px;}
-small{color:#94a3b8;}
+html, body{
+    margin:0;
+    padding:0;
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+header{
+    padding:20px;
+    text-align:center;
+    background:#111827;
+}
+
+.container{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px;
+}
+
+.card{
+    background:#1f2937;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+input,select,button{
+    padding:10px;
+    margin:5px 0;
+    width:100%;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2563eb;
+}
+
+.result{
+    white-space:pre-wrap;
+    background:#0b1220;
+    padding:15px;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+small{
+    color:#94a3b8;
+}
 </style>
 </head>
+
 <body>
+
 <header>
 <h1>AI玄学分析平台</h1>
 <small>易经 · 星座 · 塔罗牌 · 面相（规划中）</small>
@@ -24,6 +74,7 @@ small{color:#94a3b8;}
 
 <div class="container">
 
+<!-- 基础信息 -->
 <div class="card">
 <h2>基础信息</h2>
 <input id="name" placeholder="姓名" />
@@ -38,27 +89,31 @@ small{color:#94a3b8;}
 <button onclick="saveUser()">保存信息</button>
 </div>
 
+<!-- 易经 -->
 <div class="card">
 <h2>易经八字分析（付费200字）</h2>
 <button onclick="generateIChing()">生成分析</button>
 <div class="result" id="iching"></div>
 </div>
 
+<!-- 星座 -->
 <div class="card">
 <h2>星座分析（基础版）</h2>
 <button onclick="generateZodiac()">生成星座解析</button>
 <div class="result" id="zodiac"></div>
 </div>
 
+<!-- 塔罗 -->
 <div class="card">
 <h2>塔罗牌占卜（高级版）</h2>
 <button onclick="generateTarot()">抽取三张牌</button>
 <div class="result" id="tarot"></div>
 </div>
 
+<!-- 面相 -->
 <div class="card">
 <h2>面相分析（开发中）</h2>
-<p>未来可上传照片进行AI面相分析（眼睛/鼻子/额头/下巴结构）</p>
+<p>未来可上传照片进行AI面相分析</p>
 <input type="file" disabled />
 <small>功能规划：Vision AI + 五官评分系统</small>
 </div>
@@ -66,48 +121,61 @@ small{color:#94a3b8;}
 </div>
 
 <script>
-let user={};
+let user = {};
 
 function saveUser(){
-user.name=document.getElementById('name').value;
-user.birthYear=document.getElementById('birthYear').value;
-user.birthMonth=document.getElementById('birthMonth').value;
-user.birthDay=document.getElementById('birthDay').value;
-user.birthHour=document.getElementById('birthHour').value;
-user.gender=document.getElementById('gender').value;
-alert("信息已保存");
+    user.name = document.getElementById('name').value || "";
+    user.birthYear = document.getElementById('birthYear').value || "";
+    user.birthMonth = document.getElementById('birthMonth').value || "";
+    user.birthDay = document.getElementById('birthDay').value || "";
+    user.birthHour = document.getElementById('birthHour').value || "";
+    user.gender = document.getElementById('gender').value || "";
+    alert("信息已保存");
+    console.log("用户数据：", user);
 }
 
 function generateIChing(){
-if(!user.name){alert("请先填写信息");return;}
-const text=`【易经综合命理分析】\n姓名：${user.name}\n\n此命局五行流转偏向动态平衡，人生阶段呈现“先抑后扬”格局。早年多有环境变化与学习压力，但中后期运势逐渐稳定。\n\n事业方向适合：技术 / 贸易 / 信息流行业\n财运特点：偏财弱，正财稳，需长期积累\n感情趋势：晚熟型，重精神契合\n\n整体建议：避免短期投机，坚持长期主义路径发展。`;
-document.getElementById('iching').innerText=text;
+    if(!user.name){
+        alert("请先填写信息");
+        return;
+    }
+
+    const text = `【易经分析】\n姓名：${user.name}\n出生：${user.birthYear}-${user.birthMonth}-${user.birthDay} ${user.birthHour}时\n\n整体运势：人生呈现稳定上升趋势。\n事业建议：适合长期积累型行业。\n财运：稳中有升，忌短线投机。`;
+
+    document.getElementById('iching').innerText = text;
 }
 
 function generateZodiac(){
-if(!user.birthYear || !user.birthMonth || !user.birthDay){alert("请先填写出生年月日");return;}
-const zodiacs=["白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"];
-const idx=Math.floor(Math.random()*12);
-const text=`星座：${zodiacs[idx]}
+    if(!user.birthYear){
+        alert("请先填写出生信息");
+        return;
+    }
 
-出生信息：${user.birthYear}-${user.birthMonth}-${user.birthDay} 时辰${user.birthHour||"未知"}
+    const zodiacs = ["白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"];
+    const idx = Math.floor(Math.random()*12);
 
-近期能量：情绪波动较明显，但创造力增强。
-建议：适合做决策调整与人际关系修复。`;
-document.getElementById('zodiac').innerText=text;
-}
-const zodiacs=["白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"];
-const idx=Math.floor(Math.random()*12);
-const text=`星座：${zodiacs[idx]}\n\n近期能量：情绪波动较明显，但创造力增强。\n建议：适合做决策调整与人际关系修复。`;
-document.getElementById('zodiac').innerText=text;
+    const text = `星座：${zodiacs[idx]}\n出生：${user.birthYear}-${user.birthMonth}-${user.birthDay}\n\n近期运势：适合调整状态，避免冲动决策。`;
+
+    document.getElementById('zodiac').innerText = text;
 }
 
 function generateTarot(){
-const cards=["愚者","魔术师","女祭司","皇后","皇帝","教皇","恋人","战车","力量","隐士","命运之轮","正义","吊人","死神","节制","恶魔","塔","星星","月亮","太阳","审判","世界"];
-function draw(){return cards[Math.floor(Math.random()*cards.length)];}
-const result=`过去：${draw()}\n现在：${draw()}\n未来：${draw()}\n\n解读：当前处于转折期，需要理性判断与耐心等待机会。`;
-document.getElementById('tarot').innerText=result;
+    const cards = ["愚者","魔术师","女祭司","皇后","皇帝","教皇","恋人","战车","力量","隐士","命运之轮","正义","吊人","死神","节制","恶魔","塔","星星","月亮","太阳","审判","世界"];
+
+    function draw(){
+        return cards[Math.floor(Math.random()*cards.length)];
+    }
+
+    const text =
+`过去：${draw()}
+现在：${draw()}
+未来：${draw()}
+
+解读：当前处于变化期，建议保持耐心，不宜激进决策。`;
+
+    document.getElementById('tarot').innerText = text;
 }
+
 </script>
 
 </body>
