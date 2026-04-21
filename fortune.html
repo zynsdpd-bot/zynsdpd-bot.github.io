@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>玄学分析平台 - 易经 / 星座 / 塔罗</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玄学分析平台</title>
 
 <style>
-html, body{
+html,body{
     margin:0;
     padding:0;
-    font-family: Arial, sans-serif;
+    font-family:Arial;
     background:#0f172a;
     color:#e2e8f0;
 }
 
 header{
-    padding:20px;
     text-align:center;
+    padding:20px;
     background:#111827;
 }
 
@@ -29,16 +29,16 @@ header{
 .card{
     background:#1f2937;
     padding:20px;
-    border-radius:12px;
     margin-bottom:20px;
+    border-radius:12px;
 }
 
 input,select,button{
-    padding:10px;
-    margin:5px 0;
     width:100%;
-    border-radius:8px;
+    padding:10px;
+    margin-top:8px;
     border:none;
+    border-radius:8px;
 }
 
 button{
@@ -52,190 +52,142 @@ button:hover{
 }
 
 .result{
+    margin-top:10px;
     white-space:pre-wrap;
     background:#0b1220;
-    padding:15px;
+    padding:10px;
     border-radius:8px;
-    margin-top:10px;
-    line-height:1.6;
-}
-
-small{
-    color:#94a3b8;
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
 <h1>AI玄学分析平台</h1>
-<small>免费基础版：星座 / 塔罗 / 易经（增强解释）｜高级版：命理深度分析</small>
 </header>
 
 <div class="container">
 
+<!-- 基础信息 -->
 <div class="card">
 <h2>基础信息</h2>
-<input id="name" placeholder="姓名" />
-<input id="birthYear" placeholder="出生年（如1995）" />
-<input id="birthMonth" placeholder="出生月（1-12）" />
-<input id="birthDay" placeholder="出生日（1-31）" />
-<input id="birthHour" placeholder="出生时辰（0-23）" />
+<input id="name" placeholder="姓名">
+<input id="year" placeholder="出生年">
+<input id="month" placeholder="月">
+<input id="day" placeholder="日">
+<input id="hour" placeholder="时辰">
 <select id="gender">
 <option>男</option>
 <option>女</option>
 </select>
-<button onclick="saveUser()">保存信息</button>
+<button onclick="saveUser()">保存</button>
+</div>
+
+<!-- 免费模块 -->
+<div class="card">
+<h2>星座分析</h2>
+<button onclick="zodiac()">生成星座</button>
+<div id="zodiac" class="result"></div>
 </div>
 
 <div class="card">
-<h2>易经八字分析（免费增强版）</h2>
-<button onclick="generateIChing()">生成分析</button>
-<div class="result" id="iching"></div>
+<h2>塔罗牌</h2>
+<button onclick="tarot()">抽牌</button>
+<div id="tarot" class="result"></div>
+</div>
+
+<!-- 付费模块 -->
+<div class="card">
+<h2>八字深度分析（¥19.9）</h2>
+<button onclick="unlock('bazi')">解锁</button>
+<div id="bazi" class="result"></div>
 </div>
 
 <div class="card">
-<h2>星座分析（详细免费版）</h2>
-<button onclick="generateZodiac()">生成星座解析</button>
-<div class="result" id="zodiac"></div>
+<h2>感情分析（¥9.9）</h2>
+<button onclick="unlock('love')">解锁</button>
+<div id="love" class="result"></div>
 </div>
 
 <div class="card">
-<h2>塔罗牌占卜（免费三张牌）</h2>
-<button onclick="generateTarot()">抽取三张牌</button>
-<div class="result" id="tarot"></div>
-</div>
-<div class="card">
-<h2>🔒 八字深度分析（付费解锁）</h2>
-<button onclick="unlock('bazi')">解锁 ¥19.9</button>
-<div class="result" id="bazi"></div>
-</div>
-
-<div class="card">
-<h2>🔒 感情婚姻分析（付费解锁）</h2>
-<button onclick="unlock('love')">解锁 ¥9.9</button>
-<div class="result" id="love"></div>
-</div>
-
-<div class="card">
-<h2>🔒 财运预测（付费解锁）</h2>
-<button onclick="unlock('money')">解锁 ¥9.9</button>
-<div class="result" id="money"></div>
-</div>
-<div class="card">
-<h2>面相分析（开发中）</h2>
-<p>未来可上传照片进行AI面相分析</p>
-<input type="file" disabled />
-<small>功能规划：Vision AI + 五官评分系统</small>
+<h2>财运分析（¥9.9）</h2>
+<button onclick="unlock('money')">解锁</button>
+<div id="money" class="result"></div>
 </div>
 
 </div>
 
 <script>
+
 let user = {};
 
 function saveUser(){
-    user.name = document.getElementById('name').value || "";
-    user.birthYear = document.getElementById('birthYear').value || "";
-    user.birthMonth = document.getElementById('birthMonth').value || "";
-    user.birthDay = document.getElementById('birthDay').value || "";
-    user.birthHour = document.getElementById('birthHour').value || "";
-    user.gender = document.getElementById('gender').value || "";
-    alert("信息已保存");
+    user.name = document.getElementById("name").value;
+    user.year = document.getElementById("year").value;
+    user.month = document.getElementById("month").value;
+    user.day = document.getElementById("day").value;
+    user.hour = document.getElementById("hour").value;
+    user.gender = document.getElementById("gender").value;
+    alert("已保存");
 }
 
-function getZodiac(month, day){
-    month = parseInt(month);
-    day = parseInt(day);
+/* 星座 */
+function zodiac(){
+    const m = parseInt(user.month);
+    const d = parseInt(user.day);
 
-    if((month==1 && day<=19) || (month==12 && day>=22)) return "摩羯座";
-    if((month==1 && day>=20) || (month==2 && day<=18)) return "水瓶座";
-    if((month==2 && day>=19) || (month==3 && day<=20)) return "双鱼座";
-    if((month==3 && day>=21) || (month==4 && day<=19)) return "白羊座";
-    if((month==4 && day>=20) || (month==5 && day<=20)) return "金牛座";
-    if((month==5 && day>=21) || (month==6 && day<=21)) return "双子座";
-    if((month==6 && day>=22) || (month==7 && day<=22)) return "巨蟹座";
-    if((month==7 && day>=23) || (month==8 && day<=22)) return "狮子座";
-    if((month==8 && day>=23) || (month==9 && day<=22)) return "处女座";
-    if((month==9 && day>=23) || (month==10 && day<=23)) return "天秤座";
-    if((month==10 && day>=24) || (month==11 && day<=22)) return "天蝎座";
-    return "射手座";
+    let z = "";
+
+    if((m==1&&d<=19)||(m==12&&d>=22)) z="摩羯座";
+    else if((m==1&&d>=20)||(m==2&&d<=18)) z="水瓶座";
+    else if((m==2&&d>=19)||(m==3&&d<=20)) z="双鱼座";
+    else z="其他星座";
+
+    document.getElementById("zodiac").innerText = "你的星座：" + z;
 }
 
-function generateIChing(){
-    if(!user.name){alert("请先填写信息");return;}
+/* 塔罗 */
+function tarot(){
+    let cards=["愚者","魔术师","恋人","太阳","月亮"];
+    let r=()=>cards[Math.floor(Math.random()*cards.length)];
 
-    const text = `【免费易经基础解析】\n
-姓名：${user.name}\n出生：${user.birthYear}-${user.birthMonth}-${user.birthDay} ${user.birthHour}时\n性别：${user.gender}\n\n【整体气场】\n你的命理气场呈现“稳中带动”的结构，属于前期积累型发展路径。\n\n【事业方向】\n适合稳定型行业：技术、贸易、运营、管理类岗位。\n\n【财富趋势】\n偏向正财积累型，不宜高频投机，但长期收益稳定。\n\n【人生建议】\n减少短期冲动决策，坚持长期规划更容易获得突破。`;
-
-    document.getElementById('iching').innerText = text;
+    document.getElementById("tarot").innerText =
+    `过去:${r()}\n现在:${r()}\n未来:${r()}`;
 }
 
-function generateZodiac(){
-    if(!user.birthYear || !user.birthMonth || !user.birthDay){alert("请先填写出生信息");return;}
-
-    const zodiac = getZodiac(user.birthMonth, user.birthDay);
-
-    const text = `【星座详细解析 - 免费版】\n
-你的星座：${zodiac}\n出生日期：${user.birthYear}-${user.birthMonth}-${user.birthDay}\n\n【性格特征】\n该星座通常具备较强的自我驱动力与阶段性情绪波动特征，需要通过目标感来稳定状态。\n\n【情感倾向】\n倾向慢热型关系，更看重安全感与长期稳定性。\n\n【事业建议】\n适合有成长空间的环境，而非短期高压竞争型岗位。\n\n【近期状态建议】\n当前阶段建议减少情绪化决策，多做结构性规划。`;
-
-    document.getElementById('zodiac').innerText = text;
-}
-
-function generateTarot(){
-    const cards = ["愚者","魔术师","女祭司","皇后","皇帝","教皇","恋人","战车","力量","隐士","命运之轮","正义","吊人","死神","节制","恶魔","塔","星星","月亮","太阳","审判","世界"];
-
-    function draw(){
-        return cards[Math.floor(Math.random()*cards.length)];
-    }
-
-    const c1 = draw();
-    const c2 = draw();
-    const c3 = draw();
-
-    const text = `【塔罗三牌解读 - 免费版】\n
-过去：${c1}\n现在：${c2}\n未来：${c3}\n\n【综合解读】\n当前处于“变化与选择并存”的阶段，建议保持理性判断，不宜冲动行动。\n\n【能量提示】\n过去影响正在减弱，现在是关键决策窗口期，未来存在明显方向分化。`;
-
-    document.getElementById('tarot').innerText = text;
-}
-
-</script>
-let paid = {
-    bazi:false,
-    love:false,
-    money:false
-};
-
+/* 付费模拟 */
 function unlock(type){
 
-    const ok = confirm("模拟支付成功？点击确定解锁内容");
-
-    if(!ok) return;
-
-    paid[type] = true;
-
-    if(type === "bazi"){
-        document.getElementById("bazi").innerText =
-`【八字深度分析】
-五行结构：偏土旺
-性格：稳重但保守
-建议：适合长期行业`;
+    if(!user.name){
+        alert("请先保存信息");
+        return;
     }
 
-    if(type === "love"){
+    if(type=="bazi"){
+        document.getElementById("bazi").innerText =
+`八字分析：
+性格稳重，适合长期发展
+事业建议：稳定行业更佳`;
+    }
+
+    if(type=="love"){
         document.getElementById("love").innerText =
-`【感情分析】
-慢热型感情结构
+`感情分析：
+慢热型感情
 适合稳定关系`;
     }
 
-    if(type === "money"){
+    if(type=="money"){
         document.getElementById("money").innerText =
-`【财运分析】
-正财稳定，偏财弱
-适合长期积累`;
+`财运分析：
+正财稳定
+不宜高风险投资`;
     }
 }
+
+</script>
+
 </body>
 </html>
