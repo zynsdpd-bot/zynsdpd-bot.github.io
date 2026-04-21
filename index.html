@@ -1,36 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>运势测算中心</title>
-<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune AI 玄学系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans SC', system-ui, sans-serif; }
+        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); }
+    </style>
 </head>
+<body class="bg-[#0f172a] text-slate-200 min-h-screen">
 
-<body class="bg-black text-white text-center p-10">
+<header class="bg-gradient-to-r from-purple-900 via-indigo-900 to-violet-900 py-12 text-center">
+    <h1 class="text-5xl font-bold">🔮 Fortune AI 玄学系统</h1>
+    <p class="text-purple-300 mt-3 text-xl">支付 ¥9.9 后自动查看完整报告</p>
+</header>
 
-<h1 class="text-4xl font-bold mb-6">🔮 运势测算中心</h1>
+<div class="max-w-6xl mx-auto p-6">
 
-<p class="mb-10 text-gray-300">
-免费测算今日运势（限时开放）
-</p>
+    <!-- 用户档案（简略） -->
+    <div class="glass rounded-3xl p-8 mb-12">
+        <h2 class="text-2xl font-semibold mb-6">您的专属玄学档案</h2>
+        <input id="name" type="text" placeholder="请输入您的姓名" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 mb-6">
+        <button onclick="saveUserInfo()" class="w-full py-5 bg-gradient-to-r from-purple-600 to-violet-600 rounded-3xl font-semibold text-xl">保存姓名</button>
+    </div>
 
-<div class="space-y-6">
-
-<a href="fortune.html"
-class="block bg-purple-600 p-6 rounded-xl text-xl">
-👉 立即测算运势
-</a>
-
-<a href="chat.html"
-class="block bg-blue-600 p-6 rounded-xl text-xl">
-🤖 AI聊天测算（更精准）
-</a>
-
+    <!-- 支付区 -->
+    <div class="glass rounded-3xl p-12 text-center border border-amber-400/50">
+        <h2 class="text-3xl font-bold text-amber-400 mb-4">支付 ¥9.9 解锁完整报告</h2>
+        <p class="mb-8">支付成功后将自动跳转到报告页面</p>
+        
+        <div onclick="simulatePayment()" class="inline-block bg-white p-6 rounded-3xl cursor-pointer hover:scale-105 transition-transform">
+            <img src="weixin-pay.jpg" alt="微信支付二维码" class="w-64 h-64 mx-auto rounded-2xl shadow-2xl">
+            <p class="mt-4 text-slate-800 font-medium">微信支付 · SUDA(**楠)</p>
+        </div>
+        
+        <button onclick="goToSuccess()" 
+                class="mt-10 px-16 py-5 bg-green-600 hover:bg-green-500 rounded-3xl font-semibold text-lg">
+            ✅ 我已完成支付 · 跳转查看报告
+        </button>
+    </div>
 </div>
 
-<p class="mt-10 text-gray-500 text-sm">
-每日仅开放100个名额
-</p>
+<script>
+let userInfo = { name: "贵客" };
 
+function saveUserInfo() {
+    userInfo.name = document.getElementById('name').value.trim() || "贵客";
+    alert(`✅ ${userInfo.name} 的档案已保存！`);
+}
+
+function simulatePayment() {
+    alert("请扫描上方微信支付二维码完成支付 ¥9.9");
+}
+
+function goToSuccess() {
+    // 跳转到 success.html，并传递姓名
+    const name = userInfo.name || "贵客";
+    window.location.href = `success.html?name=${encodeURIComponent(name)}`;
+}
+</script>
 </body>
 </html>
