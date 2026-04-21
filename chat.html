@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI运势分析助手</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white flex justify-center">
+
+<div class="w-full max-w-md p-4">
+
+<h1 class="text-2xl text-center mb-4">🔮 AI运势分析</h1>
+
+<div id="chatBox" class="bg-gray-900 p-4 rounded h-[400px] overflow-y-auto space-y-2"></div>
+
+<input id="input" placeholder="输入内容..."
+class="w-full p-3 mt-3 text-black rounded">
+
+<button onclick="send()" 
+class="bg-purple-600 mt-2 px-4 py-3 rounded w-full">
+发送
+</button>
+
+</div>
+
+<script>
+
+let step = 0;
+let user = {};
+
+function addMsg(text, isUser=false){
+  let div = document.createElement("div");
+  div.className = isUser ? "text-right text-white" : "text-left text-green-400";
+  div.innerText = text;
+  document.getElementById("chatBox").appendChild(div);
+  document.getElementById("chatBox").scrollTop = 9999;
+}
+
+function send(){
+  let val = document.getElementById("input").value.trim();
+  if(!val) return;
+
+  addMsg(val, true);
+  document.getElementById("input").value = "";
+
+  setTimeout(()=>reply(val),500);
+}
+
+// 初始欢迎
+window.onload = function(){
+  addMsg("你好，我是你的专属运势分析助手 🔮");
+  addMsg("请输入你的姓名（可选）");
+};
+
+function reply(val){
+
+  if(step === 0){
+    user.name = val || "你";
+    addMsg("请选择性别（男/女）");
+    step++;
+  }
+
+  else if(step === 1){
+    user.gender = val;
+    addMsg("请输入你的年龄");
+    step++;
+  }
+
+  else if(step === 2){
+    user.age = val;
+    addMsg("你的婚姻状态？（单身 / 恋爱中 / 已婚）");
+    step++;
+  }
+
+  else if(step === 3){
+    user.marriage = val;
+
+    addMsg("正在分析中，请稍等...");
+    
+    setTimeout(()=>{
+      generateResult();
+    },1200);
+
+    step++;
+  }
+
+  else if(step === 4){
+    if(val.includes("看") || val.includes("要")){
+      showPay();
+    }else{
+      addMsg("👉 输入“查看”即可获取完整运势分析");
+    }
+  }
+}
+
+function generateResult(){
+
+  let name = user.name || "你";
+  let gender = user.gender || "";
+  let age = user.age || "";
+
+  let scoreList = ["78（中上）📈","65（波动）⚠️","88（大吉）🔥","72（平稳）🙂"];
+  let score = scoreList[Math.floor(Math.random()*scoreList.length)];
+
+  let ageHint = "";
+  if(age < 25){
+    ageHint = "你正处在人生起步阶段，变化较多";
+  }else if(age < 35){
+    ageHint = "你目前处于事业关键发展期";
+  }else{
+    ageHint = "你当前处于稳定与突破并存阶段";
+  }
+
+  let moneyList = [
+    "近期有偏财机会，但需谨慎判断",
+    "财运稳定，适合保守理财",
+    "有小额进账机会",
+    "注意支出，避免冲动消费"
+  ];
+
+  let careerList = [
+    "工作中可能出现新的机会",
+    "近期压力较大，但有突破空间",
+    "适合主动争取机会",
+    "需注意人际关系变化"
+  ];
+
+  let love = "";
+  if(user.marriage.includes("单身")){
+    love = "近期有桃花出现，但需要主动把握";
+  }else if(user.marriage.includes("恋爱")){
+    love = "关系有升温趋势，但需要沟通";
+  }else{
+    love = "整体稳定，但需避免小矛盾";
+  }
+
+  addMsg(name + "（" + gender + "，" + age + "岁）");
+  addMsg("运势评分：" + score);
+
+  addMsg("【总体】" + ageHint);
+  addMsg("【财运】" + moneyList[Math.floor(Math.random()*moneyList.length)]);
+  addMsg("【事业】" + careerList[Math.floor(Math.random()*careerList.length)]);
+  addMsg("【感情】" + love);
+
+  addMsg("⚠️ 检测到你近期有一个关键机会节点（很多人会错过）");
+  addMsg("👉 完整分析已生成，是否查看？（输入：查看）");
+}
+
+function showPay(){
+
+  addMsg("🔒 完整版运势已生成");
+
+  addMsg("✔ 财运详细解析");
+  addMsg("✔ 事业发展趋势");
+  addMsg("✔ 感情走向判断");
+  addMsg("✔ 未来关键机会提醒");
+
+  addMsg("🔥 原价29.9 → 今日仅需 9.9元");
+
+  let img = document.createElement("img");
+  img.src = "weixin-pay.jpg";
+  img.style.width = "150px";
+  img.style.marginTop = "10px";
+
+  document.getElementById("chatBox").appendChild(img);
+
+  addMsg("👉 扫码支付后截图，加微信获取完整报告");
+}
+
+</script>
+
+</body>
+</html>
