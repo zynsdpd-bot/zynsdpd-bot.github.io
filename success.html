@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付成功 - 您的完整玄学报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans SC', system-ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-slate-200 min-h-screen py-12">
+
+<div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-10">
+        <h1 class="text-5xl font-bold text-emerald-400">✅ 支付成功</h1>
+        <p class="text-xl mt-4">感谢您的信任，以下是您的专属完整玄学报告</p>
+    </div>
+
+    <div class="bg-gradient-to-br from-slate-900 to-zinc-900 rounded-3xl p-10 leading-relaxed text-lg">
+        <div id="report"></div>
+    </div>
+
+    <div class="text-center mt-10">
+        <button onclick="window.location.href='index.html'" 
+                class="px-10 py-4 bg-purple-600 hover:bg-purple-500 rounded-3xl font-semibold">
+            返回首页
+        </button>
+    </div>
+</div>
+
+<script>
+// 获取姓名
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name') || "贵客";
+
+// 随机但丰富的报告
+const reports = [
+    `尊敬的 ${name}：<br><br>
+    您的2026年八字显示：事业运极强，贵人不断出现。3-7月是重要转折期，适合大胆行动或跳槽。<br><br>
+    财运：正财稳定，偏财有惊喜，建议下半年可适当投资。<br><br>
+    感情：桃花运旺，单身者易遇正缘，已婚者感情升温。<br><br>
+    建议：多佩戴紫水晶，保持积极心态，好运将持续。`,
+
+    `尊敬的 ${name}：<br><br>
+    紫微斗数显示您今年主星高照，人际关系大幅改善。事业上会有领导或贵人提携。<br><br>
+    感情方面：下半年机会最大，保持真诚即可。<br><br>
+    财运中上，适合稳健型理财。<br><br>
+    祝您2026年心想事成，万事顺遂！`
+];
+
+document.getElementById('report').innerHTML = reports[Math.floor(Math.random() * reports.length)];
+</script>
+</body>
+</html>
