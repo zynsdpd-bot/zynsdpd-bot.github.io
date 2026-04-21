@@ -174,13 +174,29 @@ function requireUser(){
 })();
 
 function saveUser(){
-    user.name=name.value;
-    user.year=year.value;
-    user.month=month.value;
-    user.day=day.value;
-    user.hour=hour.value;
-    user.gender=gender.value;
-    alert("信息已保存");
+
+    window.onload = function(){
+
+    let y=document.getElementById("year");
+    let m=document.getElementById("month");
+    let d=document.getElementById("day");
+    let h=document.getElementById("hour");
+
+    for(let i=1950;i<=2026;i++){
+        y.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    for(let i=1;i<=12;i++){
+        m.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    for(let i=1;i<=31;i++){
+        d.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    for(let i=0;i<=23;i++){
+        h.innerHTML += `<option value="${i}">${i}</option>`;
+    }
 }
 
 function getZodiac(m,d){
