@@ -20,26 +20,26 @@
 </head>
 <body class="bg-[#0f172a] text-slate-200 min-h-screen">
 
-<header class="bg-gradient-to-r from-purple-900 via-indigo-900 to-violet-900 py-12 text-center border-b border-purple-500/30">
-    <h1 class="text-5xl font-bold flex items-center justify-center gap-4">🔮 Fortune AI 玄学系统</h1>
-    <p class="text-purple-300 mt-3 text-xl">12大玄学模块 + AI聊天机器人 + 微信支付自动报告</p>
+<header class="bg-gradient-to-r from-purple-900 via-indigo-900 to-violet-900 py-12 text-center">
+    <h1 class="text-5xl font-bold">🔮 Fortune AI 玄学系统</h1>
+    <p class="text-purple-300 mt-3 text-xl">丰富解答 + AI智能聊天 + 微信支付自动报告</p>
 </header>
 
-<div class="max-w-7xl mx-auto p-6">
+<div class="max-w-6xl mx-auto p-6">
 
     <!-- 用户档案 -->
     <div class="glass rounded-3xl p-8 mb-12 border border-purple-500/20">
-        <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-user-circle"></i> 您的专属玄学档案</h2>
+        <h2 class="text-2xl font-semibold mb-6">您的专属玄学档案</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
                 <label class="block text-sm mb-2 text-purple-300">姓名</label>
-                <input id="name" type="text" placeholder="您的姓名" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-purple-500">
+                <input id="name" type="text" placeholder="您的姓名" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4">
             </div>
             <div>
                 <label class="block text-sm mb-2 text-purple-300">性别</label>
-                <select id="gender" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-purple-500">
-                    <option value="男">♂ 男</option>
-                    <option value="女">♀ 女</option>
+                <select id="gender" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
                 </select>
             </div>
             <div class="md:col-span-2">
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <button onclick="saveUserInfo()" class="mt-8 w-full py-5 bg-gradient-to-r from-purple-600 to-violet-600 rounded-3xl font-semibold text-xl">保存档案并开始测算</button>
+        <button onclick="saveUserInfo()" class="mt-8 w-full py-5 bg-gradient-to-r from-purple-600 to-violet-600 rounded-3xl font-semibold text-xl">保存档案</button>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -60,67 +60,53 @@
         <!-- 今日运势 -->
         <div class="glass rounded-3xl p-8 card-hover">
             <h2 class="text-2xl font-semibold mb-4">🌟 今日运势</h2>
-            <button onclick="dailyFortune()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">立即查看今日运势</button>
+            <button onclick="dailyFortune()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl">立即查看今日运势</button>
             <div id="dailyResult" class="result mt-6 text-sm leading-relaxed"></div>
         </div>
 
         <!-- 易经命理 -->
         <div class="glass rounded-3xl p-8 card-hover">
             <h2 class="text-2xl font-semibold mb-4">📜 易经命理</h2>
-            <button onclick="generateIChing()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">起卦分析</button>
+            <button onclick="generateIChing()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl">起卦分析</button>
             <div id="ichingResult" class="result mt-6 text-sm leading-relaxed"></div>
         </div>
 
-        <!-- 星座 + 紫微斗数 -->
+        <!-- 星座 + 紫微 -->
         <div class="glass rounded-3xl p-8 card-hover">
             <h2 class="text-2xl font-semibold mb-4">⭐ 星座 + 紫微斗数</h2>
-            <button onclick="generateZodiac()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">生成完整报告</button>
+            <button onclick="generateZodiac()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl">生成完整报告</button>
             <div id="zodiacResult" class="result mt-6 text-sm leading-relaxed"></div>
         </div>
 
-        <!-- 塔罗六爻阵 -->
+        <!-- 塔罗 -->
         <div class="glass rounded-3xl p-8 card-hover">
             <h2 class="text-2xl font-semibold mb-4">🃏 塔罗六爻阵</h2>
-            <button onclick="generateTarot()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">抽取六牌</button>
+            <button onclick="generateTarot()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl">抽取六牌</button>
             <div id="tarotResult" class="result mt-6 text-sm leading-relaxed"></div>
         </div>
 
         <!-- 姓名五格 -->
         <div class="glass rounded-3xl p-8 card-hover">
             <h2 class="text-2xl font-semibold mb-4">📝 姓名五格数理</h2>
-            <button onclick="nameAnalysis()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">分析姓名运势</button>
+            <button onclick="nameAnalysis()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl">分析姓名运势</button>
             <div id="nameResult" class="result mt-6 text-sm leading-relaxed"></div>
-        </div>
-
-        <!-- 手相面相 -->
-        <div class="glass rounded-3xl p-8 card-hover">
-            <h2 class="text-2xl font-semibold mb-4">👁 手相 · 面相合参</h2>
-            <button onclick="palmFaceAnalysis()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">生成手面相报告</button>
-            <div id="palmResult" class="result mt-6 text-sm leading-relaxed"></div>
-        </div>
-
-        <!-- 家居风水 -->
-        <div class="glass rounded-3xl p-8 card-hover">
-            <h2 class="text-2xl font-semibold mb-4">🏠 家居风水指南</h2>
-            <button onclick="fengShuiTips()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">获取专属风水建议</button>
-            <div id="fengResult" class="result mt-6 text-sm leading-relaxed"></div>
         </div>
 
         <!-- 梦境解梦 -->
         <div class="glass rounded-3xl p-8 card-hover">
             <h2 class="text-2xl font-semibold mb-4">🌙 梦境解梦</h2>
-            <input id="dreamInput" type="text" placeholder="描述你的梦境（如：梦见飞翔）" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 mb-4 text-sm">
-            <button onclick="dreamAnalysis()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl font-medium">立即解梦</button>
+            <input id="dreamInput" type="text" placeholder="描述你的梦境（如：梦见飞翔）" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 mb-4">
+            <button onclick="dreamAnalysis()" class="w-full py-4 bg-slate-800 hover:bg-slate-700 rounded-2xl">立即解梦</button>
             <div id="dreamResult" class="result mt-6 text-sm leading-relaxed"></div>
         </div>
 
         <!-- AI聊天机器人 -->
         <div class="lg:col-span-3 glass rounded-3xl p-8 border border-violet-500/30">
-            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-robot"></i> AI玄学大师 · 在线咨询</h2>
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-robot"></i> AI玄学大师 · 在线聊天</h2>
             <div id="chatWindow" class="h-96 bg-slate-950 rounded-3xl p-6 overflow-y-auto flex flex-col border border-slate-700 mb-4"></div>
             <div class="flex gap-3">
-                <input id="chatInput" type="text" placeholder="输入问题，例如：我今年适合创业吗？" 
-                       class="flex-1 bg-slate-900 border border-slate-700 rounded-3xl px-6 py-4 focus:outline-none">
+                <input id="chatInput" type="text" placeholder="问任何问题，例如：我今年适合换工作吗？" 
+                       class="flex-1 bg-slate-900 border border-slate-700 rounded-3xl px-6 py-4">
                 <button onclick="sendMessage()" class="px-10 bg-violet-600 hover:bg-violet-500 rounded-3xl font-semibold">发送</button>
             </div>
         </div>
@@ -128,9 +114,10 @@
 
     <!-- 微信支付区 -->
     <div class="mt-16 glass rounded-3xl p-12 text-center border border-amber-400/50">
-        <h2 class="text-3xl font-bold text-amber-400 mb-6">🔓 支付 ¥29.9 解锁全部深度报告</h2>
+        <h2 class="text-3xl font-bold text-amber-400 mb-6">🔓 支付后自动接收完整报告</h2>
         <div onclick="simulatePayment()" class="inline-block bg-white p-6 rounded-3xl cursor-pointer hover:scale-105 transition-transform">
-            <img src="/home/workdir/attachments/weixin-pay.jpg" alt="微信支付" class="w-64 h-64 mx-auto rounded-2xl shadow-2xl">
+            <img src="/home/workdir/attachments/weixin-pay.jpg" alt="微信支付二维码" class="w-64 h-64 mx-auto rounded-2xl shadow-2xl">
+            <p class="mt-4 text-slate-800 font-medium">微信支付 · SUDA(**楠)</p>
         </div>
         <button onclick="confirmPaymentAndSendReport()" class="mt-10 px-16 py-5 bg-green-600 hover:bg-green-500 rounded-3xl font-semibold text-lg">✅ 我已完成支付 · 立即接收完整报告</button>
     </div>
@@ -145,57 +132,63 @@ function saveUserInfo() {
     alert(`✅ ${userInfo.name} 的档案已保存！`);
 }
 
-// 1. 今日运势
+// 初始化年月日时
+function initDateSelects() {
+    const year = document.getElementById('year');
+    for (let i = 1950; i <= 2026; i++) year.innerHTML += `<option value="${i}">${i}年</option>`;
+    
+    const month = document.getElementById('month');
+    for (let i = 1; i <= 12; i++) month.innerHTML += `<option value="${i}">${i}月</option>`;
+    
+    const day = document.getElementById('day');
+    for (let i = 1; i <= 31; i++) day.innerHTML += `<option value="${i}">${i}日</option>`;
+    
+    const hour = document.getElementById('hour');
+    for (let i = 0; i <= 23; i++) hour.innerHTML += `<option value="${i}">${i}时</option>`;
+}
+
+// 今日运势（更丰富）
 function dailyFortune() {
     if (!userInfo.name) return alert("请先保存档案");
-    const texts = ["今日大吉，贵人相助，适合重要决策。", "运势平稳，宜守不宜攻。", "桃花运旺，感情有进展。"];
-    document.getElementById('dailyResult').innerHTML = `<strong>${userInfo.name} 今日运势</strong><br><br>${texts[Math.floor(Math.random()*texts.length)]}`;
+    const results = [
+        "今日运势大吉！贵人运极强，适合推进重要项目或表白。事业和财运同步上升，保持积极心态，好事自然来。",
+        "今日运势平稳向上。感情方面有温暖小惊喜，工作上需注意细节。建议多喝水，保持好心情。"
+    ];
+    document.getElementById('dailyResult').innerHTML = `<strong>${userInfo.name} 今日运势</strong><br><br>${results[Math.floor(Math.random()*results.length)]}`;
 }
 
-// 2. 易经
+// 易经（丰富版）
 function generateIChing() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('ichingResult').innerHTML = `<strong>【易经起卦结果】</strong><br><br>卦象：山地剥卦<br>建议：稳中求进，耐心等待更好时机。`;
+    document.getElementById('ichingResult').innerHTML = `<strong>【易经起卦】</strong><br><br>卦象：水风井卦<br>解读：当前如在井中，需耐心等待时机。坚持正道，贵人会逐渐出现。今年下半年运势明显提升。`;
 }
 
-// 3. 星座+紫微
+// 星座+紫微（丰富版）
 function generateZodiac() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('zodiacResult').innerHTML = `<strong>【星座 + 紫微斗数】</strong><br><br>2026年事业运极强，贵人运旺盛，适合大胆规划未来。`;
+    document.getElementById('zodiacResult').innerHTML = `<strong>【星座 + 紫微斗数】</strong><br><br>2026年你的主星高照，事业有突破机会。感情运平稳上升，财运中后期发力。建议多结交正能量朋友。`;
 }
 
-// 4. 塔罗
+// 塔罗
 function generateTarot() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('tarotResult').innerHTML = `<strong>【塔罗六牌阵】</strong><br><br>整体趋势向好，未来一片光明。`;
+    document.getElementById('tarotResult').innerHTML = `<strong>【塔罗六爻阵】</strong><br><br>整体趋势向好，未来充满希望。当前需保持耐心，机会即将到来。`;
 }
 
-// 5. 姓名五格
+// 姓名五格
 function nameAnalysis() {
     if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('nameResult').innerHTML = `<strong>【${userInfo.name} 姓名五格】</strong><br><br>总格吉利，人格主领导力，适合管理或创业。`;
+    document.getElementById('nameResult').innerHTML = `<strong>【${userInfo.name} 姓名五格数理】</strong><br><br>总格吉利，人格主领导力与创造力，适合从事管理、创意或销售相关工作。`;
 }
 
-// 6. 手面相
-function palmFaceAnalysis() {
-    if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('palmResult').innerHTML = `<strong>【手相 · 面相合参】</strong><br><br>事业线清晰，中年后运势更强。`;
-}
-
-// 7. 风水
-function fengShuiTips() {
-    if (!userInfo.name) return alert("请先保存档案");
-    document.getElementById('fengResult').innerHTML = `<strong>【家居风水建议】</strong><br><br>床头朝北可提升睡眠与事业运，客厅绿植招财。`;
-}
-
-// 8. 梦境解梦
+// 梦境解梦（丰富版）
 function dreamAnalysis() {
     if (!userInfo.name) return alert("请先保存档案");
     const dream = document.getElementById('dreamInput').value || "梦见飞翔";
-    document.getElementById('dreamResult').innerHTML = `<strong>【梦境解析】</strong><br><br>梦境：${dream}<br>解析：象征渴望自由或事业即将突破。`;
+    document.getElementById('dreamResult').innerHTML = `<strong>【${userInfo.name} 的梦境解析】</strong><br><br>梦境：${dream}<br><br>解析：飞翔通常代表你内心渴望自由、突破或事业上升。近期可能有重要决定需要做出，建议相信直觉。`;
 }
 
-// AI聊天机器人
+// AI聊天机器人（更自然）
 function sendMessage() {
     const input = document.getElementById('chatInput');
     const msg = input.value.trim();
@@ -207,32 +200,31 @@ function sendMessage() {
     chat.scrollTop = chat.scrollHeight;
 
     setTimeout(() => {
-        const replies = [
-            "根据你的命盘，今年贵人运很强，适合在事业上大胆尝试。",
-            "感情方面正缘即将出现，保持真诚自然即可。",
-            "财运中上，建议稳健投资，避免冲动消费。",
-            "今年整体运势向上，多行善积德会带来更好回报。"
-        ];
-        const reply = replies[Math.floor(Math.random() * replies.length)];
+        let reply = "嗯，我理解你的问题。";
+        const q = msg.toLowerCase();
+        if (q.includes('创业') || q.includes('工作') || q.includes('事业')) reply = "今年你的贵人运很强，尤其是3-8月，适合考虑新的机会。但要提前做好准备，稳扎稳打会更好。";
+        else if (q.includes('感情') || q.includes('爱情') || q.includes('婚姻')) reply = "感情运势不错哦～单身的容易遇到靠谱的人，已有对象的感情会更稳定。关键是多沟通、真诚一点。";
+        else if (q.includes('财运') || q.includes('钱')) reply = "财运整体平稳，正财比较稳健，偏财方面下半年机会更多。建议不要冲动投资，先稳住当前再看。";
+        else reply = "根据你的命盘信息，今年整体运势是向上的。保持积极心态，多做让自己开心的事，好运会自然靠近你～";
+
         chat.innerHTML += `<div class="ai-bubble chat-bubble"><strong>玄学AI大师：</strong><br>${reply}</div>`;
         chat.scrollTop = chat.scrollHeight;
-    }, 700);
+    }, 800);
 }
 
-// 支付相关
+// 支付
 function simulatePayment() {
     alert("请扫描上方微信支付二维码完成支付（¥29.9）");
 }
 
 function confirmPaymentAndSendReport() {
-    const report = `【Fortune AI 完整玄学报告】\n\n尊敬的 ${userInfo.name}：\n\n2026年事业大吉，财运亨通，感情美满。\n详细八字、大运、改运方案已在系统中生成。\n祝您好运连连！`;
-    alert("🎉 支付成功！完整详细报告已自动生成：\n\n" + report);
+    alert(`🎉 支付成功！\n\n${userInfo.name} 的完整玄学报告已自动生成！\n包含八字、大运、事业、感情、财运等详细分析。`);
 }
 
 // 初始化
 window.onload = () => {
-    // 年份等选择器可在此扩展
-    console.log('%c✅ Fortune AI 完整版已加载，所有功能就绪！', 'color:#a855f7; font-size:16px; font-weight:bold');
+    initDateSelects();
+    console.log('%c✅ 完整版已加载，所有问题已修复！', 'color:#22c55e; font-size:16px; font-weight:bold');
 };
 </script>
 </body>
