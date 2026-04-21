@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>支付成功 - 您的完整玄学报告</title>
+    <title>支付成功 - 您的专属完整玄学报告</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
@@ -12,20 +12,20 @@
 </head>
 <body class="bg-[#0a0a0a] text-slate-200 min-h-screen py-12">
 
-<div class="max-w-3xl mx-auto px-6">
-    <div class="text-center mb-10">
-        <h1 class="text-5xl font-bold text-emerald-400">✅ 支付成功</h1>
-        <p class="text-xl mt-4">感谢您的信任，以下是您的专属完整玄学报告</p>
+<div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12">
+        <h1 class="text-5xl font-bold text-emerald-400 mb-4">✅ 支付成功</h1>
+        <p class="text-2xl">感谢您的信任，以下是为您量身定制的专属完整玄学报告</p>
     </div>
 
-    <div class="bg-gradient-to-br from-slate-900 to-zinc-900 rounded-3xl p-10 leading-relaxed text-lg">
-        <div id="report"></div>
+    <div class="bg-gradient-to-br from-zinc-900 to-slate-900 rounded-3xl p-10 text-lg leading-relaxed border border-amber-400/30">
+        <div id="report" class="space-y-12"></div>
     </div>
 
-    <div class="text-center mt-10">
+    <div class="text-center mt-12">
         <button onclick="window.location.href='index.html'" 
-                class="px-10 py-4 bg-purple-600 hover:bg-purple-500 rounded-3xl font-semibold">
-            返回首页
+                class="px-12 py-5 bg-purple-600 hover:bg-purple-500 rounded-3xl font-semibold text-lg">
+            ← 返回首页
         </button>
     </div>
 </div>
@@ -35,22 +35,63 @@
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name') || "贵客";
 
-// 随机但丰富的报告
-const reports = [
-    `尊敬的 ${name}：<br><br>
-    您的2026年八字显示：事业运极强，贵人不断出现。3-7月是重要转折期，适合大胆行动或跳槽。<br><br>
-    财运：正财稳定，偏财有惊喜，建议下半年可适当投资。<br><br>
-    感情：桃花运旺，单身者易遇正缘，已婚者感情升温。<br><br>
-    建议：多佩戴紫水晶，保持积极心态，好运将持续。`,
+const reportHTML = `
+    <h2 class="text-3xl font-bold text-amber-400 mb-10 text-center">【${name} 专属完整玄学报告】</h2>
+    
+    <div>
+        <h3 class="text-xl font-semibold text-purple-400 mb-4">一、八字命盘总览</h3>
+        <p>您的出生信息显示命局以${['金','木','水','火','土'][Math.floor(Math.random()*5)]}为主，日主中和偏旺。2026-2035年正处于大运上升期，整体运势明显提升，是人生重要的转运阶段。</p>
+    </div>
 
-    `尊敬的 ${name}：<br><br>
-    紫微斗数显示您今年主星高照，人际关系大幅改善。事业上会有领导或贵人提携。<br><br>
-    感情方面：下半年机会最大，保持真诚即可。<br><br>
-    财运中上，适合稳健型理财。<br><br>
-    祝您2026年心想事成，万事顺遂！`
-];
+    <div>
+        <h3 class="text-xl font-semibold text-purple-400 mb-4">二、2026全年运势详解</h3>
+        <ul class="list-disc pl-6 space-y-4">
+            <li><strong>事业运：</strong>★★★★★ 贵人运极强，有领导或前辈提携。3月、7月、10月为关键发力月，适合跳槽、创业或争取晋升。</li>
+            <li><strong>财运：</strong>★★★★☆ 正财稳定可靠，偏财有意外惊喜机会。下半年财运更旺，建议适当增加理财配置。</li>
+            <li><strong>感情运：</strong>★★★★☆ 单身者下半年桃花运旺盛，易遇靠谱正缘；已有伴侣者感情会逐渐升温，沟通是关键。</li>
+            <li><strong>健康运：</strong>★★★☆☆ 注意工作压力和肝火，建议规律作息、多运动、保持心情舒畅。</li>
+        </ul>
+    </div>
 
-document.getElementById('report').innerHTML = reports[Math.floor(Math.random() * reports.length)];
+    <div>
+        <h3 class="text-xl font-semibold text-purple-400 mb-4">三、事业与财运具体指导</h3>
+        <p>最有利发展方向包括科技、互联网、金融、教育、贸易或销售相关领域。<br>
+        2026年是您事业上升的重要一年，建议抓住年中机会大胆行动，但要提前做好准备和风险控制。<br>
+        投资方面以稳健型为主，避免高杠杆和高风险项目。</p>
+    </div>
+
+    <div>
+        <h3 class="text-xl font-semibold text-purple-400 mb-4">四、感情婚姻详细分析</h3>
+        <p>桃花指数：${85 + Math.floor(Math.random()*14)}分<br>
+        单身者：下半年是重要桃花期，容易遇到成熟稳重、有责任心的人。<br>
+        已婚/有伴侣者：感情会更加稳定，建议多陪伴、多沟通，共同规划未来。<br>
+        结婚吉时参考：2026年下半年至2027年上半年。</p>
+    </div>
+
+    <div>
+        <h3 class="text-xl font-semibold text-purple-400 mb-4">五、改运实用方法（强烈建议执行）</h3>
+        <ul class="list-disc pl-6 space-y-3">
+            <li>随身佩戴紫水晶或貔貅，可显著增强正能量和贵人运</li>
+            <li>卧室床头尽量朝北，提升睡眠质量与事业运</li>
+            <li>每天早起5-10分钟冥想或深呼吸，保持心境平和</li>
+            <li>多穿紫色、红色、黑色衣物，有助于提升整体运势</li>
+            <li>多行善积德，定期帮助他人，会带来意想不到的好运</li>
+        </ul>
+    </div>
+
+    <div>
+        <h3 class="text-xl font-semibold text-purple-400 mb-4">六、特别提醒与祝福</h3>
+        <p>2026年对您来说是人生重要的转运之年。只要保持积极乐观的心态，多结善缘，坚持执行以上建议，事业、财运、感情都会有明显改善。</p>
+        <p class="text-amber-400 mt-6">祝 ${name} 2026年好运连连，事业爱情双丰收，家庭幸福美满，万事如意！</p>
+    </div>
+
+    <div class="text-center text-sm text-slate-400 mt-16 border-t border-slate-700 pt-8">
+        报告生成时间：${new Date().toLocaleString('zh-CN')}<br>
+        本报告仅供娱乐参考，祝您一切顺利！
+    </div>
+`;
+
+document.getElementById('report').innerHTML = reportHTML;
 </script>
 </body>
 </html>
