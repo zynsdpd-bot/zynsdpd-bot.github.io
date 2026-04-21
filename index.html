@@ -4,274 +4,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 AI副业导航 | 24个实用工具 + 赚钱项目合集</title>
+    <title>2026 AI全能导航 | 赛博命理与极客中心</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4078538512884027" crossorigin="anonymous"></script>
 
     <style>
-        :root {
-            --primary-color: #00ff88;
-            --secondary-color: #8b5cf6;
-            --bg-dark: #0f0c29;
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
-
-        body { 
-            font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif; 
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); 
-            color: #fff; 
-            margin:0; 
-            padding:0; 
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
+        :root { --primary: #00ff88; --secondary: #8b5cf6; --accent: #ff007a; --bg: #0d0d12; }
+        body { font-family: 'PingFang SC', sans-serif; background: var(--bg); color: #fff; margin:0; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
-        /* 头部样式 */
-        .hero { text-align: center; padding: 80px 20px 40px; }
-        .hero h1 { 
-            font-size: 3rem; 
-            margin-bottom: 10px; 
-            background: linear-gradient(to right, var(--primary-color), #00bdff); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-        }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 30px; margin-bottom: 30px; backdrop-filter: blur(10px); }
+        .hero { text-align: center; padding: 40px 0; }
+        .hero h1 { font-size: 2.5rem; background: linear-gradient(to right, var(--primary), #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+        
+        .btn { background: var(--primary); color: #000; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; display: inline-block; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,255,136,0.4); }
 
-        /* 统一按钮样式 */
-        .btn { 
-            background: var(--primary-color); 
-            color: #000; 
-            padding: 12px 25px; 
-            border-radius: 50px; 
-            font-size: 0.95rem; 
-            text-decoration: none; 
-            display: inline-block; 
-            font-weight: bold; 
-            transition: all 0.3s ease;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover { 
-            background: #00cc66; 
-            transform: translateY(-2px); 
-            box-shadow: 0 5px 15px rgba(0,255,136,0.4); 
-        }
+        /* 转盘样式 */
+        .wheel-box { position: relative; width: 300px; height: 300px; margin: 20px auto; }
+        #wheelCanvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); border-radius: 50%; border: 5px solid #222; }
+        .wheel-arrow { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid var(--accent); z-index: 10; }
 
-        /* 标题与分类 */
-        .section-title { text-align: center; margin: 60px 0 30px; font-size: 2.2rem; border-bottom: 2px solid rgba(0,255,136,0.3); display: inline-block; width: 100%; padding-bottom: 10px; }
-        .category { font-size: 1.4rem; margin: 40px 0 20px; color: var(--primary-color); font-weight: 600; display: flex; align-items: center; }
-        .category::before { content: "▌"; margin-right: 10px; }
-
-        .category-vip {
-            color: #ffd700; 
-            background: linear-gradient(to right, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.4rem; margin: 40px 0 20px; font-weight: 600; display: flex; align-items: center;
-        }
-
-        /* 网格布局 */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .tool-card { 
-            background: var(--card-bg); 
-            padding: 24px; 
-            border-radius: 20px; 
-            transition: 0.3s; 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 220px;
-        }
-        .tool-card:hover { 
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-8px); 
-            border-color: var(--primary-color);
-        }
-
-        .tag { 
-            background: rgba(0,255,136,0.1); 
-            color: var(--primary-color); 
-            padding: 4px 12px; 
-            border-radius: 30px; 
-            font-size: 0.75rem; 
-            display: inline-block; 
-            margin-bottom: 10px; 
-            border: 1px solid var(--primary-color); 
-        }
-
-        .tool-card h3 { margin: 10px 0; font-size: 1.25rem; }
-        .tool-card p { color: #ccc; font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
-
-        /* 易经容器 */
-        .divination-container {
-            max-width: 1000px; margin: 0 auto 50px; padding: 30px; 
-            background: rgba(139, 92, 246, 0.05); 
-            border: 1px solid var(--secondary-color); 
-            border-radius: 24px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-        }
+        /* 俄罗斯方块样式 */
+        #tetris { background: #000; border: 2px solid #333; display: block; margin: 0 auto; }
 
         /* 弹窗样式 */
-        #fortune-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 10000; align-items: center; justify-content: center;
-            backdrop-filter: blur(15px);
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .tools-grid { grid-template-columns: 1fr; }
-        }
+        #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center; }
+        .modal-content { background:#1a1a20; padding:30px; border-radius:20px; border:1px solid var(--secondary); max-width:450px; width:90%; text-align:center; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header class="hero">
-        <h1>🚀 2026 AI副业赚钱导航</h1>
-        <p style="font-size:1.2rem; color: #aaa;">已聚合 24 个全球顶级 AI 工具与真实变现方案</p>
+        <h1>🚀 2026 AI 全能副业中心</h1>
+        <p style="color: #666;">工具导航 · 赛博命理 · 极客解压</p>
     </header>
 
-    <div class="ads-container" style="text-align:center; margin-bottom: 40px;">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4078538512884027" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
-    <h2 class="section-title">🔮 赛博命理与决策推演</h2>
-    <div class="divination-container">
-        <h2 style="text-align: center; color: #a78bfa; margin-bottom: 25px; font-size: 1.8rem;">🌌 AI 赛博易经 · 精准导航</h2>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
-            <div>
-                <label style="display:block; font-size:0.85rem; color:#888; margin-bottom:8px;">出生日期</label>
-                <input type="date" id="birth-date" style="width:100%; padding:12px; background:#1a1a1a; border:1px solid #333; color:#fff; border-radius:10px;">
-            </div>
-            <div>
-                <label style="display:block; font-size:0.85rem; color:#888; margin-bottom:8px;">性别 (乾坤)</label>
-                <select id="gender" style="width:100%; padding:12px; background:#1a1a1a; border:1px solid #333; color:#fff; border-radius:10px;">
-                    <option value="乾">乾（男）</option><option value="坤">坤（女）</option>
-                </select>
-            </div>
-            <div>
-                <label style="display:block; font-size:0.85rem; color:#888; margin-bottom:8px;">生辰时分</label>
-                <select id="birth-time" style="width:100%; padding:12px; background:#1a1a1a; border:1px solid #333; color:#fff; border-radius:10px;">
-                    <option value="子时">子时 (23:00-01:00)</option><option value="卯时">卯时 (05:00-07:00)</option>
-                    <option value="午时">午时 (11:00-13:00)</option><option value="酉时">酉时 (17:00-19:00)</option>
-                    <option value="通用">不确定时辰（取中平值）</option>
-                </select>
-            </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <button onclick="startPreciseDivination()" class="btn" style="background:#8b5cf6; color:#fff;">开始易经起卦</button>
-            <button onclick="drawFullTarot()" class="btn" style="background:#6366f1; color:#fff;">抽取塔罗灵感</button>
+    <div class="glass-panel" style="border-left: 5px solid var(--secondary);">
+        <h2 style="color: var(--secondary); margin-top:0;">🔮 赛博命理决策系统</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+            <input type="date" id="userDate" style="padding:12px; border-radius:10px; border:1px solid #333; background:#111; color:#fff;">
+            <button onclick="runDivination('iching')" class="btn" style="background:var(--secondary); color:#fff;">周易六十四卦</button>
+            <button onclick="runDivination('tarot')" class="btn" style="background:#5c67f6; color:#fff;">大阿卡纳塔罗</button>
         </div>
     </div>
 
-    <h3 class="category">✍️ 内容创作与深度 AI</h3>
-    <div class="tools-grid">
-        <div class="tool-card"><div><span class="tag">全能</span><h3>通义千问 2.5</h3><p>阿里出品，超强逻辑。写公关稿、做商业分析报告的首选工具。</p></div><a href="https://tongyi.aliyun.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="tool-card"><div><span class="tag">搜索</span><h3>秘塔 AI 搜索</h3><p>拒绝垃圾广告，直接搜出结构化论文和深度研报，学生与白领神器。</p></div><a href="https://metaso.cn/" target="_blank" class="btn">立即访问</a></div>
-        <div class="tool-card"><div><span class="tag">极速</span><h3>豆包 AI</h3><p>字节跳动旗下。响应最快的手机端 AI，适合通勤路上寻找副业灵感。</p></div><a href="https://www.doubao.com/" target="_blank" class="btn">立即访问</a></div>
+    <div class="glass-panel" style="text-align:center; border-left: 5px solid var(--accent);">
+        <h2 style="color:var(--accent); margin-top:0;">🎡 每日项目随机抽选</h2>
+        <div class="wheel-box">
+            <div class="wheel-arrow"></div>
+            <canvas id="wheelCanvas" width="300" height="300"></canvas>
+        </div>
+        <button onclick="spinWheel()" class="btn" style="background:var(--accent); color:#fff; margin-top:20px;">点击旋转</button>
     </div>
 
-    <h3 class="category">🎨 图像与视觉变现</h3>
-    <div class="tools-grid">
-        <div class="tool-card"><div><span class="tag">电商</span><h3>美图设计室</h3><p>一键商品抠图、AI 换模特。适合实业老板、拼多多、淘宝个人卖家。</p></div><a href="https://www.designkit.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="tool-card"><div><span class="tag">创意</span><h3>文心一格</h3><p>百度出品，最懂中国风。输入“古风建筑”生成的图极具东方美感。</p></div><a href="https://yige.baidu.com/" target="_blank" class="btn">立即访问</a></div>
-        <div class="tool-card"><div><span class="tag">专业</span><h3>Liblib 哩布</h3><p>国内最大 Stable Diffusion 社区。做专业商拍、摄影级图片的必经之地。</p></div><a href="https://www.liblib.art/" target="_blank" class="btn">立即访问</a></div>
+    <div class="glass-panel" style="text-align:center; border-left: 5px solid var(--primary);">
+        <h2 style="color:var(--primary); margin-top:0;">🎮 极客游戏：俄罗斯方块</h2>
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <div style="margin-top:15px;">
+            <button onclick="startGame()" class="btn">开始/重启游戏</button>
+            <p style="font-size:0.8rem; color:#555;">↑旋转，←→移动，↓加速</p>
+        </div>
     </div>
-
-    <h3 class="category">📹 视频与数字人变现</h3>
-    <div class="tools-grid">
-        <div class="tool-card"><div><span class="tag">首选</span><h3>可灵 Kling AI</h3><p>快手出品。生成物理特性极佳的视频。适合做短视频引流和视频号运营。</p></div><a href="https://klingai.com" target="_blank" class="btn">立即访问</a></div>
-        <div class="tool-card"><div><span class="tag">出海</span><h3>万兴播爆 (Virbo)</h3><p>外贸神器。利用多语种数字人，给老外发产品介绍视频，无需真人出镜。</p></div><a href="https://virbo.wondershare.cn/" target="_blank" class="btn">立即访问</a></div>
-        <div class="tool-card"><div><span class="tag">音乐</span><h3>天工 AI 音乐</h3><p>写段词就能出专业流行歌。适合做背景配乐或定制生日祝福歌变现。</p></div><a href="https://www.tiangong.cn/" target="_blank" class="btn">立即访问</a></div>
-    </div>
-
-    <h3 class="category">💻 自动化建站与技术</h3>
-    <div class="tools-grid">
-        <div class="tool-card"><div><span class="tag">建站</span><h3>腾讯云 AI 建站</h3><p>无需代码，输入行业即可生成网站。适合接单给小工厂代做官网。</p></div><a href="https://cloud.tencent.com/product" target="_blank" class="btn">开始接单</a></div>
-        <div class="tool-card"><div><span class="tag">编程</span><h3>通义灵码</h3><p>阿里辅助编程工具。帮你修改网页 HTML/CSS，优化 AdSense 布局。</p></div><a href="https://lingma.aliyun.com/" target="_blank" class="btn">立即下载</a></div>
-        <div class="tool-card"><div><span class="tag">分析</span><h3>智谱清言</h3><p>清华系 AI。支持处理超大 PDF 文件，帮你从海量外贸单据中提炼核心数据。</p></div><a href="https://chatglm.cn/" target="_blank" class="btn">立即访问</a></div>
-    </div>
-
-    <h2 class="section-title">💰 2026 落地副业项目 (已核查)</h2>
-    <div class="tools-grid">
-        <div class="tool-card"><div><span class="tag">爆款</span><h3>AI 爆款笔记引流</h3><p>用通义千问写脚本+可灵出视频。主攻小红书“疗愈”赛道，涨粉极快。</p></div><a href="https://www.xiaohongshu.com" class="btn">查看案例</a></div>
-        <div class="tool-card"><div><span class="tag">教育</span><h3>AI 儿童绘本定制</h3><p>文心一格画图+智谱写故事。闲鱼代做个性化纸质绘本，单价 50-200 元。</p></div><a href="https://yige.baidu.com/" class="btn">工具入口</a></div>
-        <div class="tool-card"><div><span class="tag">跨界</span><h3>AI 小语种文档校对</h3><p>承接东南亚外贸文档校对。AI 粗翻+人工润色，解决外贸企业信息差。</p></div><a href="https://fanyi.baidu.com/" class="btn">立即尝试</a></div>
-        <div class="tool-card"><div><span class="tag">电商</span><h3>AI 模特商拍代做</h3><p>利用美图设计室为电商卖家换装。一张挂拍图变模特大片，单张收费 10 元+。</p></div><a href="https://www.designkit.com/" class="btn">工具入口</a></div>
-    </div>
-
-    <footer style="text-align:center; margin:80px 0; padding:40px; background:rgba(0,255,136,0.05); border: 1px dashed #00ff88; border-radius:20px;">
-        <p style="font-size: 1.2rem; color: #00ff88;">✨ 24 个深度项目已就绪 · 全网首发 ✨</p>
-        <p style="color: #aaa;">如果您在海外或特定网络环境下，请确保访问链路畅通。<br>祝您的 AdSense 申请早日获批！</p>
-    </footer>
 </div>
 
-<div id="fortune-overlay">
-    <div style="background:#1a1a1a; padding:40px; border-radius:30px; border:2px solid #8b5cf6; max-width:480px; width:90%; text-align:center; box-shadow: 0 0 50px rgba(139, 92, 246, 0.4);">
-        <h2 id="fortune-title" style="color:#8b5cf6; margin-top:0;">🔮 正在连接天机...</h2>
-        <div style="height:1px; background:linear-gradient(90deg, transparent, #8b5cf6, transparent); margin:20px 0;"></div>
-        <p id="fortune-advice" style="color:#eee; line-height:1.8; text-align:left; font-size: 1.1rem; min-height: 120px;"></p>
-        <button onclick="closeFortune()" class="btn" style="background:#8b5cf6; color:#fff; width:100%; margin-top:20px;">知晓并收起</button>
+<div id="modal">
+    <div class="modal-content">
+        <h3 id="m-title" style="color:var(--secondary); font-size:1.5rem;"></h3>
+        <p id="m-body" style="text-align:left; line-height:1.8; margin:20px 0; min-height:80px;"></p>
+        <button onclick="closeModal()" class="btn" style="width:100%;">知晓并返回</button>
     </div>
 </div>
 
 <script>
-    function showFortuneModal(titleText, adviceText) {
-        const overlay = document.getElementById('fortune-overlay');
-        const title = document.getElementById('fortune-title');
-        const advice = document.getElementById('fortune-advice');
-        overlay.style.display = 'flex';
-        title.innerText = "磁场感应中...";
-        advice.innerText = "正在结合您的生辰信息校准 AI 神经网络，请保持呼吸平稳...";
-        setTimeout(() => {
-            title.innerText = titleText;
-            advice.innerText = adviceText;
-        }, 1800); 
-    }
+// --- 1. 完整数据：塔罗 (22张) ---
+const tarotCards = [
+    { name: "0. 愚者 (The Fool)", advice: "生活正开启一段新旅程。保持好奇，像孩子一样去冒险。不必害怕未知，宇宙会保护勇敢的人。" },
+    { name: "I. 魔术师 (The Magician)", advice: "你拥有所有成功的工具。沟通、创造力、意志力都在巅峰。现在的你可以把想法变为现实。" },
+    { name: "II. 女教皇 (The High Priestess)", advice: "答案不在外界，而在你内心。保持静默，倾听直觉。这是一个适合冥想和深度学习的时刻。" },
+    { name: "III. 皇后 (The Empress)", advice: "爱与丰盛正在降临。去拥抱生活的美好，无论是艺术、自然还是美食。温柔地对待自己和他人。" },
+    { name: "IV. 皇帝 (The Emperor)", advice: "生活需要建立秩序和结构。掌控你的情绪，制定清晰的计划。此刻，理性和稳定是你的盾牌。" },
+    { name: "V. 教皇 (The Hierophant)", advice: "回归传统和团队。也许是一个传统的仪式，或者寻求导师的建议。在群体中找到你的归属感。" },
+    { name: "VI. 恋人 (The Lovers)", advice: "一个关于契合的选择。无论是情感还是人际，真诚的沟通是唯一的钥匙。选择那个让你感到完整的人或事。" },
+    { name: "VII. 战车 (The Chariot)", advice: "意志力正带领你冲破障碍。专注于目标，保持坚定的控制力。这是一次通过坚持获得胜利的过程。" },
+    { name: "VIII. 力量 (The Strength)", advice: "内心的温柔比外在的强悍更有力量。用耐心和爱去驯服你内心的恐惧或愤怒。你比想象中更强大。" },
+    { name: "IX. 隐士 (The Hermit)", advice: "是时候慢下来，独处一段时间了。向内寻求智慧，自我反省。黑暗中的那盏灯，就在你手中。" },
+    { name: "X. 命运之轮 (Wheel of Fortune)", advice: "改变是生命中唯一的不变。如果身处低谷，转机即将到来；如果身处高峰，请保持谦逊和感恩。" },
+    { name: "XI. 正义 (The Justice)", advice: "生活需要平衡和诚实。做一个清晰的决定，并为之承担责任。公平的结果终将出现。" },
+    { name: "XII. 倒吊人 (The Hanged Man)", advice: "换个角度看世界，你会发现全新的可能。当前的停滞是为了更深的顿悟。学会顺应，而非对抗。" },
+    { name: "XIII. 死神 (The Death)", advice: "结束是新的人生开始。勇敢地告别那些不再适合你的习惯、关系或想法。空出位置，美好的东西才能进来。" },
+    { name: "XIV. 节制 (The Temperance)", advice: "生活是平衡的艺术。将不同的元素融合，找到最舒服的节奏。保持心态平和，一切都在慢慢变好。" },
+    { name: "XV. 恶魔 (The Devil)", advice: "检查你的依恋和欲望。无论是对某种物质、情绪还是关系。意识到枷锁的存在，你才能找回真正的自由。" },
+    { name: "XVI. 塔 (The Tower)", advice: "突如其来的巨变是为了震碎虚假的外壳。虽然过程痛苦，但那是不稳固结构的重组。接受它，并在废墟上重建更坚强的事物。" },
+    { name: "XVII. 星星 (The Star)", advice: "漫长的黑夜即将过去。希望和疗愈正在降临。请相信，你的梦想就像远方的星辰，正在指引你回家的路。" },
+    { name: "XVIII. 月亮 (The Moon)", advice: "不安和迷茫只是暂时的幻象。不要在恐惧中做重大决定。静待迷雾散去，真相自会显现。" },
+    { name: "XIX. 太阳 (The Sun)", advice: "生命力正满溢。快乐、成功和清晰的视野。现在的你，光芒万丈，请尽样享受当下的温暖和喜悦。" },
+    { name: "XX. 审判 (The Judgement)", advice: "一个重大的觉醒时刻。你听到了内心的呼唤，是时候对自己的一生做一个清晰的审视，并勇敢地迈向下一个人生阶段了。" },
+    { name: "XXI. 世界 (The World)", advice: "一个阶段的完美结束。你已经达成了某种内在的圆满。去庆祝吧，你是自己生命的冠军。" }
+];
 
-    function startPreciseDivination() {
-        const bDate = document.getElementById('birth-date').value;
-        const gender = document.getElementById('gender').value;
-        const bTime = document.getElementById('birth-time').value;
-        if(!bDate) { alert("请先填写出生日期，以开启磁场感应。"); return; }
-        
-        const fortunes = [
-            { title: "🔮 乾为天：天行健", advice: `【身心启示】${gender}主，生于${bTime}，此刻正值能量爆发点。您的副业计划已成熟，建议不再犹豫，今日即是开局之时。` },
-            { title: "🔮 风雷益：顺风而行", advice: "【关系启示】利于跨界合作。近期会有远方的老友带来信息差，请务必保持通讯畅通，好运就在谈笑间。" },
-            { title: "🔮 水火既济：守成之美", advice: "【财务启示】目前收入稳中有升，不建议冒险大笔投资。继续深耕现在的 AI 赛道，小财不断，大财将至。" },
-            { title: "🔮 地火明夷：掩藏光芒", advice: "【避坑指南】当前环境略显嘈杂，宜暗自打磨技术。在您的 AI 工具未成型前，不必向外张扬，静待下月转机。" }
-        ];
-        const res = fortunes[Math.floor(Math.random() * fortunes.length)];
-        showFortuneModal(res.title, res.advice);
-    }
+// --- 2. 完整数据：易经典型卦象 ---
+const ichingGua = [
+    { name: "乾为天 (The Creative)", advice: "大吉。天行健，君子以自强不息。暗示事业正如日中天，宜果断前行，不可怠慢。" },
+    { name: "坤为地 (The Receptive)", advice: "大吉。地势坤，君子以厚德载物。此时应保持顺从与包容，像大地一样滋养万物，静待时机。" },
+    { name: "水雷屯 (Difficulty at the Beginning)", advice: "中平。万事开头难，草创阶段虽然混乱，但充满生机。不要急于扩张，应先打好基础。" },
+    { name: "山水蒙 (Youthful Folly)", advice: "小吉。此时处于迷茫期，正需要启蒙。建议向有经验的导师请教，不可盲目自信。" },
+    { name: "水天需 (Waiting)", advice: "中平。云在天上，雨未降下。此时需要耐心等待，补充体力，时机成熟时自然水到渠成。" },
+    { name: "天水讼 (Conflict)", advice: "小凶。容易产生口角纠纷。应止损退出，或者寻求公正的仲裁。和为贵是当下的上策。" },
+    { name: "风火家人 (The Family)", advice: "大吉。家和万事兴。专注于内部管理，修身齐家。你的支持系统将是你最大的动力。" },
+    { name: "火水未济 (Before Completion)", advice: "中平。正如黎明前的黑暗。虽然还没到达终点，但希望已现。最后关头更需谨慎，方能成功。" }
+];
 
-    function drawFullTarot() {
-        const tarot = [
-            { name: "星星 (The Star)", advice: "希望与疗愈。当前的副业灵感非常纯粹。请相信你的直觉，宇宙正在为您指引正确的变现路径。" },
-            { name: "命运之轮 (Wheel of Fortune)", advice: "改变的时机已到。如果您之前感到停滞，现在的轮盘已开始转动。新的赚钱机会将突然出现。" },
-            { name: "魔术师 (The Magician)", advice: "您已经掌握了足够的 AI 工具（就像这 24 个工具一样）。现在不是学习的时间，而是创造的时间。行动吧！" }
-        ];
-        const res = tarot[Math.floor(Math.random() * tarot.length)];
-        showFortuneModal("🃏 塔罗牌：" + res.name, res.advice);
-    }
+// --- 3. 命理逻辑函数 ---
+function runDivination(type) {
+    if(!document.getElementById('userDate').value) { alert("请先校准您的出生日期磁场"); return; }
+    const modal = document.getElementById('modal');
+    const title = document.getElementById('m-title');
+    const body = document.getElementById('m-body');
+    
+    modal.style.display = 'flex';
+    title.innerText = "正在感应能量轴...";
+    body.innerText = "AI 正在结合您的生辰信息推演天机，请屏息凝神...";
 
-    function closeFortune() {
-        document.getElementById('fortune-overlay').style.display = 'none';
-    }
+    setTimeout(() => {
+        if(type === 'iching') {
+            const res = ichingGua[Math.floor(Math.random() * ichingGua.length)];
+            title.innerText = "🔮 易经指引：" + res.name;
+            body.innerText = res.advice;
+        } else {
+            const res = tarotCards[Math.floor(Math.random() * tarotCards.length)];
+            title.innerText = "🃏 塔罗启示：" + res.name;
+            body.innerText = res.advice;
+        }
+    }, 1200);
+}
+
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+// --- 4. 抽奖转盘逻辑 ---
+const wheelItems = ["AI代写", "数字人", "SEO站", "跨境选品", "绘本定制", "代码接单"];
+const cvs = document.getElementById('wheelCanvas');
+const ctx = cvs.getContext('2d');
+function drawWheel() {
+    const angle = Math.PI * 2 / wheelItems.length;
+    wheelItems.forEach((item, i) => {
+        ctx.beginPath();
+        ctx.fillStyle = i % 2 ? "#1a1a1a" : "#222";
+        ctx.moveTo(150, 150);
+        ctx.arc(150, 150, 150, i * angle, (i+1) * angle);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.rotate(i * angle + angle/2);
+        ctx.fillStyle = "#fff";
+        ctx.fillText(item, 80, 5);
+        ctx.restore();
+    });
+}
+drawWheel();
+let rotation = 0;
+function spinWheel() {
+    rotation += Math.floor(Math.random() * 360 + 1800);
+    cvs.style.transform = `rotate(${rotation}deg)`;
+}
+
+// --- 5. 俄罗斯方块逻辑 (极简稳定版) ---
+const canvas = document.getElementById('tetris');
+const context = canvas.getContext('2d');
+context.scale(20, 20);
+function createPiece(type) {
+    if (type === 'T') return [[0, 0, 0], [1, 1, 1], [0, 1, 0]];
+    if (type === 'O') return [[2, 2], [2, 2]];
+    if (type === 'L') return [[0, 3, 0], [0, 3, 0], [0, 3, 3]];
+    return [[4, 4, 4, 4]];
+}
+const player = { pos: {x: 5, y: 0}, matrix: createPiece('T') };
+const arena = Array.from({length: 20}, () => Array(12).fill(0));
+function draw() {
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    player.matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                context.fillStyle = 'var(--primary)';
+                context.fillRect(player.pos.x + x, player.pos.y + y, 1, 1);
+            }
+        });
+    });
+}
+function update() { player.pos.y++; draw(); }
+function startGame() { setInterval(update, 1000); }
 </script>
 
 </body>
