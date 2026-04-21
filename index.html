@@ -382,56 +382,49 @@
 </div>
     </div>
     <script>
-function drawFortune() {
-    const fortunes = [
-        { title: "乾为天：大吉", advice: "天行健，君子以自强不息。当前事业动力充足，适合全力出击，开拓海外新市场。" },
-        { title: "地火明夷：守势", advice: "宜敛锋芒。当前环境复杂，建议在硅胶订单处理上多加细心，等待最佳时机再扩产。" },
-        { title: "水雷屯：积蓄", advice: "万事开头难。新项目处于萌芽期，不要急于求成，夯实基础（如优化 SEO）是首务。" },
-        { title: "风雷益：大利", advice: "损上益下，民说无疆。适合进行商务谈判或建立长久合伙关系，会有意想不到的收益。" },
-        { title: "火水未济：转机", advice: "黎明前的黑暗。虽然目前询盘较少，但只要坚持优化策略，转机就在下周。" },
-        { title: "山泽损：风控", advice: "损下益上，其道上行。注意资金流管理，近期投资需谨慎，适合精简不必要的开支。" }
-    ];
-    
-    const random = fortunes[Math.floor(Math.random() * fortunes.length)];
-    
-    alert("🔮 AI 决策启示：\n\n【卦象】" + random.title + "\n【启示】" + random.advice + "\n\n（本测算基于 AI 模拟，仅供商业参考）");
-}
-</script>
-   <script>
-function calculateFortune() {
-    const birth = document.getElementById('user-birth').value;
-    const gender = document.getElementById('user-gender').value === 'male' ? '乾造' : '坤造';
-    const hour = document.getElementById('user-hour').value;
-    
-    // 验证是否填写生日
-    if (!birth) {
-        alert("请先选择您的出生日期，依此起卦方为精准。");
-        return;
-    }
-
+function startDivination() {
     const overlay = document.getElementById('fortune-overlay');
     const title = document.getElementById('fortune-title');
     const advice = document.getElementById('fortune-advice');
-    const infoDisplay = document.getElementById('user-info-display');
     
-    // 展示用户输入的“命理”信息
-    infoDisplay.innerText = `命主信息：${gender} | 生于 ${birth} | ${hour}时生人 | 气场感应中...`;
-    
-    // 整合了你原来的 8 个商业卦象
     const fortunes = [
-        { title: "乾为天：大吉", advice: "【商战启示】天行健，君子以自强不息。当前事业动力充足，适合全力出击。建议：立即推进积压的海外订单，此刻决策胜算极大。" },
-        { title: "地火明夷：守势", advice: "【风控启示】明入地中，宜收敛锋芒。当前环境复杂，实业经营应求稳。建议：仔细核查硅胶生产质量，暂缓大规模广告扩张，待机而动。" },
-        { title: "水雷屯：积蓄", advice: "【创业启示】万事开头难。新项目处于萌芽期，不要急于变现。建议：夯实网站 SEO 基础，多沉淀客户线索，厚积薄发。" },
-        { title: "风雷益：大利", advice: "【增长启示】损上益下，民说无疆。当前适合进行商务谈判或建立长期合伙。建议：主动联系老客户，提供额外价值，会有意想不到的回报。" },
-        { title: "火水未济：转机", advice: "【变局启示】黎明前的黑暗。虽然目前流量较平稳，但转机已在孕育中。建议：保持更新频率，优化 AI 提示词策略，一周内必有突破。" },
-        { title: "山泽损：风控", advice: "【资金启示】损下益上，其道上行。注意现金流管理，近期非必要开支需精简。建议：把资金投入到高转化工具上。" },
-        { title: "天火同人：协作", advice: "【人脉启示】文明以健，中正而应。适合跨界合作。建议：在独立站加入更多同行链接或加入行业协会，利用群体力量共同推海外订单。" },
-        { title: "泽水困：磨砺", advice: "【定力启示】困而不失其所。当前面临小规模阻碍（如审核未过）。建议：心态放平，逐条修改网站描述，只要不放弃，此关必过。" }
+        { 
+            title: "乾为天：至纯至健", 
+            advice: "【身心启示】天行健，君子以自强不息。现在的你正处于能量的高峰期，内心的自信正在觉醒。建议：去做那件你犹豫很久、想为自己而做的事，此刻的你，光芒万丈。" 
+        },
+        { 
+            title: "地火明夷：掩藏锋芒", 
+            advice: "【情绪启示】进入一个需要安静独处的阶段。如果觉得外界嘈杂，不必强行融入。建议：关掉手机，读一本好书，或者早点休息。保护好内心的微光，等待黑暗过去。" 
+        },
+        { 
+            title: "水雷屯：萌芽之痛", 
+            advice: "【人生启示】万事开头难，新的人生阶段总有阵痛。无论是刚开始的一段关系，还是刚养成的一个习惯。建议：对自己多一点耐心，不要急于看到结果，让种子在土里先扎稳根。" 
+        },
+        { 
+            title: "风雷益：温润如玉", 
+            advice: "【姻缘启示】损上益下，民说无疆。当前的磁场非常利于情感沟通。建议：主动联系那个挂念的人，或者给家人一个拥抱。这种善意的流动，会为你带回成倍的幸福。" 
+        },
+        { 
+            title: "火水未济：希望在即", 
+            advice: "【心境启示】黎明前的最后一段路。虽然觉得还没到达终点，但改变已经发生。建议：保持当下的节奏，不要因为最后的疲惫而放弃。那个让你心心念念的转机，就在下个转角。" 
+        },
+        { 
+            title: "山泽损：断舍离", 
+            advice: "【生活启示】损下益上，其道上行。生活需要做减法了。建议：清理掉那些让你内耗的社交，丢掉很久不穿的衣服。清空了多余的负担，内心的喜悦才会住进来。" 
+        },
+        { 
+            title: "天火同人：温暖共鸣", 
+            advice: "【社交启示】文明以健，中正而应。你并不孤单。建议：约三五好友小聚，或者参加一个纯粹的兴趣小组。在真诚的交流中，你会发现困扰许久的问题，其实早已有了答案。" 
+        },
+        { 
+            title: "泽水困：静心磨砺", 
+            advice: "【定力启示】困而不失其所。如果觉得最近处处碰壁，那是生活在提醒你该慢下来了。建议：不要对抗，选择接纳。在沉默中积蓄力量，这种磨砺是送给未来更好的你的一份礼物。" 
+        }
     ];
     
-    // 动画效果
-    title.innerText = "起卦中...";
-    advice.innerText = "正在感应 2026 商业气场，结合生辰八字推算中...";
+    // 模拟起卦时间
+    title.innerText = "感应中...";
+    advice.innerText = "正在链接您的身心磁场，请静心呼吸，等待 2 秒...";
     overlay.style.display = 'flex';
 
     setTimeout(() => {
