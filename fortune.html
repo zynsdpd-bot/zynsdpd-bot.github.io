@@ -1,322 +1,263 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fortune AI 玄学系统</title>
-
-<style>
-html,body{
-    margin:0;
-    padding:0;
-    font-family:Arial;
-    background:#0f172a;
-    color:#e2e8f0;
-}
-
-header{
-    text-align:center;
-    padding:20px;
-    background:#111827;
-}
-
-.container{
-    max-width:900px;
-    margin:0 auto;
-    padding:20px;
-}
-
-.card{
-    background:#1f2937;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:12px;
-}
-
-input,select,button{
-    width:100%;
-    padding:8px;
-    margin-top:8px;
-    border:1px solid rgba(255,255,255,0.12);
-    border-radius:8px;
-    background:#111827;
-    color:#e2e8f0;
-    outline:none;
-}
-
-button{
-    background:#3b82f6;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-    border:none;
-}
-
-button:hover{
-    background:#2563eb;
-}
-
-.result{
-    margin-top:10px;
-    white-space:pre-wrap;
-    background:#0b1220;
-    padding:12px;
-    border-radius:8px;
-    line-height:1.6;
-}
-
-small{color:#94a3b8;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune AI 玄学系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans SC', system-ui, sans-serif; }
+        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); }
+        .result { animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
+<body class="bg-[#0f172a] text-slate-200 min-h-screen">
 
-<body>
-
-<header>
-<h1>🔮 Fortune AI 玄学分析系统</h1>
-<small>免费分析 + AI结构报告 + 付费深度解读</small>
+<header class="bg-gradient-to-r from-purple-900 to-indigo-900 py-8 text-center border-b border-purple-500/30">
+    <h1 class="text-4xl font-bold flex items-center justify-center gap-3">
+        🔮 Fortune AI 玄学系统
+    </h1>
+    <p class="text-purple-300 mt-2">AI驱动 · 免费基础分析 · 付费深度解读</p>
 </header>
 
-<div class="container">
+<div class="max-w-4xl mx-auto p-6">
 
-<!-- 用户信息 -->
-<div class="card">
-<h2>基础信息</h2>
-<input id="name" placeholder="姓名">
+    <!-- 用户基础信息 -->
+    <div class="glass rounded-3xl p-8 mb-8 border border-purple-500/20">
+        <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-user"></i> 基础信息</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm mb-2 text-purple-300">姓名</label>
+                <input id="name" type="text" placeholder="请输入姓名" 
+                       class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-purple-500">
+            </div>
+            <div>
+                <label class="block text-sm mb-2 text-purple-300">性别</label>
+                <select id="gender" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-purple-500">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-sm mb-2 text-purple-300">出生年月日时</label>
+                <div class="grid grid-cols-4 gap-3">
+                    <select id="year" class="bg-slate-900 border border-slate-700 rounded-2xl px-3 py-4 text-sm"></select>
+                    <select id="month" class="bg-slate-900 border border-slate-700 rounded-2xl px-3 py-4 text-sm"></select>
+                    <select id="day" class="bg-slate-900 border border-slate-700 rounded-2xl px-3 py-4 text-sm"></select>
+                    <select id="hour" class="bg-slate-900 border border-slate-700 rounded-2xl px-3 py-4 text-sm"></select>
+                </div>
+            </div>
+        </div>
+        <button onclick="saveUserInfo()" 
+                class="mt-6 w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 py-4 rounded-2xl font-semibold text-lg transition-all">
+            保存信息并开始测算
+        </button>
+    </div>
 
-<select id="year"></select>
-<select id="month"></select>
-<select id="day"></select>
-<select id="hour"></select>
+    <!-- 免费模块 -->
+    <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- 易经 -->
+        <div class="glass rounded-3xl p-8 border border-purple-500/20">
+            <h2 class="text-2xl font-semibold mb-6">📜 易经命理分析</h2>
+            <button onclick="generateIChing()" 
+                    class="w-full bg-slate-800 hover:bg-slate-700 py-4 rounded-2xl font-medium transition-colors">
+                生成易经分析
+            </button>
+            <div id="ichingResult" class="result mt-6 min-h-[180px] text-sm leading-relaxed"></div>
+        </div>
 
-<select id="gender">
-<option>男</option>
-<option>女</option>
-</select>
+        <!-- 星座 -->
+        <div class="glass rounded-3xl p-8 border border-purple-500/20">
+            <h2 class="text-2xl font-semibold mb-6">⭐ 星座深度分析</h2>
+            <button onclick="generateZodiac()" 
+                    class="w-full bg-slate-800 hover:bg-slate-700 py-4 rounded-2xl font-medium transition-colors">
+                生成星座报告
+            </button>
+            <div id="zodiacResult" class="result mt-6 min-h-[180px] text-sm leading-relaxed"></div>
+        </div>
 
-<button onclick="saveUser()">保存信息</button>
-</div>
+        <!-- 塔罗 -->
+        <div class="glass rounded-3xl p-8 border border-purple-500/20">
+            <h2 class="text-2xl font-semibold mb-6">🃏 塔罗三牌阵</h2>
+            <button onclick="generateTarot()" 
+                    class="w-full bg-slate-800 hover:bg-slate-700 py-4 rounded-2xl font-medium transition-colors">
+                抽取塔罗牌
+            </button>
+            <div id="tarotResult" class="result mt-6 min-h-[180px] text-sm leading-relaxed"></div>
+        </div>
 
-<!-- 易经 -->
-<div class="card">
-<h2>📜 易经命理分析（免费）</h2>
-<button onclick="generateIChing()">生成分析</button>
-<div id="iching" class="result"></div>
-</div>
+        <!-- 面相 -->
+        <div class="glass rounded-3xl p-8 border border-purple-500/20">
+            <h2 class="text-2xl font-semibold mb-6">👁 面相简析（体验版）</h2>
+            <button onclick="faceAnalysis()" 
+                    class="w-full bg-slate-800 hover:bg-slate-700 py-4 rounded-2xl font-medium transition-colors">
+                生成面相分析
+            </button>
+            <div id="faceResult" class="result mt-6 min-h-[180px] text-sm leading-relaxed"></div>
+        </div>
+    </div>
 
-<!-- 星座 -->
-<div class="card">
-<h2>⭐ 星座分析（免费）</h2>
-<button onclick="generateZodiac()">生成星座</button>
-<div id="zodiac" class="result"></div>
-</div>
-
-<!-- 塔罗 -->
-<div class="card">
-<h2>🃏 塔罗三牌（免费）</h2>
-<button onclick="generateTarot()">抽取</button>
-<div id="tarot" class="result"></div>
-</div>
-
-<!-- 面相 -->
-<div class="card">
-<h2>👁 面相分析（免费体验版）</h2>
-<button onclick="faceAnalysis()">生成面相分析</button>
-<div id="face" class="result"></div>
-<small>高级版：AI五官识别分析（开发中）</small>
-</div>
-
-<!-- 付费模块 -->
-<div class="card">
-<h2>🔒 八字深度分析（¥19.9）</h2>
-<button onclick="unlock('bazi')">解锁</button>
-<div id="bazi" class="result"></div>
-</div>
-
-<div class="card">
-<h2>💞 感情婚姻分析（¥9.9）</h2>
-<button onclick="unlock('love')">解锁</button>
-<div id="love" class="result"></div>
-</div>
-
-<div class="card">
-<h2>💰 财运分析（¥9.9）</h2>
-<button onclick="unlock('money')">解锁</button>
-<div id="money" class="result"></div>
-</div>
-
+    <!-- 付费模块 -->
+    <div class="mt-10">
+        <h2 class="text-xl font-semibold mb-6 text-amber-400 flex items-center gap-2"><i class="fa-solid fa-lock"></i> 付费深度解读</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass rounded-3xl p-6 border border-amber-400/30">
+                <h3 class="font-semibold">八字深度分析</h3>
+                <p class="text-2xl font-bold text-amber-400 mt-2">¥19.9</p>
+                <button onclick="unlockPaid('bazi')" class="mt-6 w-full py-3 bg-amber-600 hover:bg-amber-500 rounded-2xl">立即解锁</button>
+                <div id="baziResult" class="result mt-4 text-sm"></div>
+            </div>
+            <div class="glass rounded-3xl p-6 border border-pink-400/30">
+                <h3 class="font-semibold">感情婚姻详解</h3>
+                <p class="text-2xl font-bold text-pink-400 mt-2">¥9.9</p>
+                <button onclick="unlockPaid('love')" class="mt-6 w-full py-3 bg-pink-600 hover:bg-pink-500 rounded-2xl">立即解锁</button>
+                <div id="loveResult" class="result mt-4 text-sm"></div>
+            </div>
+            <div class="glass rounded-3xl p-6 border border-emerald-400/30">
+                <h3 class="font-semibold">财运事业详解</h3>
+                <p class="text-2xl font-bold text-emerald-400 mt-2">¥9.9</p>
+                <button onclick="unlockPaid('money')" class="mt-6 w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-2xl">立即解锁</button>
+                <div id="moneyResult" class="result mt-4 text-sm"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+// 用户数据
+let userInfo = {};
 
-let user = {};
-
-function requireUser(){
-    if(!user.name){
-        alert("请先保存基础信息");
-        return false;
+// 初始化下拉框
+function initSelects() {
+    const yearSelect = document.getElementById('year');
+    for (let i = 1950; i <= 2026; i++) {
+        yearSelect.innerHTML += `<option value="${i}">${i}年</option>`;
     }
-    return true;
-}
-
-// 初始化下拉
-(function init(){
-    let y=document.getElementById("year");
-    for(let i=1950;i<=2026;i++)y.innerHTML+=`<option>${i}</option>`;
-
-    let m=document.getElementById("month");
-    for(let i=1;i<=12;i++)m.innerHTML+=`<option>${i}</option>`;
-
-    let d=document.getElementById("day");
-    for(let i=1;i<=31;i++)d.innerHTML+=`<option>${i}</option>`;
-
-    let h=document.getElementById("hour");
-    for(let i=0;i<=23;i++)h.innerHTML+=`<option>${i}</option>`;
-})();
-
-function saveUser(){
-
-    window.onload = function(){
-
-    let y=document.getElementById("year");
-    let m=document.getElementById("month");
-    let d=document.getElementById("day");
-    let h=document.getElementById("hour");
-
-    for(let i=1950;i<=2026;i++){
-        y.innerHTML += `<option value="${i}">${i}</option>`;
+    
+    const monthSelect = document.getElementById('month');
+    for (let i = 1; i <= 12; i++) {
+        monthSelect.innerHTML += `<option value="${i}">${i}月</option>`;
     }
-
-    for(let i=1;i<=12;i++){
-        m.innerHTML += `<option value="${i}">${i}</option>`;
+    
+    const daySelect = document.getElementById('day');
+    for (let i = 1; i <= 31; i++) {
+        daySelect.innerHTML += `<option value="${i}">${i}日</option>`;
     }
-
-    for(let i=1;i<=31;i++){
-        d.innerHTML += `<option value="${i}">${i}</option>`;
-    }
-
-    for(let i=0;i<=23;i++){
-        h.innerHTML += `<option value="${i}">${i}</option>`;
+    
+    const hourSelect = document.getElementById('hour');
+    for (let i = 0; i <= 23; i++) {
+        hourSelect.innerHTML += `<option value="${i}">${i}时</option>`;
     }
 }
 
-function getZodiac(m,d){
-    m=parseInt(m);d=parseInt(d);
-    if((m==1&&d<=19)||(m==12&&d>=22))return"摩羯座";
-    if((m==1&&d>=20)||(m==2&&d<=18))return"水瓶座";
-    if((m==2&&d>=19)||(m==3&&d<=20))return"双鱼座";
-    if((m==3&&d>=21)||(m==4&&d<=19))return"白羊座";
-    if((m==4&&d>=20)||(m==5&&d<=20))return"金牛座";
-    if((m==5&&d>=21)||(m==6&&d<=21))return"双子座";
-    if((m==6&&d>=22)||(m==7&&d<=22))return"巨蟹座";
-    if((m==7&&d>=23)||(m==8&&d<=22))return"狮子座";
-    if((m==8&&d>=23)||(m==9&&d<=22))return"处女座";
-    if((m==9&&d>=23)||(m==10&&d<=23))return"天秤座";
-    if((m==10&&d>=24)||(m==11&&d<=22))return"天蝎座";
-    return"射手座";
+// 保存用户信息
+function saveUserInfo() {
+    userInfo = {
+        name: document.getElementById('name').value.trim() || "贵客",
+        gender: document.getElementById('gender').value,
+        year: document.getElementById('year').value,
+        month: document.getElementById('month').value,
+        day: document.getElementById('day').value,
+        hour: document.getElementById('hour').value
+    };
+    
+    if (!userInfo.name) {
+        alert("请输入您的姓名");
+        return;
+    }
+    
+    alert(`✅ 信息已保存！欢迎 ${userInfo.name} 来到玄学世界`);
 }
 
-function generateZodiac(){
-    if(!requireUser()) return;
-
-    let z = getZodiac(user.month,user.day);
-
-    document.getElementById("zodiac").innerText =
-`【${z} 深度星座分析】
-
-◆ 性格结构
-你属于“理性 + 感性混合型人格”，外冷内热。
-
-◆ 情绪模式
-- 表面稳定
-- 内心敏感
-- 容易反复思考
-
-◆ 事业模式
-适合：
-✔ 稳定成长型岗位
-✔ 有长期积累的行业
-不适合频繁变化环境
-
-◆ 情感模式
-慢热型，不轻易开始关系，但一旦开始较稳定
-
-◆ 人生建议
-避免情绪决策，多用逻辑判断方向`;
+// 获取星座
+function getZodiac(month, day) {
+    month = parseInt(month); day = parseInt(day);
+    if ((month === 1 && day <= 19) || (month === 12 && day >= 22)) return "摩羯座";
+    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座";
+    if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "双鱼座";
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座";
+    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座";
+    if ((month === 5 && day >= 21) || (month === 6 && day <= 21)) return "双子座";
+    if ((month === 6 && day >= 22) || (month === 7 && day <= 22)) return "巨蟹座";
+    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座";
+    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座";
+    if ((month === 9 && day >= 23) || (month === 10 && day <= 23)) return "天秤座";
+    if ((month === 10 && day >= 24) || (month === 11 && day <= 22)) return "天蝎座";
+    return "射手座";
 }
 
-function generateTarot(){
-
-    if(!requireUser()) return;
-
-    let c=["愚者","魔术师","恋人","太阳","月亮","世界","命运之轮"];
-    let r=()=>c[Math.floor(Math.random()*c.length)];
-
-    let past=r(),now=r(),future=r();
-
-    document.getElementById("tarot").innerText =
-`【塔罗三牌深度解读】
-
-◆ 过去：${past}
-代表你过去的选择影响仍在延续，但影响正在减弱。
-
-◆ 现在：${now}
-当前处于关键选择期，这是转折点。
-
-◆ 未来：${future}
-未来结果取决于当前决策方向。
-
-◆ 总结
-你正处于“变化期”，不建议冲动决策，需要观察再行动。`;
-}
+// 免费功能
+function generateIChing() {
+    if (!userInfo.name) return alert("请先保存基础信息");
+    const result = document.getElementById('ichingResult');
+    result.innerHTML = `
+        <strong>【${userInfo.name} 的易经命理】</strong><br><br>
+        卦象：山地剥卦<br>
+        性格：稳重内敛，具备长远规划能力<br>
+        事业：适合管理、技术、规划类工作<br>
+        建议：今年宜守不宜攻，稳扎稳打`;
 }
 
-function generateIChing(){
-    if(!requireUser()) return;
-
-    document.getElementById("iching").innerText =
-`【易经命理分析】
-
-◆ 性格结构
-稳中求进型，适合长期发展。
-
-◆ 事业
-适合稳定行业（技术 / 管理 / 贸易）
-
-◆ 财运
-正财稳定，不适合投机
-
-◆ 建议
-长期坚持比频繁变化更重要`;
+function generateZodiac() {
+    if (!userInfo.name) return alert("请先保存基础信息");
+    const zodiac = getZodiac(userInfo.month, userInfo.day);
+    const result = document.getElementById('zodiacResult');
+    result.innerHTML = `
+        <strong>【${zodiac} · ${userInfo.name}】</strong><br><br>
+        性格优势：${zodiac === '狮子座' ? '领导力强' : '适应力强'}<br>
+        2026年运势：中上，贵人运较强<br>
+        感情建议：多沟通，少猜忌`;
 }
 
-function faceAnalysis(){
-    if(!requireUser()) return;
-
-    document.getElementById("face").innerText =
-`【面相分析】
-
-额头：事业稳定型
-眼睛：理性思维型
-鼻子：稳定财运型
-下巴：晚运较好
-
-总结：适合长期发展路线`;
+function generateTarot() {
+    if (!userInfo.name) return alert("请先保存基础信息");
+    const cards = ["愚者", "魔术师", "女祭司", "恋人", "力量", "隐士", "命运之轮", "太阳", "世界"];
+    const past = cards[Math.floor(Math.random()*cards.length)];
+    const present = cards[Math.floor(Math.random()*cards.length)];
+    const future = cards[Math.floor(Math.random()*cards.length)];
+    
+    const result = document.getElementById('tarotResult');
+    result.innerHTML = `
+        <strong>【塔罗三牌阵】</strong><br><br>
+        过去：${past} —— 奠定基础<br>
+        现在：${present} —— 关键抉择期<br>
+        未来：${future} —— 光明可期<br><br>
+        <span class="text-purple-400">综合建议：保持开放心态，机遇即将到来</span>`;
 }
 
-function unlock(t){
-    if(!requireUser()) return;
-
-    if(t=="bazi")
-        bazi.innerText=`【八字深度分析】\n性格：稳重型\n事业：长期发展型\n财运：正财为主\n建议：避免短线投机`;
-
-    if(t=="love")
-        love.innerText=`【感情分析】\n慢热稳定型关系\n适合长期伴侣\n避免冲动选择`;
-
-    if(t=="money")
-        money.innerText=`【财运分析】\n正财稳定\n适合长期积累\n不适合高风险投资`;
+function faceAnalysis() {
+    if (!userInfo.name) return alert("请先保存基础信息");
+    const result = document.getElementById('faceResult');
+    result.innerHTML = `
+        <strong>【${userInfo.name} 面相简析】</strong><br><br>
+        额头饱满 → 早年运势平稳<br>
+        鼻梁挺直 → 财运中后期发力<br>
+        下巴圆润 → 晚年生活安稳<br><br>
+        总体：适合长期积累型发展路线`;
 }
 
+// 付费解锁（演示）
+function unlockPaid(type) {
+    if (!userInfo.name) return alert("请先保存基础信息");
+    
+    let msg = '';
+    if (type === 'bazi') msg = '【八字深度分析】\n大运流年详解 + 十年运势规划\n（实际支付后显示完整报告）';
+    else if (type === 'love') msg = '【感情婚姻详解】\n桃花运势 + 最佳结婚时机 + 伴侣特征\n（实际支付后显示完整报告）';
+    else if (type === 'money') msg = '【财运事业详解】\n正偏财分析 + 投资建议 + 事业突破点\n（实际支付后显示完整报告）';
+    
+    alert(`🔓 已进入付费流程\n\n${msg}\n\n（此为演示版，实际可接支付接口）`);
+}
+
+// 初始化
+window.onload = () => {
+    initSelects();
+    console.log('%cFortune AI 玄学系统优化版已加载', 'color:#a855f7; font-weight:bold');
+};
 </script>
-
 </body>
 </html>
