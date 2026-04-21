@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fortune AI 玄学分析系统</title>
+<title>Fortune AI 玄学系统</title>
 
 <style>
 html,body{
@@ -49,6 +49,7 @@ button{
     color:white;
     cursor:pointer;
     font-weight:bold;
+    border:none;
 }
 
 button:hover{
@@ -72,7 +73,7 @@ small{color:#94a3b8;}
 
 <header>
 <h1>🔮 Fortune AI 玄学分析系统</h1>
-<small>免费体验 + AI升级报告 + 面相分析系统</small>
+<small>免费分析 + AI结构报告 + 付费深度解读</small>
 </header>
 
 <div class="container">
@@ -81,14 +82,17 @@ small{color:#94a3b8;}
 <div class="card">
 <h2>基础信息</h2>
 <input id="name" placeholder="姓名">
+
 <select id="year"></select>
 <select id="month"></select>
 <select id="day"></select>
 <select id="hour"></select>
+
 <select id="gender">
 <option>男</option>
 <option>女</option>
 </select>
+
 <button onclick="saveUser()">保存信息</button>
 </div>
 
@@ -118,7 +122,7 @@ small{color:#94a3b8;}
 <h2>👁 面相分析（免费体验版）</h2>
 <button onclick="faceAnalysis()">生成面相分析</button>
 <div id="face" class="result"></div>
-<small>升级AI版本：可上传照片进行五官识别分析</small>
+<small>高级版：AI五官识别分析（开发中）</small>
 </div>
 
 <!-- 付费模块 -->
@@ -143,26 +147,9 @@ small{color:#94a3b8;}
 </div>
 
 <script>
-    <script>
-<script>
 
-// ① 先放这个（最重要）
-function requireUser(){ ... }
-
-// ② 再放用户数据
 let user = {};
 
-// ③ 初始化函数
-function init(){ ... }
-
-// ④ 再放所有功能函数（重点）
-function generateIChing(){ ... }
-function generateZodiac(){ ... }
-function generateTarot(){ ... }
-function faceAnalysis(){ ... }
-function unlock(t){ ... }
-
-</script>
 function requireUser(){
     if(!user.name){
         alert("请先保存基础信息");
@@ -170,9 +157,8 @@ function requireUser(){
     }
     return true;
 }
-let user = {};
 
-// 初始化日期选择
+// 初始化下拉
 (function init(){
     let y=document.getElementById("year");
     for(let i=1950;i<=2026;i++)y.innerHTML+=`<option>${i}</option>`;
@@ -214,14 +200,58 @@ function getZodiac(m,d){
 }
 
 function generateZodiac(){
-    if(!user.month)return alert("先保存信息");
-    zodiac.innerText=`你的星座：${getZodiac(user.month,user.day)}\n\n性格：理性与情绪平衡型\n建议：适合稳定发展路线`;
+    if(!requireUser()) return;
+
+    let z = getZodiac(user.month,user.day);
+
+    document.getElementById("zodiac").innerText =
+`【${z} 深度星座分析】
+
+◆ 性格结构
+你属于“理性 + 感性混合型人格”，外冷内热。
+
+◆ 情绪模式
+- 表面稳定
+- 内心敏感
+- 容易反复思考
+
+◆ 事业模式
+适合：
+✔ 稳定成长型岗位
+✔ 有长期积累的行业
+不适合频繁变化环境
+
+◆ 情感模式
+慢热型，不轻易开始关系，但一旦开始较稳定
+
+◆ 人生建议
+避免情绪决策，多用逻辑判断方向`;
 }
 
 function generateTarot(){
-    let c=["愚者","魔术师","恋人","太阳","月亮","世界"];
+
+    if(!requireUser()) return;
+
+    let c=["愚者","魔术师","恋人","太阳","月亮","世界","命运之轮"];
     let r=()=>c[Math.floor(Math.random()*c.length)];
-    tarot.innerText=`过去:${r()}\n现在:${r()}\n未来:${r()}\n\n提示：当前处于选择与转折期`;
+
+    let past=r(),now=r(),future=r();
+
+    document.getElementById("tarot").innerText =
+`【塔罗三牌深度解读】
+
+◆ 过去：${past}
+代表你过去的选择影响仍在延续，但影响正在减弱。
+
+◆ 现在：${now}
+当前处于关键选择期，这是转折点。
+
+◆ 未来：${future}
+未来结果取决于当前决策方向。
+
+◆ 总结
+你正处于“变化期”，不建议冲动决策，需要观察再行动。`;
+}
 }
 
 function generateIChing(){
@@ -256,34 +286,20 @@ function faceAnalysis(){
 
 总结：适合长期发展路线`;
 }
+
 function unlock(t){
     if(!requireUser()) return;
 
-    if(t=="bazi"){
-        bazi.innerText=`【八字深度分析】
+    if(t=="bazi")
+        bazi.innerText=`【八字深度分析】\n性格：稳重型\n事业：长期发展型\n财运：正财为主\n建议：避免短线投机`;
 
-性格：稳重型
-事业：长期积累型
-财运：正财为主
-人生建议：避免短期投机`;
-    }
+    if(t=="love")
+        love.innerText=`【感情分析】\n慢热稳定型关系\n适合长期伴侣\n避免冲动选择`;
 
-    if(t=="love"){
-        love.innerText=`【感情分析】
-
-慢热型感情结构
-适合稳定关系
-避免冲动恋爱`;
-    }
-
-    if(t=="money"){
-        money.innerText=`【财运分析】
-
-正财稳定
-不适合高风险投资
-适合长期积累`;
-    }
+    if(t=="money")
+        money.innerText=`【财运分析】\n正财稳定\n适合长期积累\n不适合高风险投资`;
 }
+
 </script>
 
 </body>
