@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,131 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 AI全能副业中心</title>
     <style>
-        :root { --p: #00ff88; --s: #8b5cf6; --bg: #0a0a0c; --glass: rgba(255,255,255,0.05); }
-        body { background: var(--bg); color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
+        :root { --p: #00ff88; --s: #8b5cf6; --bg: #0d0d0f; --card: #16161a; }
+        body { background: var(--bg); color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 15px; }
+        .container { max-width: 600px; margin: 0 auto; }
         
-        /* 1. 命理区 */
-        .panel { background: var(--glass); border: 1px solid #333; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
-        .input-group { display: flex; gap: 10px; margin-top: 15px; }
-        input[type="date"] { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #111; color: #fff; cursor: pointer; }
-        
-        /* 2. 转盘区 - 增强视觉 */
-        .wheel-wrap { position: relative; width: 260px; height: 260px; margin: 20px auto; }
-        #canvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); border-radius: 50%; box-shadow: 0 0 30px rgba(0,255,136,0.2); }
-        .arrow { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #ff007a; z-index: 10; }
+        /* 通用卡片样式 */
+        .section { background: var(--card); border: 1px solid #2d2d30; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        h3 { margin-top: 0; color: var(--p); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
 
-        /* 3. 游戏区 - 调整适配 */
-        #tetris { background: #000; border: 3px solid #222; display: block; margin: 15px auto; }
+        /* 1. 命理区 - 优化输入 */
+        .input-box { display: flex; flex-direction: column; gap: 10px; }
+        input[type="date"] { 
+            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #444; 
+            background: #222; color: #fff; font-size: 1rem; box-sizing: border-box;
+        }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-        /* 4. 导航区 - 修复链接 */
-        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .nav-card { background: #16161a; padding: 15px; border-radius: 12px; border: 1px solid #333; text-decoration: none; color: #fff; transition: 0.2s; }
-        .nav-card:hover { border-color: var(--p); background: #1c1c22; }
-        .nav-card h4 { margin: 0 0 5px 0; color: var(--p); }
-        .nav-card p { margin: 0; font-size: 0.8rem; color: #888; }
+        /* 2. 转盘区 - CSS抽奖 */
+        .wheel-container { text-align: center; padding: 20px 0; }
+        .lucky-wheel { 
+            width: 200px; height: 200px; border-radius: 50%; border: 8px solid #333;
+            margin: 0 auto; position: relative; background: conic-gradient(
+                #1a1a1a 0deg 60deg, #222 60deg 120deg, #1a1a1a 120deg 180deg, 
+                #222 180deg 240deg, #1a1a1a 240deg 300deg, #222 300deg 360deg
+            );
+            transition: transform 3s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+        .wheel-pointer { 
+            width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent;
+            border-top: 20px solid #ff007a; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); z-index: 5;
+        }
 
-        /* 按钮通用 */
-        .btn { background: var(--p); color: #000; border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
-        .btn:hover { opacity: 0.9; }
+        /* 3. 导航区 - 大按钮链接 */
+        .link-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .link-item { 
+            background: #252529; padding: 15px; border-radius: 15px; text-decoration: none; 
+            color: #fff; border: 1px solid transparent; transition: 0.2s;
+        }
+        .link-item:active { background: #333; transform: scale(0.95); border-color: var(--p); }
+        .link-item b { display: block; color: var(--p); margin-bottom: 4px; }
+        .link-item span { font-size: 0.75rem; color: #888; }
+
+        /* 按钮样式 */
+        .btn { 
+            background: var(--p); color: #000; border: none; padding: 15px; 
+            border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem;
+        }
+        .btn-s { background: var(--s); color: #fff; }
 
         /* 弹窗 */
-        #overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:999; align-items:center; justify-content:center; }
-        .modal { background:#111; padding:30px; border-radius:20px; border:1px solid var(--p); width:80%; max-width:400px; text-align:center; }
+        #modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; 
+        }
+        .modal-card { background: #1c1c1e; padding: 30px; border-radius: 25px; border: 1px solid var(--p); width: 85%; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align: center; color: var(--p);">🚀 2026 AI 全能 Hub</h2>
+    <h2 style="text-align: center; margin: 30px 0;">🚀 AI 全能副业导航</h2>
 
-    <div class="panel">
-        <strong>🔮 赛博命理 (支持日期选择)</strong>
-        <div class="input-group">
-            <input type="date" id="dateInput">
-            <button class="btn" onclick="divine('周易')" style="margin:0; width:auto;">起卦</button>
-            <button class="btn" onclick="divine('塔罗')" style="margin:0; width:auto; background:var(--s); color:#fff;">占卜</button>
+    <div class="section" style="border-color: var(--s); background: linear-gradient(145deg, #16161a, #1e1233);">
+        <h3>💼 商务合作</h3>
+        <p style="font-size: 0.9rem; color: #ccc; margin: 5px 0 15px;">承接推广 / 资源置换 / 合作入驻</p>
+        <button class="btn btn-s" style="width: 100%;" onclick="alert('请联系微信：HarryZhang_2026')">点击获取联系方式</button>
+    </div>
+
+    <div class="section">
+        <h3>🔮 赛博命理决策</h3>
+        <div class="input-box">
+            <input type="date" id="userDate">
+            <div class="btn-group">
+                <button class="btn" onclick="showResult('iching')">周易起卦</button>
+                <button class="btn btn-s" onclick="showResult('tarot')">塔罗占卜</button>
+            </div>
         </div>
     </div>
 
-    <div class="panel" style="text-align: center;">
-        <strong>🎡 每日副业灵感转盘</strong>
-        <div class="wheel-wrap">
-            <div class="arrow"></div>
-            <canvas id="canvas" width="300" height="300"></canvas>
-        </div>
-        <button class="btn" onclick="spin()">点击抽取今日方向</button>
-    </div>
-
-    <div class="panel" style="text-align: center;">
-        <strong>🎮 极客游戏：俄罗斯方块</strong>
-        <canvas id="tetris" width="200" height="360"></canvas>
-        <button class="btn" onclick="startTetris()">开始/重玩游戏</button>
-        <p style="font-size: 0.7rem; color: #666; margin-top: 5px;">按键盘方向键 ← → 控制，↑ 变形</p>
-    </div>
-
-    <div class="panel">
-        <strong>🛠️ 核心工具 (点击直达官网)</strong>
-        <div class="nav-grid" style="margin-top: 15px;">
-            <a href="https://kimi.moonshot.cn/" target="_blank" class="nav-card"><h4>Kimi Chat</h4><p>长文本分析首选</p></a>
-            <a href="https://klingai.com/" target="_blank" class="nav-card"><h4>可灵 Kling</h4><p>顶级 AI 视频生成</p></a>
-            <a href="https://tongyi.aliyun.com/" target="_blank" class="nav-card"><h4>通义千问</h4><p>逻辑文案神器</p></a>
-            <a href="https://metaso.cn/" target="_blank" class="nav-card"><h4>秘塔搜索</h4><p>深度行业调研</p></a>
+    <div class="section">
+        <h3>🎡 每日副业灵感</h3>
+        <div class="wheel-container">
+            <div style="position:relative; width:200px; margin:0 auto;">
+                <div class="wheel-pointer"></div>
+                <div id="wheel" class="lucky-wheel"></div>
+            </div>
+            <button class="btn" style="width: 100%; margin-top: 30px;" onclick="startSpin()">点击抽取今日方向</button>
         </div>
     </div>
 
-    <div class="panel" style="background: linear-gradient(90deg, #1a1a2e, #0a0a0c); border-color: var(--s);">
-        <strong>💼 商务对接</strong>
-        <p style="font-size: 0.9rem; color: #ccc;">承接流量推广 / 副业资源入驻</p>
-        <button class="btn" onclick="alert('请联系管理员：HarryZhang_2026')">获取联系方式</button>
+    <div class="section">
+        <h3>🛠️ 核心工具库 (点击直达)</h3>
+        <div class="link-grid">
+            <a href="https://kimi.moonshot.cn/" target="_blank" class="link-item"><b>Kimi Chat</b><span>文本分析专家</span></a>
+            <a href="https://klingai.com/" target="_blank" class="link-item"><b>可灵 Kling</b><span>AI 视频生成</span></a>
+            <a href="https://tongyi.aliyun.com/" target="_blank" class="link-item"><b>通义千问</b><span>全能逻辑助手</span></a>
+            <a href="https://metaso.cn/" target="_blank" class="link-item"><b>秘塔搜索</b><span>深度调研神器</span></a>
+        </div>
     </div>
 </div>
 
-<div id="overlay"><div class="modal"><h3 id="mTitle"></h3><p id="mContent"></p><button class="btn" onclick="closeM()">确认</button></div></div>
+<div id="modal">
+    <div class="modal-card">
+        <h2 id="mTitle" style="color: var(--p);"></h2>
+        <p id="mBody" style="line-height: 1.6; color: #eee; margin: 20px 0;"></p>
+        <button class="btn" style="width: 100%;" onclick="document.getElementById('modal').style.display='none'">确定</button>
+    </div>
+</div>
 
 <script>
-// 1. 命理逻辑
-function divine(type) {
-    const d = document.getElementById('dateInput').value;
-    if(!d) { alert("请先点击选择日期"); return; }
-    document.getElementById('mTitle').innerText = type + "感应结果";
-    document.getElementById('mContent').innerText = "2026年能量显示：你的" + (type==='周易'?'卦象为【乾为天】':'塔罗牌为【魔术师】') + "。暗示近期有新的变现机会，宜动不宜静。";
-    document.getElementById('overlay').style.display = 'flex';
-}
-function closeM() { document.getElementById('overlay').style.display = 'none'; }
-
-// 2. 转盘绘制与逻辑
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const prizes = ["AI绘画", "数字人", "SEO建站", "私域变现", "提示词", "代剪辑"];
-function draw() {
-    const arc = Math.PI * 2 / 6;
-    for(let i=0; i<6; i++) {
-        ctx.beginPath(); ctx.fillStyle = i%2 ? '#1a1a1a' : '#222';
-        ctx.moveTo(150,150); ctx.arc(150,150,150,i*arc,(i+1)*arc); ctx.fill();
-        ctx.save(); ctx.translate(150,150); ctx.rotate(i*arc+arc/2);
-        ctx.fillStyle = "#00ff88"; ctx.fillText(prizes[i], 80, 5); ctx.restore();
+    // 命理逻辑
+    function showResult(type) {
+        const date = document.getElementById('userDate').value;
+        if (!date) { alert("请点击输入框选择日期"); return; }
+        
+        const title = type === 'iching' ? "🔮 周易卦象：【乾为天】" : "🃏 塔罗牌：【魔术师】";
+        const body = "根据您的能量场推演：2026年4月为您事业的上升期，利于启动AI相关副业，切记保持专注，必有所成。";
+        
+        document.getElementById('mTitle').innerText = title;
+        document.getElementById('mBody').innerText = body;
+        document.getElementById('modal').style.display = 'flex';
     }
-}
-draw();
-let rotate = 0;
-function spin() { rotate += Math.floor(Math.random()*360 + 1800); canvas.style.transform = `rotate(${rotate}deg)`; }
 
-// 3. 俄罗斯方块 (简易版)
-const tCvs = document.getElementById('tetris');
-const tCtx = tCvs.getContext('2d');
-let gameTimer;
-function startTetris() {
-    clearInterval(gameTimer);
-    let x=4, y=0;
-    gameTimer = setInterval(() => {
-        tCtx.clearRect(0,0,200,360);
-        tCtx.fillStyle = '#00ff88';
-        tCtx.fillRect(x*20, y*20, 20, 20); // 绘制方块
-        y++; if(y>17) y=0;
-    }, 200);
-    alert("游戏已在画布中启动！(基础下降模式已开启)");
-}
+    // 转盘逻辑
+    let currentDeg = 0;
+    function startSpin() {
+        const wheel = document.getElementById('wheel');
+        const prizes = ["AI绘画", "数字人", "SEO建站", "私域变现", "提示词工程", "外贸代运营"];
+        
+        currentDeg += Math.floor(Math.random() * 360 + 1800);
+        wheel.style.transform = `rotate(${currentDeg}deg)`;
+        
+        setTimeout(() => {
+            const win = prizes[Math.floor(Math.random() * prizes.length)];
+            document.getElementById('mTitle').innerText = "🎡 今日建议方向";
+            document.getElementById('mBody').innerText = "今日幸运赛道：【" + win + "】。建议投入2小时深入研究相关工具。";
+            document.getElementById('modal').style.display = 'flex';
+        }, 3200);
+    }
 </script>
+
 </body>
 </html>
