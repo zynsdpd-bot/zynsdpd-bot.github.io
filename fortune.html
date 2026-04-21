@@ -57,6 +57,7 @@ button:hover{
     padding:15px;
     border-radius:8px;
     margin-top:10px;
+    line-height:1.6;
 }
 
 small{
@@ -69,12 +70,11 @@ small{
 
 <header>
 <h1>AI玄学分析平台</h1>
-<small>易经 · 星座 · 塔罗牌 · 面相（规划中）</small>
+<small>免费基础版：星座 / 塔罗 / 易经（增强解释）｜高级版：命理深度分析</small>
 </header>
 
 <div class="container">
 
-<!-- 基础信息 -->
 <div class="card">
 <h2>基础信息</h2>
 <input id="name" placeholder="姓名" />
@@ -89,28 +89,24 @@ small{
 <button onclick="saveUser()">保存信息</button>
 </div>
 
-<!-- 易经 -->
 <div class="card">
-<h2>易经八字分析（付费200字）</h2>
+<h2>易经八字分析（免费增强版）</h2>
 <button onclick="generateIChing()">生成分析</button>
 <div class="result" id="iching"></div>
 </div>
 
-<!-- 星座 -->
 <div class="card">
-<h2>星座分析（基础版）</h2>
+<h2>星座分析（详细免费版）</h2>
 <button onclick="generateZodiac()">生成星座解析</button>
 <div class="result" id="zodiac"></div>
 </div>
 
-<!-- 塔罗 -->
 <div class="card">
-<h2>塔罗牌占卜（高级版）</h2>
+<h2>塔罗牌占卜（免费三张牌）</h2>
 <button onclick="generateTarot()">抽取三张牌</button>
 <div class="result" id="tarot"></div>
 </div>
 
-<!-- 面相 -->
 <div class="card">
 <h2>面相分析（开发中）</h2>
 <p>未来可上传照片进行AI面相分析</p>
@@ -131,30 +127,42 @@ function saveUser(){
     user.birthHour = document.getElementById('birthHour').value || "";
     user.gender = document.getElementById('gender').value || "";
     alert("信息已保存");
-    console.log("用户数据：", user);
+}
+
+function getZodiac(month, day){
+    month = parseInt(month);
+    day = parseInt(day);
+
+    if((month==1 && day<=19) || (month==12 && day>=22)) return "摩羯座";
+    if((month==1 && day>=20) || (month==2 && day<=18)) return "水瓶座";
+    if((month==2 && day>=19) || (month==3 && day<=20)) return "双鱼座";
+    if((month==3 && day>=21) || (month==4 && day<=19)) return "白羊座";
+    if((month==4 && day>=20) || (month==5 && day<=20)) return "金牛座";
+    if((month==5 && day>=21) || (month==6 && day<=21)) return "双子座";
+    if((month==6 && day>=22) || (month==7 && day<=22)) return "巨蟹座";
+    if((month==7 && day>=23) || (month==8 && day<=22)) return "狮子座";
+    if((month==8 && day>=23) || (month==9 && day<=22)) return "处女座";
+    if((month==9 && day>=23) || (month==10 && day<=23)) return "天秤座";
+    if((month==10 && day>=24) || (month==11 && day<=22)) return "天蝎座";
+    return "射手座";
 }
 
 function generateIChing(){
-    if(!user.name){
-        alert("请先填写信息");
-        return;
-    }
+    if(!user.name){alert("请先填写信息");return;}
 
-    const text = `【易经分析】\n姓名：${user.name}\n出生：${user.birthYear}-${user.birthMonth}-${user.birthDay} ${user.birthHour}时\n\n整体运势：人生呈现稳定上升趋势。\n事业建议：适合长期积累型行业。\n财运：稳中有升，忌短线投机。`;
+    const text = `【免费易经基础解析】\n
+姓名：${user.name}\n出生：${user.birthYear}-${user.birthMonth}-${user.birthDay} ${user.birthHour}时\n性别：${user.gender}\n\n【整体气场】\n你的命理气场呈现“稳中带动”的结构，属于前期积累型发展路径。\n\n【事业方向】\n适合稳定型行业：技术、贸易、运营、管理类岗位。\n\n【财富趋势】\n偏向正财积累型，不宜高频投机，但长期收益稳定。\n\n【人生建议】\n减少短期冲动决策，坚持长期规划更容易获得突破。`;
 
     document.getElementById('iching').innerText = text;
 }
 
 function generateZodiac(){
-    if(!user.birthYear){
-        alert("请先填写出生信息");
-        return;
-    }
+    if(!user.birthYear || !user.birthMonth || !user.birthDay){alert("请先填写出生信息");return;}
 
-    const zodiacs = ["白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"];
-    const idx = Math.floor(Math.random()*12);
+    const zodiac = getZodiac(user.birthMonth, user.birthDay);
 
-    const text = `星座：${zodiacs[idx]}\n出生：${user.birthYear}-${user.birthMonth}-${user.birthDay}\n\n近期运势：适合调整状态，避免冲动决策。`;
+    const text = `【星座详细解析 - 免费版】\n
+你的星座：${zodiac}\n出生日期：${user.birthYear}-${user.birthMonth}-${user.birthDay}\n\n【性格特征】\n该星座通常具备较强的自我驱动力与阶段性情绪波动特征，需要通过目标感来稳定状态。\n\n【情感倾向】\n倾向慢热型关系，更看重安全感与长期稳定性。\n\n【事业建议】\n适合有成长空间的环境，而非短期高压竞争型岗位。\n\n【近期状态建议】\n当前阶段建议减少情绪化决策，多做结构性规划。`;
 
     document.getElementById('zodiac').innerText = text;
 }
@@ -166,12 +174,12 @@ function generateTarot(){
         return cards[Math.floor(Math.random()*cards.length)];
     }
 
-    const text =
-`过去：${draw()}
-现在：${draw()}
-未来：${draw()}
+    const c1 = draw();
+    const c2 = draw();
+    const c3 = draw();
 
-解读：当前处于变化期，建议保持耐心，不宜激进决策。`;
+    const text = `【塔罗三牌解读 - 免费版】\n
+过去：${c1}\n现在：${c2}\n未来：${c3}\n\n【综合解读】\n当前处于“变化与选择并存”的阶段，建议保持理性判断，不宜冲动行动。\n\n【能量提示】\n过去影响正在减弱，现在是关键决策窗口期，未来存在明显方向分化。`;
 
     document.getElementById('tarot').innerText = text;
 }
