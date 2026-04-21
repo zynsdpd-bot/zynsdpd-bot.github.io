@@ -106,7 +106,23 @@ small{
 <button onclick="generateTarot()">抽取三张牌</button>
 <div class="result" id="tarot"></div>
 </div>
+<div class="card">
+<h2>🔒 八字深度分析（付费解锁）</h2>
+<button onclick="unlock('bazi')">解锁 ¥19.9</button>
+<div class="result" id="bazi"></div>
+</div>
 
+<div class="card">
+<h2>🔒 感情婚姻分析（付费解锁）</h2>
+<button onclick="unlock('love')">解锁 ¥9.9</button>
+<div class="result" id="love"></div>
+</div>
+
+<div class="card">
+<h2>🔒 财运预测（付费解锁）</h2>
+<button onclick="unlock('money')">解锁 ¥9.9</button>
+<div class="result" id="money"></div>
+</div>
 <div class="card">
 <h2>面相分析（开发中）</h2>
 <p>未来可上传照片进行AI面相分析</p>
@@ -185,6 +201,41 @@ function generateTarot(){
 }
 
 </script>
+let paid = {
+    bazi:false,
+    love:false,
+    money:false
+};
 
+function unlock(type){
+
+    const ok = confirm("模拟支付成功？点击确定解锁内容");
+
+    if(!ok) return;
+
+    paid[type] = true;
+
+    if(type === "bazi"){
+        document.getElementById("bazi").innerText =
+`【八字深度分析】
+五行结构：偏土旺
+性格：稳重但保守
+建议：适合长期行业`;
+    }
+
+    if(type === "love"){
+        document.getElementById("love").innerText =
+`【感情分析】
+慢热型感情结构
+适合稳定关系`;
+    }
+
+    if(type === "money"){
+        document.getElementById("money").innerText =
+`【财运分析】
+正财稳定，偏财弱
+适合长期积累`;
+    }
+}
 </body>
 </html>
