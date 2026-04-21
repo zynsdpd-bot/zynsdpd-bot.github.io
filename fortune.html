@@ -143,6 +143,33 @@ small{color:#94a3b8;}
 </div>
 
 <script>
+    <script>
+<script>
+
+// ① 先放这个（最重要）
+function requireUser(){ ... }
+
+// ② 再放用户数据
+let user = {};
+
+// ③ 初始化函数
+function init(){ ... }
+
+// ④ 再放所有功能函数（重点）
+function generateIChing(){ ... }
+function generateZodiac(){ ... }
+function generateTarot(){ ... }
+function faceAnalysis(){ ... }
+function unlock(t){ ... }
+
+</script>
+function requireUser(){
+    if(!user.name){
+        alert("请先保存基础信息");
+        return false;
+    }
+    return true;
+}
 let user = {};
 
 // 初始化日期选择
@@ -198,20 +225,64 @@ function generateTarot(){
 }
 
 function generateIChing(){
-    if(!user.name)return alert("先保存信息");
-    iching.innerText=`【易经分析】\n稳中发展型命格\n事业：长期积累型\n财运：正财稳定\n建议：避免短期投机`;
+    if(!requireUser()) return;
+
+    document.getElementById("iching").innerText =
+`【易经命理分析】
+
+◆ 性格结构
+稳中求进型，适合长期发展。
+
+◆ 事业
+适合稳定行业（技术 / 管理 / 贸易）
+
+◆ 财运
+正财稳定，不适合投机
+
+◆ 建议
+长期坚持比频繁变化更重要`;
 }
 
 function faceAnalysis(){
-    if(!user.name)return alert("先保存信息");
-    face.innerText=`【面相分析】\n额头：事业稳定型\n眼睛：理性思维型\n鼻子：稳定财运型\n下巴：晚运较佳\n\n总结：适合长期发展路线`;
-}
+    if(!requireUser()) return;
 
+    document.getElementById("face").innerText =
+`【面相分析】
+
+额头：事业稳定型
+眼睛：理性思维型
+鼻子：稳定财运型
+下巴：晚运较好
+
+总结：适合长期发展路线`;
+}
 function unlock(t){
-    if(!user.name)return alert("先保存信息");
-    if(t=="bazi")bazi.innerText="八字：中后期上升型，适合长期发展";
-    if(t=="love")love.innerText="感情：慢热稳定，适合长期关系";
-    if(t=="money")money.innerText="财运：正财为主，稳健型收入";
+    if(!requireUser()) return;
+
+    if(t=="bazi"){
+        bazi.innerText=`【八字深度分析】
+
+性格：稳重型
+事业：长期积累型
+财运：正财为主
+人生建议：避免短期投机`;
+    }
+
+    if(t=="love"){
+        love.innerText=`【感情分析】
+
+慢热型感情结构
+适合稳定关系
+避免冲动恋爱`;
+    }
+
+    if(t=="money"){
+        money.innerText=`【财运分析】
+
+正财稳定
+不适合高风险投资
+适合长期积累`;
+    }
 }
 </script>
 
