@@ -5,64 +5,82 @@
 <url>
   <loc>https://zynsdpd-bot.github.io/</loc>
   <priority>1.0</priority>
+  <changefreq>daily</changefreq>
 </url>
 
 <!-- 核心页面 -->
 <url>
   <loc>https://zynsdpd-bot.github.io/guide.html</loc>
+  <priority>0.8</priority>
+  <changefreq>weekly</changefreq>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/sidehustle.html</loc>
+  <priority>0.9</priority>
+  <changefreq>weekly</changefreq>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/free-tools.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/writing.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/video.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/design.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/automation.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/fortune.html</loc>
+  <priority>0.9</priority>
 </url>
 
 <!-- BLOG -->
 <url>
   <loc>https://zynsdpd-bot.github.io/blog/</loc>
+  <priority>0.9</priority>
+  <changefreq>daily</changefreq>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/blog/how-to-make-money-with-ai-writing.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/blog/how-to-make-money-with-ai-video.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/blog/ai-side-hustles-2026.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/blog/best-ai-tools-for-beginners.html</loc>
+  <priority>0.8</priority>
 </url>
 
 <url>
   <loc>https://zynsdpd-bot.github.io/blog/how-to-earn-first-100-with-ai.html</loc>
+  <priority>0.8</priority>
 </url>
 
 </urlset>
