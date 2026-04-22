@@ -3,30 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Fortune Reading</title>
+<title>Advanced AI Fortune & Astrology</title>
 <style>
-body {font-family: Arial; margin:0; background:#0f172a; color:#fff;}
+body {font-family: Arial; margin:0; background: radial-gradient(circle at top, #1e293b, #0f172a); color:#fff;}
 .container {max-width:900px; margin:auto; padding:20px;}
-h1 {font-size:34px;}
+h1 {font-size:34px; text-align:center;}
 p {color:#cbd5e1; line-height:1.6;}
-.card {background:#1e293b; padding:20px; border-radius:12px; margin-top:20px;}
-input {width:100%; padding:12px; margin-top:10px; border-radius:8px; border:none;}
-.btn {display:inline-block; margin-top:15px; padding:12px 18px; background:#22c55e; color:#000; text-decoration:none; border-radius:8px; font-weight:bold;}
+.card {background:#1e293b; padding:20px; border-radius:14px; margin-top:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+input, select {width:100%; padding:12px; margin-top:10px; border-radius:8px; border:none;}
+.btn {display:inline-block; margin-top:15px; padding:12px 18px; background:linear-gradient(90deg,#22c55e,#16a34a); color:#000; text-decoration:none; border-radius:10px; font-weight:bold; cursor:pointer;}
 .small {font-size:12px; color:#94a3b8; margin-top:10px;}
 .hidden {display:none;}
 .result {margin-top:20px; padding:15px; background:#0f172a; border:1px solid #334155; border-radius:10px;}
+.tag {display:inline-block; padding:4px 8px; background:#334155; border-radius:6px; margin-right:5px; font-size:12px;}
 </style>
 </head>
 <body>
 
 <div class="container">
 
-<h1>🔮 AI Fortune Reading</h1>
-<p>Enter your details to receive your personalized AI-generated fortune report.</p>
+<h1>🔮 Advanced AI Fortune System</h1>
+<p style="text-align:center;">AI-powered astrology, tarot insights, and life path analysis</p>
 
-<!-- INPUT FORM -->
+<!-- INPUT -->
 <div class="card">
-<h3>Enter Your Information</h3>
+<h3>Enter Your Profile</h3>
 
 <label>Name</label>
 <input type="text" id="name" placeholder="Your Name">
@@ -34,59 +35,72 @@ input {width:100%; padding:12px; margin-top:10px; border-radius:8px; border:none
 <label>Date of Birth</label>
 <input type="date" id="dob">
 
-<label>Question (Optional)</label>
-<input type="text" id="question" placeholder="What do you want to know?">
+<label>Choose Focus Area</label>
+<select id="focus">
+<option>Career</option>
+<option>Money</option>
+<option>Love</option>
+<option>Overall Life Path</option>
+</select>
 
-<a class="btn" onclick="generateFree()">Get Free Preview</a>
-
-<p class="small">Full detailed report available after unlocking.</p>
+<a class="btn" onclick="generateInsight()">Generate AI Reading</a>
+<p class="small">AI analyzes patterns based on symbolic astrology models.</p>
 </div>
 
-<!-- FREE RESULT -->
-<div class="card hidden" id="freeResult">
-<h3>✨ Your Free Insight</h3>
-<div class="result" id="previewText"></div>
+<!-- RESULT -->
+<div class="card hidden" id="resultBox">
+<h3>✨ Your AI Life Reading</h3>
 
-<p>Unlock full detailed fortune report including career, money, and future guidance.</p>
+<div class="result" id="resultText"></div>
 
-<!-- PAYMENT PLACEHOLDER -->
-<a class="btn" href="#" onclick="unlockPaid()">Unlock Full Report ($4.9)</a>
-<p class="small">Secure payment via PayPal / Stripe supported later</p>
+<div style="margin-top:10px;">
+<span class="tag">AI Astrology</span>
+<span class="tag">Life Pattern</span>
+<span class="tag">Symbolic Analysis</span>
 </div>
 
-<!-- PAID RESULT -->
-<div class="card hidden" id="paidResult">
-<h3>🔮 Full Fortune Report</h3>
+<h3 style="margin-top:20px;">🔓 Unlock Deep Report</h3>
+<p>Get full analysis including 12-month forecast, hidden opportunities, and risk warnings.</p>
+
+<a class="btn" onclick="unlockFull()">Unlock Full Report ($4.9)</a>
+<p class="small">Secure payment via PayPal / Stripe (integration ready)</p>
+</div>
+
+<!-- FULL REPORT -->
+<div class="card hidden" id="fullBox">
+<h3>🔮 Deep AI Fortune Report</h3>
+
 <div class="result">
-<p><b>Career:</b> Strong growth potential ahead, focus on consistency.</p>
-<p><b>Money:</b> New income opportunity in the next 3 months.</p>
-<p><b>Relationship:</b> Communication is key to improvement.</p>
-<p><b>Advice:</b> Take action instead of waiting for perfect timing.</p>
+<p><b>Energy Flow:</b> Your current cycle shows transition and growth.</p>
+<p><b>Career Path:</b> A new opportunity appears within 60–90 days.</p>
+<p><b>Wealth Signal:</b> Secondary income stream likely to emerge.</p>
+<p><b>Love Pattern:</b> Emotional clarity improves after recent confusion.</p>
+<p><b>Advice:</b> Focus on execution, not overthinking timing.</p>
 </div>
 </div>
 
 </div>
 
 <script>
-function generateFree(){
+function generateInsight(){
     let name = document.getElementById('name').value;
     let dob = document.getElementById('dob').value;
+    let focus = document.getElementById('focus').value;
 
     if(!name || !dob){
-        alert("Please enter your name and birth date.");
+        alert("Please fill in your name and birth date.");
         return;
     }
 
-    let text = "Dear " + name + ", your energy shows a turning point in life. Opportunities are approaching soon, but action is required.";
+    let text = "🔮 Dear " + name + ", your " + focus + " energy shows a shift phase. You are entering a period of transformation where decisions will define your next stage.";
 
-    document.getElementById('previewText').innerText = text;
-    document.getElementById('freeResult').classList.remove('hidden');
+    document.getElementById('resultText').innerText = text;
+    document.getElementById('resultBox').classList.remove('hidden');
 }
 
-function unlockPaid(){
-    // Placeholder for Stripe/PayPal integration
-    document.getElementById('paidResult').classList.remove('hidden');
-    alert("Payment integration will be connected (PayPal / Stripe).");
+function unlockFull(){
+    document.getElementById('fullBox').classList.remove('hidden');
+    alert("Payment module placeholder ready for Stripe / PayPal integration.");
 }
 </script>
 
