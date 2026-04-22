@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<!-- 首页 -->
+<url>
+  <loc>https://zynsdpd-bot.github.io/</loc>
+  <priority>1.0</priority>
+</url>
+
+<!-- 核心页面 -->
+<url>
+  <loc>https://zynsdpd-bot.github.io/guide.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/sidehustle.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/free-tools.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/writing.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/video.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/design.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/automation.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/fortune.html</loc>
+</url>
+
+<!-- BLOG -->
+<url>
+  <loc>https://zynsdpd-bot.github.io/blog/</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/blog/how-to-make-money-with-ai-writing.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/blog/how-to-make-money-with-ai-video.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/blog/ai-side-hustles-2026.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/blog/best-ai-tools-for-beginners.html</loc>
+</url>
+
+<url>
+  <loc>https://zynsdpd-bot.github.io/blog/how-to-earn-first-100-with-ai.html</loc>
+</url>
+
+</urlset>
